@@ -68,3 +68,7 @@
 - 早起き以外でも使えるようにする機能（これは最初の趣旨と大きくずれているように感じるため、実装しないかもしれません）
 - 起床成功 or 失敗時にそれを強制的にポストする機能
 - パスワードリセット機能
+
+## Figma のリンク
+
+https://www.figma.com/file/ZReC0nwGyNlWT20LhTTk2Q/graduation_exam-%E3%82%8F%E3%82%89%E3%81%84%E3%81%9A?type=design&node-id=0%3A1&mode=design&t=vJTmHqRe6zAULy6k-1
