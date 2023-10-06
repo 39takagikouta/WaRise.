@@ -66,9 +66,13 @@
 - 称号機能（起床成功回数で称号を獲得できるもの。獲得したらポストして共有できるようにする）
 - 成功 or 失敗時に睡眠時間も記録し、その時間を振り返ることができる機能
 - レスポンシブデザイン対応（基本的に PC での使用を想定しているので、後からスマホにも対応させる）
-- 起床成功 or 失敗時にそれを強制的にポストする機能
+- 起床成功 or 失敗時にそれを強制的にポストするように設定できる機能
 - パスワードリセット機能
 
 ## Figma のリンク
 
 https://www.figma.com/file/ZReC0nwGyNlWT20LhTTk2Q/graduation_exam-%E3%82%8F%E3%82%89%E3%81%84%E3%81%9A?type=design&node-id=0%3A1&mode=design&t=vJTmHqRe6zAULy6k-1
+
+## ER 図
+
+![Alt text](image.png)
