@@ -18,5 +18,10 @@ module GraduationExam
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # タイムゾーンをTokyo（日本）にする
+    config.time_zone = "Tokyo"
+    # デフォルトのロケールを日本にする
+    config.i18n.default_locale = :ja
   end
 end
