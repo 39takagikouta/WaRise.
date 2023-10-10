@@ -75,4 +75,4 @@ https://www.figma.com/file/ZReC0nwGyNlWT20LhTTk2Q/graduation_exam-%E3%82%8F%E3%8
 
 ## ER 図
 
-![Alt text](image.png)
+![Alt text](image-1.png)
