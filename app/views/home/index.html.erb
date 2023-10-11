@@ -1,24 +1,3 @@
-<header>
-  <div class="navbar bg-orange-300">
-    <div class="flex-1 px-10">
-      <%= link_to "わらいず", "#", class: "btn btn-ghost normal-case text-xl" %>
-    </div>
-    <div class="flex-none px-10">
-      <ul class="menu menu-horizontal px-1">
-      <%# 会員登録前 %>
-        <li><%= link_to "早起き一覧", "#" %></li>
-        <li><%= link_to "会員登録", "#" %></li>
-        <li><%= link_to "ログイン", "#" %></li>
-      <%# 会員登録後 %>
-        <li><%= link_to "早起き一覧", "#" %></li>
-        <li><%= link_to "ランキング", "#" %></li>
-        <li><%= link_to "マイページ", "#" %></li>
-        <li><%= link_to "ログアウト", "#" %></li>
-      </ul>
-    </div>
-  </div>
-</header>
-
 <div class="hero min-h-screen bg-blue-200">
   <div class="hero-content flex-col lg:flex-row-reverse">
     <%= image_tag("morningboy.png") %>
@@ -59,16 +38,3 @@
     <%= image_tag("comedian.png") %>
   </div>
 </div>
-
-<footer class="footer footer-center p-10 bg-orange-300">
-  <nav class="grid grid-flow-col gap-4">
-    <%= link_to "お問い合わせ", "#" , class: "link link-hover" %>
-    <%= link_to "利用規約", "#" , class: "link link-hover" %>
-    <%= link_to "プライバシーポリシー", "#" , class: "link link-hover" %>
-  </nav> 
-  <aside>
-    <p>Copyright © 2023 - All right reserved by warise Ltd</p>
-  </aside>
-</footer>
-
-
