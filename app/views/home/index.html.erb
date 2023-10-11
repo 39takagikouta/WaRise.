@@ -1,21 +1,74 @@
-<header class="text-gray-600 body-font">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-      <span class="ml-3 text-xl">Tailblocks</span>
-    </a>
-    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900">First Link</a>
-      <a class="mr-5 hover:text-gray-900">Second Link</a>
-      <a class="mr-5 hover:text-gray-900">Third Link</a>
-      <a class="mr-5 hover:text-gray-900">Fourth Link</a>
-    </nav>
-    <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-        <path d="M5 12h14M12 5l7 7-7 7"></path>
-      </svg>
-    </button>
+<header>
+  <div class="navbar bg-orange-300">
+    <div class="flex-1 px-10">
+      <%= link_to "わらいず", "#", class: "btn btn-ghost normal-case text-xl" %>
+    </div>
+    <div class="flex-none px-10">
+      <ul class="menu menu-horizontal px-1">
+      <%# 会員登録前 %>
+        <li><%= link_to "早起き一覧", "#" %></li>
+        <li><%= link_to "会員登録", "#" %></li>
+        <li><%= link_to "ログイン", "#" %></li>
+      <%# 会員登録後 %>
+        <li><%= link_to "早起き一覧", "#" %></li>
+        <li><%= link_to "ランキング", "#" %></li>
+        <li><%= link_to "マイページ", "#" %></li>
+        <li><%= link_to "ログアウト", "#" %></li>
+      </ul>
+    </div>
   </div>
 </header>
+
+<div class="hero min-h-screen bg-blue-200">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <%= image_tag("morningboy.png") %>
+    <div class="">
+      <h1 class="text-5xl font-bold">わらいず</h1>
+      <p class="py-6">わらいずは、予定通りの時間に起きられると報酬としてレコメンドされたお笑い動画を観ることができる、早起き促進アプリです。</p>
+      <%= link_to "新規登録", "#", class: "btn btn-warning" %>
+      <%= link_to "ログイン", "#", class: "btn btn-warning" %>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div>
+    <h2 class="text-4xl text-center font-bold py-20">使い方</h2>
+  </div>
+  <div>
+    <div>
+      <h3 class="text-3xl font-bold">ステップ1</h3>
+      <p>1.新規登録後に表示される、「お笑い嗜好性入力ページ」で、どのようなお笑い動画をレコメンドしてほしいか教えてください。</p>
+    </div>
+    <%= image_tag("programmer.png") %>
+  </div>
+  <div>
+    <div>
+      <h3 class="text-3xl font-bold">ステップ2</h3>
+      <p>2.「マイページ」から明日の起床時間を登録しましょう！</p>
+    </div>
+    <%= image_tag("clock.png") %>
+  </div>
+  <div class="">
+    <div>
+      <h3 class="text-3xl font-bold">ステップ3</h3>
+      <p>起床時間になったら、「マイページ」で起床ボタンを押すことで、レコメンドされたお笑い動画を視聴できます（設定時刻から10分間有効）。<br>
+      2で動画を自分で選択した方は、その動画が表示されます。<br>
+      お笑い動画で早起きを楽しいものにしましょう！</p>
+    </div>
+    <%= image_tag("comedian.png") %>
+  </div>
+</div>
+
+<footer class="footer footer-center p-10 bg-orange-300">
+  <nav class="grid grid-flow-col gap-4">
+    <%= link_to "お問い合わせ", "#" , class: "link link-hover" %>
+    <%= link_to "利用規約", "#" , class: "link link-hover" %>
+    <%= link_to "プライバシーポリシー", "#" , class: "link link-hover" %>
+  </nav> 
+  <aside>
+    <p>Copyright © 2023 - All right reserved by warise Ltd</p>
+  </aside>
+</footer>
+
+
