@@ -13,6 +13,8 @@
   <body class="text-black bg-white" >
   <div>
     <%= render 'shared/header' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
     <%= render 'shared/footer' %>
   </div>
