@@ -14,6 +14,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       ## Rememberable
       t.datetime :remember_created_at
 
+      ## 自分で追記したもの
+      t.boolean :is_automatically_posted
+      t.boolean :is_displayed
+      t.string  :line_user_id
+      t.integer :min_video_length
+      t.integer :max_video_length
+
       ## Trackable
       # t.integer  :sign_in_count, default: 0, null: false
       # t.datetime :current_sign_in_at
