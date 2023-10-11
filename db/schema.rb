@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_11_154133) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_11_161056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_11_154133) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.boolean "is_automatically_posted"
-    t.boolean "is_displayed"
+    t.boolean "is_displayed", default: true
     t.string "line_user_id"
     t.integer "min_video_length"
     t.integer "max_video_length"
