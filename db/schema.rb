@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_11_161056) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_081009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alarms", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "bootcamp_id"
+    t.datetime "wake_up_time", null: false
+    t.string "custom_video_url"
+    t.boolean "is_successful"
+    t.string "factor"
+    t.datetime "sleep_start_time"
+    t.datetime "sleep_end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
