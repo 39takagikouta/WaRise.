@@ -1,3 +1,6 @@
 class MypagesController < ApplicationController
-  def mypage;end
+  def mypage
+    @next_wake_up = Alarm.find_by(user_id: current_user.id, is_successful: nil)
+    @alarms = Alarm.where(user_id: current_user.id)
+  end
 end
