@@ -1,0 +1,41 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-4">マイページ</h1>
+  
+  <p class="text-lg">今日 ( <%= Date.today.strftime("%Y年%-m月%-d日") %> )</p>
+  <% if @wake_up_time %>
+    <p class="text-lg">明日の起床時刻は<%= @wake_up_time.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
+    <div class="flex mt-4 space-x-4">
+      <%= link_to "編集する", edit_alarm_path(@wake_up_time), class: "btn primary large" %>
+    </div>
+  <% else %>
+    <p class="text-lg">今日 ( <%= Date.today.strftime("%Y年%-m月%-d日") %> ) 明日の起床時刻がまだ設定されていません</p>
+    <div class="flex mt-4 space-x-4">
+      <%= link_to "時間を設定する", new_alarm_path, class: "btn primary large" %>
+    </div>
+  <% end %>
+</div>
+
+<%= month_calendar do |date| %>
+  <%= date %>
+<% end %>
+
+
+<%
+=begin %>
+      <%= month_calendar do |date| %>
+  <% alarm = @alarms.find { |a| a.wake_up_time.to_date == date } %>
+  <div class="border p-4">
+    <%= date.day %><br>
+    <% if alarm %>
+      <%= alarm.wake_up_time.strftime("%H:%M") %>
+      <% if alarm.is_successful.nil? %>
+      <% elsif alarm.is_successful %>
+        <span class="text-green-500">成功</span>
+      <% else %>
+        <span class="text-red-500">失敗</span>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<%
+=end%>
