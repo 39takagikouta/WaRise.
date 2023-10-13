@@ -262,7 +262,7 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   selenium-webdriver
-  simple_calendar (~> 2.4)
+  simple_calendar
   sprockets-rails
   stimulus-rails
   turbo-rails
