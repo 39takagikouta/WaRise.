@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    values:
+      alarm:
+        is_successful:
+          true: "起床成功"
+          false: "起床失敗"
