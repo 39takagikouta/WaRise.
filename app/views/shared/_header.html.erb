@@ -5,9 +5,10 @@
     </div>
     <div class="flex-none px-10">
       <ul class="menu menu-horizontal px-1">
+        <li><%= link_to "マイページ", mypage_path %></li>
         <li><%= link_to "早起き一覧", "#" %></li>
         <li><%= link_to "ランキング", "#" %></li>
-        <li><%= link_to "マイページ", mypage_path %></li>
+        <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path %></li>
       </ul>
     </div>
