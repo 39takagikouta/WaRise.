@@ -1,9 +1,9 @@
 <div class="p-4">
   <h1 class="mb-4">マイページ</h1>
   
-  <p class="text-lg">今日 ( <%= Date.today.strftime("%Y年%-m月%-d日") %> )</p>
+  <p class="text-lg">今日 ( <%= Date.today %> )</p>
   <% if @alarm %>
-    <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
+    <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time %>に設定されています。</p>
     <div class="flex mt-4 space-x-4">
       <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn primary large" %>
     </div>
@@ -17,5 +17,5 @@
 
 
 <%= month_calendar do |date| %>
-  <%= date %>
+  <%= date.day %>
 <% end %>
