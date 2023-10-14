@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply text-black bg-white;
+}
+
 h1 {
   @apply text-2xl font-bold;
 }
@@ -36,6 +40,7 @@ h3 {
   border-top: 0px none rgb(51, 51, 51);
   box-sizing: border-box;
   text-align: left;
+  @apply text-black bg-orange-300;
 }
 
 .simple-calendar td {
@@ -75,4 +80,16 @@ h3 {
 
 .simple-calendar .next-month {
   background: #ddd;
+}
+
+.simple-calendar .calendar-heading {
+  @apply text-center font-bold text-xl;
+}
+
+.simple-calendar .wday-0 {
+  @apply text-red-600;
+}
+
+.simple-calendar .wday-6 {
+  @apply text-blue-600;
 }
