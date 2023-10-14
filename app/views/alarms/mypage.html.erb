@@ -1,16 +1,16 @@
-<div class="p-4">
-  <h1 class="mb-4">マイページ</h1>
+<div class="container mx-auto p-6">
+  <h1 class="mb-6">マイページ</h1>
   
   <p class="text-lg">今日 ( <%= Date.today %> )</p>
   <% if @alarm %>
     <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
     <div class="flex mt-4 space-x-4">
-      <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn primary large" %>
+      <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn btn-warning" %>
     </div>
   <% else %>
     <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
     <div class="flex mt-4 space-x-4">
-      <%= link_to "時間を設定する", new_alarm_path, class: "btn primary large" %>
+      <%= link_to "時間を設定する", new_alarm_path, class: "btn btn-warning" %>
     </div>
   <% end %>
 </div>
