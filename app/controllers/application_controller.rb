@@ -9,14 +9,9 @@ class ApplicationController < ActionController::Base
     mypage_path
   end
 
-  def after_update_path_for(resource)
-    user_path(resource)
-  end
-
   def after_sign_out_path_for(resource)
     root_path
   end
-
 
   protected
   def configure_permitted_parameters
