@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :alarms, dependent: :destroy
+  has_many :user_comedy_tags
+  has_many :comedy_tags, through: :user_comedy_tags
 end
