@@ -12,4 +12,5 @@ class User < ApplicationRecord
   has_many :user_comedy_tags, dependent: :destroy
   has_many :comedy_tags, through: :user_comedy_tags
   has_many :view_videos, dependent: :destroy
+
 end
