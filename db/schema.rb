@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_115904) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_130720) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_115904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_comedy_tags_on_name", unique: true
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_keywords_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_keywords_on_user_id"
   end
 
   create_table "user_comedy_tags", force: :cascade do |t|
@@ -82,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_115904) do
 
   add_foreign_key "alarms", "bootcamps"
   add_foreign_key "alarms", "users"
+  add_foreign_key "keywords", "users"
   add_foreign_key "user_comedy_tags", "comedy_tags"
   add_foreign_key "user_comedy_tags", "users"
   add_foreign_key "view_videos", "users"
