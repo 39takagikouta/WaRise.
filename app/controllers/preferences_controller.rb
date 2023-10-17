@@ -6,10 +6,13 @@ class PreferencesController < ApplicationController
 
   def create
     @preference_form = PreferenceForm.new(preference_params)
-    if PreferenceForm.save(@preference_form, current_user)
+    binding.pry
+    if @preference_form.save(@preference_form, current_user)
+      binding.pry
       redirect_to mypage_path, notice: '嗜好性が登録されました'
     else
-      @comedy_tags = ComedyTag.all #必要か？
+      binding.pry
+      @comedy_tags = ComedyTag.all
       render :new
     end
   end
