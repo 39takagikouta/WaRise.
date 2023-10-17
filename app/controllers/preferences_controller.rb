@@ -1,12 +1,12 @@
 class PreferencesController < ApplicationController
   def new
-    @preference_form = PreferenceForm.new(user_id: current_user.id)
+    @preference_form = PreferenceForm.new
     @comedy_tags = ComedyTag.all
   end
 
   def create
     @preference_form = PreferenceForm.new(preference_params)
-    if @preference_form.save
+    if PreferenceForm.save(@preference_form, current_user)
       redirect_to mypage_path, notice: '嗜好性が登録されました'
     else
       @comedy_tags = ComedyTag.all #必要か？
@@ -15,7 +15,9 @@ class PreferencesController < ApplicationController
   end
 
   def edit
-    @form = PreferenceForm.new(user_id: current_user.id)
+    @form = PreferenceForm.new
+    @user_comedy_tag = current_user.comedy_tags
+    @user_keywords = current_user.keywords
     @comedy_tags = ComedyTag.all
   end
 
@@ -32,7 +34,14 @@ class PreferencesController < ApplicationController
   private
 
   def preference_params
-    params.require(:preference_form).permit(:user_id, :min_video_length, :max_video_length, comedy_tag_ids: [], keyword_names: '')
+    params.require(:preference_form).permit(
+      :before_split_keyword_names,
+      :min_video_length_minutes,
+      :min_video_length_seconds,
+      :max_video_length_minutes,
+      :max_video_length_seconds,
+      comedy_tag_ids: []
+    )
   end
 
 end

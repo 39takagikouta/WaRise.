@@ -3,41 +3,42 @@ class PreferenceForm
   include ActiveModel::Attributes # モデルの機能を利用するために記載
 
   # 属性の定義
-  attribute :min_video_length, :integer
-  attribute :max_video_length, :integer
-  attribute :user_id, :bigint
-  attribute :comedy_tag_id, :bigint
-  attribute :name, :string
 
-  # バリデーション
-  validates :min_video_length, presence: true
-  validates :max_video_length, presence: true
-  validates :user_id, presence: true
-  validates :comedy_tag_id, presence: true #外部キーのattributeとvalidationいるんか知らんけど一応入れてる
-  validates :comedy_tag_ids, length: { minimum: 5, message: '最低5つ選んでください' }
+  attribute :comedy_tag_ids, default: []
+  attribute :before_split_keyword_names, :string
+  attribute :min_video_length_minutes, :integer
+  attribute :min_video_length_seconds, :integer
+  attribute :max_video_length_minutes, :integer
+  attribute :max_video_length_seconds, :integer
 
-  def save
+  def self.save(preference_form, user)
     return false unless valid?
 
     ActiveRecord::Base.transaction do
       #タグを保存する処理
-      @user.user_comedy_tags.destroy_all
-      comedy_tag_ids.each do |tag_id|
-        @user.user_comedy_tags.create!(user_id: @user.id, comedy_tag_id: tag_id)
+      user.user_comedy_tags.destroy_all
+      preference_form.comedy_tag_ids.reject(&:blank?).each do |tag_id|
+        user.user_comedy_tags.create!(comedy_tag_id: tag_id)
       end
 
       # フォームに記述された内容を、で区切ってKeywordsテーブルに保存
-      @user.keywords.destroy_all
-      keyword_names.split('、').each do |name|
-        @user.keywords.create!(user_id: @user.id, name: name.strip)
+      user.keywords.destroy_all
+      binding.pry
+      preference_form.before_split_keyword_names.split('、').each do |keyword_name|
+        user.keywords.create!(name: keyword_name)
       end
 
       # Usersテーブルのmin_video_lengthカラムとmax_video_lengthカラムに情報を保存
-      @user.update!(min_video_length: min_video_length, max_video_length: max_video_length)
+      user.update!(
+        min_video_length: preference_form.min_video_length_minutes.to_i * 60 + preference_form.min_video_length_seconds.to_i,
+        max_video_length: preference_form.max_video_length_minutes.to_i * 60 + preference_form.max_video_length_seconds.to_i
+      )
+      binding.pry
     end
     true
   rescue => e
     errors.add(:base, "保存に失敗しました: #{e.message}")
+    binding.pry
     false
   end
 
