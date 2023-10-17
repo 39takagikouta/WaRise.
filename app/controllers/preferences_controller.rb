@@ -15,15 +15,13 @@ class PreferencesController < ApplicationController
   end
 
   def edit
-    @form = PreferenceForm.new
-    @user_comedy_tag = current_user.comedy_tags
-    @user_keywords = current_user.keywords
+    @preference_form = load_current_user_preferences
     @comedy_tags = ComedyTag.all
   end
 
   def update
-    @form = PreferenceForm.new(preference_params)
-    if @form.save
+    @preference_form = PreferenceForm.new(preference_params)
+    if @preference_form.save(@preference_form, current_user)
       redirect_to user_path(current_user), notice: '嗜好性が更新されました'
     else
       @comedy_tags = ComedyTag.all
@@ -32,6 +30,17 @@ class PreferencesController < ApplicationController
   end
 
   private
+
+  def load_current_user_preferences
+    PreferenceForm.new(
+      comedy_tag_ids: current_user.user_comedy_tags.pluck(:comedy_tag_id),
+      before_split_keyword_names: current_user.keywords.pluck(:name).join('、'),
+      min_video_length_minutes: current_user.min_video_length / 60,
+      min_video_length_seconds: current_user.min_video_length % 60,
+      max_video_length_minutes: current_user.max_video_length / 60,
+      max_video_length_seconds: current_user.max_video_length % 60
+    )
+  end
 
   def preference_params
     params.require(:preference_form).permit(

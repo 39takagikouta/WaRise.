@@ -1,47 +1,32 @@
 <div class="container mx-auto p-6">
-  
-<%= form_with model: @form, url: comedy_preferences_path do |f| %>
-  # User情報の入力
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  
-  <%= f.label :min_video_length %>
-  <%= f.number_field :min_video_length %>
-
-  <%= f.label :max_video_length %>
-  <%= f.number_field :max_video_length %>
-
-  # ComedyTags情報の入力
-  <% @comedy_tags.each do |tag| %>
-    <%= check_box_tag 'comedy_preference_form[comedy_tag_ids][]', tag.id, @form.comedy_tag_ids&.include?(tag.id.to_s) %>
-    <%= tag.name %>
-  <% end %>
-
-  # Keywords情報の入力
-  <%= f.label :keyword_names, "キーワード (,区切り)" %>
-  <%= f.text_field :keyword_names %>
-
-  <%= f.submit '登録' %>
-<% end %>
   <h1 class="mb-6">お笑い嗜好性入力</h1>
+  
+  <%= form_with model: @preference_form, url: preference_url, method: :patch do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="mb-4 items-center justify-between">
-    <h2>タグ（5つ以上登録してください）</h2>
-    <div>
-      ここにタグめっちゃ表示する
-    </div> 
-  </div>
+    <%= f.label :comedy_tag_ids %>
+    <%= f.collection_check_boxes :comedy_tag_ids, @comedy_tags, :id, :name do |comedy_tag| %>
+      <div class="comedy-tag">
+        <%= comedy_tag.check_box checked: @preference_form.comedy_tag_ids.reject(&:blank?).map(&:to_s).include?(comedy_tag.value.to_s) %>
+        <%= comedy_tag.label %>
+      </div>
+    <% end %>
 
-  <div class="mb-4 items-center justify-between">
-    <h2>自由記述（タグにあるもの以外で好きなキーワードを、で区切って入力してください）</h2>
-    <div>
-      キーホルダーめっちゃつけたいな
-    </div> 
-  </div>
+    <%= f.label :before_split_keyword_names %>
+    <%= f.text_field :before_split_keyword_names %>
 
-  <div class="mb-4 items-center justify-between">
-    <h2>動画の目安時間</h2>
-    <div>
-      時間を入力
-    </div> 
-  </div>
+    <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
+    <%= f.number_field :min_video_length_minutes, min: 0 %>
+
+    <%= f.label :min_video_length_seconds, "最短動画時間（秒）" %>
+    <%= f.number_field :min_video_length_seconds, min: 0, max: 59 %>
+
+    <%= f.label :max_video_length_minutes, "最長動画時間（分）" %>
+    <%= f.number_field :max_video_length_minutes, min: 0 %>
+
+    <%= f.label :max_video_length_seconds, "最長動画時間（秒）" %>
+    <%= f.number_field :max_video_length_seconds, min: 0, max: 59 %>
+
+    <%= f.submit '登録' %>
+  <% end %>
 </div>
