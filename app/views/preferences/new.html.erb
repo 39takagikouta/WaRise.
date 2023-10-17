@@ -6,7 +6,6 @@
     <%= f.label :comedy_tag_ids %>
     <%= f.collection_check_boxes :comedy_tag_ids, @comedy_tags, :id, :name do |comedy_tag| %>
       <div class="comedy-tag">
-        <%binding.pry%>
         <%= comedy_tag.check_box checked: @preference_form.comedy_tag_ids.reject(&:blank?).map(&:to_s).include?(comedy_tag.value.to_s) %>
         <%= comedy_tag.label %>
       </div>
