@@ -2,6 +2,7 @@
   <h1 class="mb-6">お笑い嗜好性入力</h1>
   
   <%= form_with model: @preference_form, url: preferences_url do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
 
     <%= f.label :comedy_tag_ids %>
     <%= f.collection_check_boxes :comedy_tag_ids, @comedy_tags, :id, :name do |comedy_tag| %>
@@ -14,14 +15,12 @@
     <%= f.label :before_split_keyword_names %>
     <%= f.text_field :before_split_keyword_names %>
 
-    <!-- 最短動画時間入力 -->
     <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
     <%= f.number_field :min_video_length_minutes, min: 0 %>
 
     <%= f.label :min_video_length_seconds, "最短動画時間（秒）" %>
     <%= f.number_field :min_video_length_seconds, min: 0, max: 59 %>
 
-<!-- 最長動画時間入力 -->
     <%= f.label :max_video_length_minutes, "最長動画時間（分）" %>
     <%= f.number_field :max_video_length_minutes, min: 0 %>
 
