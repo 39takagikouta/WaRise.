@@ -1,8 +1,6 @@
 class PreferenceForm
-  include ActiveModel::Model      # モデルの機能を利用するために記載
-  include ActiveModel::Attributes # モデルの機能を利用するために記載
-
-  # 属性の定義
+  include ActiveModel::Model
+  include ActiveModel::Attributes
 
   attribute :comedy_tag_ids, default: []
   attribute :before_split_keyword_names, :string
@@ -10,6 +8,9 @@ class PreferenceForm
   attribute :min_video_length_seconds, :integer
   attribute :max_video_length_minutes, :integer
   attribute :max_video_length_seconds, :integer
+
+  validate :unique_keyword_names
+  validate :min_video_length_less_than_max_video_length
 
   def save(preference_form, user)
     return false unless valid?
@@ -22,7 +23,6 @@ class PreferenceForm
       end
 
       user.keywords.destroy_all
-      binding.pry
       preference_form.before_split_keyword_names.split('、').each do |keyword_name|
         user.keywords.create!(name: keyword_name)
       end
@@ -34,9 +34,25 @@ class PreferenceForm
     end
     true
   rescue => e
-    binding.pry
     errors.add(:base, "データの保存に失敗しました。これは予想していないエラーなので、発生した場合はお手数ですがお問合せいただけるとありがたいです。申し訳ありません。")
     false
+  end
+
+  private
+
+  def unique_keyword_names
+    keywords = before_split_keyword_names.split('、')
+    if keywords.uniq.length != keywords.length
+      errors.add(:base, "キーワードに重複があります。")
+    end
+  end
+
+  def min_video_length_less_than_max_video_length
+    min_video_length = (min_video_length_minutes.to_i * 60) + min_video_length_seconds.to_i
+    max_video_length = (max_video_length_minutes.to_i * 60) + max_video_length_seconds.to_i
+    if min_video_length > max_video_length
+      errors.add(:base, "最短動画時間は最長動画時間より短くしてください。")
+    end
   end
 
 end
