@@ -4,7 +4,7 @@
   <%= form_with model: @preference_form, url: preference_url, method: :patch do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
-    <%= f.label :comedy_tag_ids %>
+    <%= f.label :comedy_tag_ids, "タグ" %>
     <%= f.collection_check_boxes :comedy_tag_ids, @comedy_tags, :id, :name do |comedy_tag| %>
       <div class="comedy-tag">
         <%= comedy_tag.check_box checked: @preference_form.comedy_tag_ids.reject(&:blank?).map(&:to_s).include?(comedy_tag.value.to_s) %>
@@ -12,20 +12,23 @@
       </div>
     <% end %>
 
-    <%= f.label :before_split_keyword_names %>
+    <%= f.label :before_split_keyword_names, "キーワード（、で区切って入力してください）" %>
     <%= f.text_field :before_split_keyword_names %>
+    <br>
 
     <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
     <%= f.number_field :min_video_length_minutes, min: 0 %>
 
     <%= f.label :min_video_length_seconds, "最短動画時間（秒）" %>
     <%= f.number_field :min_video_length_seconds, min: 0, max: 59 %>
+    <br>
 
     <%= f.label :max_video_length_minutes, "最長動画時間（分）" %>
     <%= f.number_field :max_video_length_minutes, min: 0 %>
 
     <%= f.label :max_video_length_seconds, "最長動画時間（秒）" %>
     <%= f.number_field :max_video_length_seconds, min: 0, max: 59 %>
+    <br>
 
     <%= f.submit '登録' %>
   <% end %>
