@@ -30,11 +30,15 @@
       <h2 class="mr-2">お笑い嗜好性</h2>
       <div class="flex mb-2 items-center">
         <h3 class="mr-2">タグ:</h3>
-        <p>セダン、ワゴン、クーペ、コンバーチブルなど</p>
+          <p><%= current_user.comedy_tags.map(&:name).join('、') %></p>
       </div>
       <div class="flex mb-2 items-center">
         <h3 class="mr-2">自由記述:</h3>
-        <p>セダン、ワゴン</p>
+          <p><%= current_user.keywords.map(&:name).join('、') %></p>
+      </div>
+      <div class="flex mb-2 items-center">
+        <h3 class="mr-2">動画の時間:</h3>
+          <p><%= seconds_to_time_format(current_user.min_video_length) %>〜<%= seconds_to_time_format(current_user.max_video_length) %></p>
       </div>
     </div>
     <div>
