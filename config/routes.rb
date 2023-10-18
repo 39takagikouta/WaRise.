@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
   resources :users, only: %i[show]
+  resources :preferences, only: [:new, :create, :edit, :update]
   resources :alarms, only: %i[new create edit update destroy]
   get 'mypage', to: 'alarms#mypage'
 

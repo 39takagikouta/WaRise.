@@ -1,0 +1,2 @@
+class Bootcamp < ApplicationRecord
+end

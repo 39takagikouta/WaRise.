@@ -27,18 +27,22 @@
 
   <div class="flex mb-4 items-center justify-between">
     <div>
-      <h2 class="mr-2">お笑い嗜好性:</h2>
+      <h2 class="mr-2">お笑い嗜好性</h2>
       <div class="flex mb-2 items-center">
         <h3 class="mr-2">タグ:</h3>
-        <p>セダン、ワゴン、クーペ、コンバーチブルなど</p>
+          <p><%= current_user.comedy_tags.map(&:name).join('、') %></p>
       </div>
       <div class="flex mb-2 items-center">
         <h3 class="mr-2">自由記述:</h3>
-        <p>セダン、ワゴン</p>
+          <p><%= current_user.keywords.map(&:name).join('、') %></p>
+      </div>
+      <div class="flex mb-2 items-center">
+        <h3 class="mr-2">動画の時間:</h3>
+          <p><%= seconds_to_time_format(current_user.min_video_length) %>〜<%= seconds_to_time_format(current_user.max_video_length) %></p>
       </div>
     </div>
     <div>
-    <%= link_to '編集する', '#', class: "btn btn-warning" %>
+    <%= link_to '編集する', edit_preference_path, class: "btn btn-warning" %>
     </div>
   </div>
 
@@ -47,6 +51,6 @@
       <h2 class="mr-2">一覧画面とランキングに自身を表示しますか？:</h2>
       <p>はい</p>
     </div>
-    <%= link_to (current_user.is_displayed ? '「いいえ」に変更' : '「はい」に変更'), '#', class: "btn btn-warning" %>
+    <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), '#', class: "btn btn-warning" %>
   </div>
 </div>
