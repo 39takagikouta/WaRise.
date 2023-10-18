@@ -6,6 +6,8 @@
     <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
     <div class="flex mt-4 space-x-4">
       <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn btn-warning" %>
+      <%= link_to '削除する', alarm_path(@alarm), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-warning' %>
+
     </div>
   <% else %>
     <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
