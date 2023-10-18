@@ -57,12 +57,10 @@ class PreferenceForm
   end
 
   def adjust_video_lengths
-    binding.pry
     self.min_video_length_minutes ||= 0
     self.min_video_length_seconds ||= 0
-    self.max_video_length_minutes ||= 0
+    self.max_video_length_minutes ||= 60
     self.max_video_length_seconds ||= 0
-    binding.pry
 
     if max_video_length_minutes == 0 && max_video_length_seconds == 0
       self.max_video_length_minutes = 60

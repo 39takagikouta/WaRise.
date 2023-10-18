@@ -16,7 +16,7 @@
     <%= f.text_field :before_split_keyword_names %>
     <br>
     
-    <h3>動画の時間設定（最長時間が0分0秒で設定されていると、自動で1時間になります）</h3>
+    <h3>動画の時間設定（何も記入しないと、自動で0が入力されます。また、最長時間が両方0か空欄の場合のみ自動で60分になります）</h3>
     <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
     <%= f.number_field :min_video_length_minutes, min: 0 %>
 
