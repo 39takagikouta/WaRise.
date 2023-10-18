@@ -1,5 +1,5 @@
 <div class="container mx-auto p-6">
-  <h1 class="mb-6">お笑い嗜好性入力</h1>
+  <h1 class="mb-6">お笑い嗜好性入力<br>ここで入力した情報をもとに動画がレコメンドされます（後からいつでも変更できます）<br>各項目記入は必須ではありません</h1>
   
   <%= form_with model: @preference_form, url: preferences_url do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
@@ -16,6 +16,7 @@
     <%= f.text_field :before_split_keyword_names %>
     <br>
 
+    <h3>動画の時間設定（最長時間が0分0秒で設定されていると、自動で1時間になります）</h3>
     <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
     <%= f.number_field :min_video_length_minutes, min: 0 %>
 

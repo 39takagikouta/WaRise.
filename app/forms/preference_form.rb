@@ -14,6 +14,7 @@ class PreferenceForm
 
   def save(preference_form, user)
     return false unless valid?
+    adjust_video_lengths
 
     ActiveRecord::Base.transaction do
 
@@ -52,6 +53,19 @@ class PreferenceForm
     max_video_length = (max_video_length_minutes.to_i * 60) + max_video_length_seconds.to_i
     if min_video_length > max_video_length
       errors.add(:base, "最短動画時間は最長動画時間より短くしてください。")
+    end
+  end
+
+  def adjust_video_lengths
+    binding.pry
+    self.min_video_length_minutes ||= 0
+    self.min_video_length_seconds ||= 0
+    self.max_video_length_minutes ||= 0
+    self.max_video_length_seconds ||= 0
+    binding.pry
+
+    if max_video_length_minutes == 0 && max_video_length_seconds == 0
+      self.max_video_length_minutes = 60
     end
   end
 

@@ -22,6 +22,7 @@ class PreferencesController < ApplicationController
   def update
     @preference_form = PreferenceForm.new(preference_params)
     if @preference_form.save(@preference_form, current_user)
+      binding.pry
       redirect_to user_path(current_user), notice: '嗜好性が更新されました'
     else
       @comedy_tags = ComedyTag.all

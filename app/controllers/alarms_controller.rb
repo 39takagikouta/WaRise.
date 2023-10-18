@@ -8,6 +8,7 @@ class AlarmsController < ApplicationController
 
   def new
     @alarm = Alarm.new
+    @alarm.wake_up_time = Time.now.tomorrow.beginning_of_day
   end
 
   def create
