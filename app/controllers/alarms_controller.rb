@@ -4,6 +4,7 @@ class AlarmsController < ApplicationController
   def mypage
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
+    binding.pry
   end
 
   def new
