@@ -3,14 +3,21 @@
   
   <p class="text-lg">今日 ( <%= Date.today %> )</p>
   <% if @alarm %>
-    <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
+    <% if @alarm.wake_up_time.to_date == Date.tomorrow %>
+      <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
+    <% elsif @alarm.wake_up_time.to_date == Date.today %>
+      <p class="text-lg">今日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
+    <% end %>
     <div class="flex mt-4 space-x-4">
       <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn btn-warning" %>
       <%= link_to '削除する', alarm_path(@alarm), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-warning' %>
-
     </div>
   <% else %>
-    <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
+    <% if Time.now.hour.between?(0, 3) %>
+      <p class="text-lg">今日の起床時刻がまだ設定されていません</p>
+    <% else %>
+      <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
+    <% end %>
     <div class="flex mt-4 space-x-4">
       <%= link_to "時間を設定する", new_alarm_path, class: "btn btn-warning" %>
     </div>
