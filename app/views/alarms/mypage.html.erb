@@ -27,10 +27,12 @@
 <%= month_calendar(events: @alarms) do |date, alarms| %>
     <%= date.day %>    
     <% alarms.each do |alarm| %>
-        <div class="text-center">
+      <div class="text-center">
         <%= "予定時刻 #{alarm.wake_up_time.strftime("%H:%M")}" %>
         <br>
-        <%= t(alarm.is_successful, scope: 'activerecord.values.alarm.is_successful') %>
-        </div>
+        <% if alarm.is_successful.present? %>
+          <%= t(alarm.is_successful, scope: 'activerecord.values.alarm.is_successful') %>
+        <% end %>
+      </div>
     <% end %>
 <% end %>
