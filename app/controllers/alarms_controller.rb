@@ -3,6 +3,11 @@ class AlarmsController < ApplicationController
 
   def mypage
     Alarm.set_false_to_is_successful(current_user)
+    @last_alarm = Alarm.where.not(is_successful: nil)
+                  .where(user_id: current_user.id)
+                  .order(wake_up_time: :desc)
+                  .first
+    binding.pry
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
   end

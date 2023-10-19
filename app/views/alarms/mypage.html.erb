@@ -2,6 +2,11 @@
   <h1 class="alert-info">マイページ</h1>
 
   <p class="text-lg">今日 ( <%= Date.today %> )</p>
+  <%binding.pry%>
+  <% unless @last_alarm.is_successful %>
+    <p class="text-lg">前回は起床に失敗しましたが、問題はありません。また明日のアラームを設定すれば良いのです！</p>
+    <br>
+  <% end %>
   <% if @alarm %>
     <% if Time.now >= @alarm.wake_up_time && Time.now <= @alarm.wake_up_time + 10.minutes %>
       <p class="text-lg">おはようございます!起床時刻となりました。10分以内に動画の視聴を開始してください。</p>
