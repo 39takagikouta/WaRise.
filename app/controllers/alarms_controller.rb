@@ -2,9 +2,9 @@ class AlarmsController < ApplicationController
   before_action :set_alarm, only: [:edit, :update, :destroy]
 
   def mypage
+    Alarm.set_false_to_is_successful(current_user)
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
-    binding.pry
   end
 
   def new
