@@ -7,7 +7,6 @@ class AlarmsController < ApplicationController
                   .where(user_id: current_user.id)
                   .order(wake_up_time: :desc)
                   .first
-    binding.pry
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
   end
@@ -40,6 +39,10 @@ class AlarmsController < ApplicationController
   def destroy
     @alarm.destroy
     redirect_to mypage_path, notice: 'アラームが正常に削除されました。'
+  end
+
+  def watch_video
+
   end
 
   private
