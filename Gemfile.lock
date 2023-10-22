@@ -103,6 +103,7 @@ GEM
     erubi (1.12.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-api-ruby-client (9001.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   devise
   devise-i18n
   devise-i18n-views
+  google-api-ruby-client
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

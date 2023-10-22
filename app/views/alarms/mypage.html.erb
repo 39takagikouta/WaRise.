@@ -2,7 +2,7 @@
   <h1 class="alert-info">マイページ</h1>
 
   <p class="text-lg">今日 ( <%= Date.today %> )</p>
-  <% unless @last_alarm.is_successful %>
+  <% if @last_alarm && !@last_alarm.is_successful %>
     <p class="text-lg">前回は起床に失敗しましたが、問題はありません。また明日のアラームを設定すれば良いのです！</p>
     <br>
   <% end %>
