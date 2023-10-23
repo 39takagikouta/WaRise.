@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_18_182922) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_123047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,13 +80,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_182922) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "view_videos", force: :cascade do |t|
+  create_table "viewed_videos", force: :cascade do |t|
     t.string "video_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["user_id", "video_url"], name: "index_view_videos_on_user_id_and_video_url", unique: true
-    t.index ["user_id"], name: "index_view_videos_on_user_id"
+    t.index ["user_id", "video_url"], name: "index_viewed_videos_on_user_id_and_video_url", unique: true
+    t.index ["user_id"], name: "index_viewed_videos_on_user_id"
   end
 
   add_foreign_key "alarms", "bootcamps"
@@ -94,5 +94,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_18_182922) do
   add_foreign_key "keywords", "users"
   add_foreign_key "user_comedy_tags", "comedy_tags"
   add_foreign_key "user_comedy_tags", "users"
-  add_foreign_key "view_videos", "users"
+  add_foreign_key "viewed_videos", "users"
 end

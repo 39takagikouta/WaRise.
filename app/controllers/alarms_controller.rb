@@ -41,10 +41,6 @@ class AlarmsController < ApplicationController
     redirect_to mypage_path, notice: 'アラームが正常に削除されました。'
   end
 
-  def watch_video
-
-  end
-
   private
 
   def set_alarm
