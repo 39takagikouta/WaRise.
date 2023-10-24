@@ -9,7 +9,7 @@ module YoutubeApi
       :snippet,
       type: "video",
       q: query,
-      max_results: 1,
+      max_results: 20,
       video_syndicated: true,
       video_embeddable: true,
       video_duration: "medium"

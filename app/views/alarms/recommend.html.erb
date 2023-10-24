@@ -1,13 +1,11 @@
 <div class="container mx-auto p-6">
   <h1 class="alert-info">動画視聴</h1>
-  <% @search_results.items.each do |item| %>
     <div>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= item.id.video_id %>" frameborder="0" allowfullscreen></iframe>
-      <h2><%= item.snippet.title %></h2>
-      <p>チャンネル: <%= item.snippet.channel_title %></p>
-      <p><%= item.snippet.description %></p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @item.id.video_id %>" frameborder="0" allowfullscreen></iframe>
+      <h2><%= @item.snippet.title %></h2>
+      <p>チャンネル: <%= @item.snippet.channel_title %></p>
+      <p><%= @item.snippet.description %></p>
     </div>
-    <%= button_to '視聴完了しマイページに戻る', viewed_videos_path(item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'mypage' } } %>
-    <%= button_to '他の動画を見る', viewed_videos_path(item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'recommend' } } %>
-  <% end %>
+    <%= button_to '視聴完了しマイページに戻る', viewed_videos_path(@item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'mypage' } } %>
+    <%= button_to '他の動画を見る', viewed_videos_path(@item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'recommend' } } %>
 </div>

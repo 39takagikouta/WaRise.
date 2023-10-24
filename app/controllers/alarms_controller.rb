@@ -51,6 +51,11 @@ class AlarmsController < ApplicationController
     query_elements.concat(keywords) if keywords.present?
     query = query_elements.join(" ")
     @search_results = find_videos(query)
+    @item = @search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
+    unless @item
+      redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。'
+      return
+    end
   end
 
   private
