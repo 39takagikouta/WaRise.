@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_150402) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_191021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,8 +71,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_150402) do
     t.boolean "is_automatically_posted"
     t.boolean "is_displayed", default: true, null: false
     t.string "line_user_id"
-    t.integer "min_video_length", default: 0
-    t.integer "max_video_length", default: 3600
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
