@@ -16,21 +16,6 @@
     <%= f.text_field :before_split_keyword_names %>
     <br>
 
-    <h3>動画の時間設定（何も記入しないと、自動で0が保存されます。また、最長時間の分と秒が両方0か空欄の場合のみ自動で60分になります）</h3>
-    <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
-    <%= f.number_field :min_video_length_minutes, min: 0, value: 0 %>
-
-    <%= f.label :min_video_length_seconds, "最短動画時間（秒）" %>
-    <%= f.number_field :min_video_length_seconds, min: 0, max: 59, value: 0 %>
-    <br>
-
-    <%= f.label :max_video_length_minutes, "最長動画時間（分）" %>
-    <%= f.number_field :max_video_length_minutes, min: 0, value: 60%>
-
-    <%= f.label :max_video_length_seconds, "最長動画時間（秒）" %>
-    <%= f.number_field :max_video_length_seconds, min: 0, max: 59, value: 0 %>
-    <br>
-
     <%= f.submit '登録' %>
   <% end %>
 </div>
