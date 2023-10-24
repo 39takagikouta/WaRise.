@@ -1,6 +1,8 @@
 class AlarmsController < ApplicationController
   before_action :set_alarm, only: [:edit, :update, :destroy]
 
+  include YoutubeApi
+
   def mypage
     Alarm.set_false_to_is_successful(current_user)
     @last_alarm = Alarm.where.not(is_successful: nil)
@@ -39,6 +41,16 @@ class AlarmsController < ApplicationController
   def destroy
     @alarm.destroy
     redirect_to mypage_path, notice: 'アラームが正常に削除されました。'
+  end
+
+  def recommend
+    tags = current_user.comedy_tags.pluck(:name)
+    keywords = current_user.keywords.pluck(:name)
+    query_elements = []
+    query_elements.concat(tags) if tags.present?
+    query_elements.concat(keywords) if keywords.present?
+    query = query_elements.join(" ")
+    @search_results = find_videos(query)
   end
 
   private

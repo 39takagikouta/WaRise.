@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :preferences, only: [:new, :create, :edit, :update]
   resources :alarms, only: %i[new create edit update destroy]
   get 'mypage', to: 'alarms#mypage'
+  get 'recommend', to: 'alarms#recommend'
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
