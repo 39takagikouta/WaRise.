@@ -1,3 +1,3 @@
-class ViewVideo < ApplicationRecord
+class ViewedVideo < ApplicationRecord
   belongs_to :user
 end

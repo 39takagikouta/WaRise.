@@ -12,7 +12,7 @@ module YoutubeApi
       max_results: 1,
       video_syndicated: true,
       video_embeddable: true,
-      video_duration: "long"
+      video_duration: "medium"
     )
   end
 end

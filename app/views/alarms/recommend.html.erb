@@ -7,5 +7,7 @@
       <p>チャンネル: <%= item.snippet.channel_title %></p>
       <p><%= item.snippet.description %></p>
     </div>
+    <%= button_to '視聴完了しマイページに戻る', viewed_videos_path(item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'mypage' } } %>
+    <%= button_to '他の動画を見る', viewed_videos_path(item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'recommend' } } %>
   <% end %>
 </div>
