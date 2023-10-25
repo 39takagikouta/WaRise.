@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_130720) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,22 +71,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_130720) do
     t.boolean "is_automatically_posted"
     t.boolean "is_displayed", default: true, null: false
     t.string "line_user_id"
-    t.integer "min_video_length"
-    t.integer "max_video_length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+    t.integer "video_length", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "view_videos", force: :cascade do |t|
-    t.string "video_url"
+  create_table "viewed_videos", force: :cascade do |t|
+    t.string "video_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["user_id", "video_url"], name: "index_view_videos_on_user_id_and_video_url", unique: true
-    t.index ["user_id"], name: "index_view_videos_on_user_id"
+    t.index ["user_id", "video_id"], name: "index_viewed_videos_on_user_id_and_video_id", unique: true
+    t.index ["user_id"], name: "index_viewed_videos_on_user_id"
   end
 
   add_foreign_key "alarms", "bootcamps"
@@ -94,5 +93,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_130720) do
   add_foreign_key "keywords", "users"
   add_foreign_key "user_comedy_tags", "comedy_tags"
   add_foreign_key "user_comedy_tags", "users"
-  add_foreign_key "view_videos", "users"
+  add_foreign_key "viewed_videos", "users"
 end

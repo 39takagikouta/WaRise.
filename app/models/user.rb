@@ -11,7 +11,9 @@ class User < ApplicationRecord
   has_many :alarms, dependent: :destroy
   has_many :user_comedy_tags, dependent: :destroy
   has_many :comedy_tags, through: :user_comedy_tags
-  has_many :view_videos, dependent: :destroy
+  has_many :viewed_videos, dependent: :destroy
   has_many :keywords, dependent: :destroy
+
+  enum video_length: { any: 0, short: 1, medium: 2, long: 3 }
 
 end

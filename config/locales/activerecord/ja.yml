@@ -5,3 +5,10 @@ ja:
         is_successful:
           true: "起床成功"
           false: "起床失敗"
+  enums:
+    user:
+      video_length:
+        any: "指定なし"
+        short: "4分以内"
+        medium: "4〜20分"
+        long: "20分以上"

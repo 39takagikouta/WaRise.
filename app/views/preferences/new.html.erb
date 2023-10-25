@@ -1,5 +1,5 @@
 <div class="container mx-auto p-6">
-  <h1 class="mb-6">お笑い嗜好性入力</h1>
+  <h1 class="mb-6">お笑い嗜好性入力<br>ここで入力した情報をもとに動画がレコメンドされます（後からいつでも変更できます）<br>各項目記入は必須ではありません</h1>
   
   <%= form_with model: @preference_form, url: preferences_url do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
@@ -16,20 +16,10 @@
     <%= f.text_field :before_split_keyword_names %>
     <br>
 
-    <%= f.label :min_video_length_minutes, "最短動画時間（分）" %>
-    <%= f.number_field :min_video_length_minutes, min: 0 %>
-
-    <%= f.label :min_video_length_seconds, "最短動画時間（秒）" %>
-    <%= f.number_field :min_video_length_seconds, min: 0, max: 59 %>
+    <%= f.label :video_length, "動画の長さ" %>
+    <%= f.select :video_length, User.video_lengths_i18n.invert.map{|key, value| [key, User.video_lengths[value]]} %>
     <br>
-
-    <%= f.label :max_video_length_minutes, "最長動画時間（分）" %>
-    <%= f.number_field :max_video_length_minutes, min: 0 %>
-
-    <%= f.label :max_video_length_seconds, "最長動画時間（秒）" %>
-    <%= f.number_field :max_video_length_seconds, min: 0, max: 59 %>
-    <br>
-
+    
     <%= f.submit '登録' %>
   <% end %>
 </div>

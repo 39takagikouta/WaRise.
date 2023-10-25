@@ -1,6 +1,6 @@
 class PreferencesController < ApplicationController
   def new
-    @preference_form = PreferenceForm.new
+    @preference_form = PreferenceForm.new()
     @comedy_tags = ComedyTag.all
   end
 
@@ -32,23 +32,19 @@ class PreferencesController < ApplicationController
   private
 
   def load_current_user_preferences
+    keywords_names = current_user.keywords.present? ? current_user.keywords.pluck(:name).join('、') : nil
+
     PreferenceForm.new(
       comedy_tag_ids: current_user.user_comedy_tags.pluck(:comedy_tag_id),
-      before_split_keyword_names: current_user.keywords.pluck(:name).join('、'),
-      min_video_length_minutes: current_user.min_video_length / 60,
-      min_video_length_seconds: current_user.min_video_length % 60,
-      max_video_length_minutes: current_user.max_video_length / 60,
-      max_video_length_seconds: current_user.max_video_length % 60
+      before_split_keyword_names: keywords_names,
+      video_length: current_user.video_length
     )
   end
 
   def preference_params
     params.require(:preference_form).permit(
       :before_split_keyword_names,
-      :min_video_length_minutes,
-      :min_video_length_seconds,
-      :max_video_length_minutes,
-      :max_video_length_seconds,
+      :video_length,
       comedy_tag_ids: []
     )
   end
