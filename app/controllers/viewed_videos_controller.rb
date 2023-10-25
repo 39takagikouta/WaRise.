@@ -7,7 +7,6 @@ class ViewedVideosController < ApplicationController
       when 'mypage'
         @alarm = Alarm.find_by(id: params[:alarm_id])
         @alarm.update(is_successful: true)
-        binding.pry
         redirect_to mypage_path
       when 'recommend'
         redirect_to recommend_path
