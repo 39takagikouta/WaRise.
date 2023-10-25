@@ -5,9 +5,11 @@ class ViewedVideosController < ApplicationController
     if @viewed_video.save
       case params[:redirect_to]
       when 'mypage'
+        @alarm = Alarm.find_by(id: params[:alarm_id])
+        @alarm.update(is_successful: true)
+        binding.pry
         redirect_to mypage_path
       when 'recommend'
-        binding.pry
         redirect_to recommend_path
       else
         flash[:error] = '不明なリダイレクト先です'

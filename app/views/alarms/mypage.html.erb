@@ -9,7 +9,7 @@
   <% if @alarm %>
     <% if Time.now >= @alarm.wake_up_time && Time.now <= @alarm.wake_up_time + 10.minutes %>
       <p class="text-lg">おはようございます!起床時刻となりました。10分以内に動画の視聴を開始してください。</p>
-      <%= link_to "動画を視聴する", recommend_path(@alarm), class: "btn btn-warning" %>
+      <%= link_to "動画を視聴する", recommend_path, class: "btn btn-warning" %>
     <% else %>
       <% if @alarm.wake_up_time.to_date == Date.tomorrow %>
         <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
