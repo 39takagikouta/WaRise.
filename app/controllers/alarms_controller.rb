@@ -46,7 +46,6 @@ class AlarmsController < ApplicationController
   def recommend
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
 
-    binding.pry
     if @alarm.custom_video_url.present?
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
       @item = OpenStruct.new(id: OpenStruct.new(video_id: video_id))

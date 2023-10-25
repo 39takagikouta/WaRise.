@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'viewed_videos/create'
   root 'tops#top'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
   resources :users, only: %i[show]
+  get 'toggle_display', to: 'users#toggle_display'
   resources :preferences, only: %i[new create edit update]
   resources :alarms, only: %i[new create edit update destroy]
   get 'mypage', to: 'alarms#mypage'

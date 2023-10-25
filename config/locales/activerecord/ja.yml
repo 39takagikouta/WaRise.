@@ -1,6 +1,10 @@
 ja:
   activerecord:
     values:
+      user:
+        is_displayed:
+          true: "はい"
+          false: "いいえ"
       alarm:
         is_successful:
           true: "起床成功"

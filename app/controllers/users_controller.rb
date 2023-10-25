@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
   def show
   end
+
+  def toggle_display
+    current_user.toggle!(:is_displayed)
+    redirect_to user_path(current_user), notice: '表示設定を変更しました。'
+  end
 end
