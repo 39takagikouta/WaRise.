@@ -16,6 +16,10 @@
     <%= f.text_field :before_split_keyword_names %>
     <br>
 
+    <%= f.label :video_length, "動画の長さ" %>
+    <%= f.select :video_length, User.video_lengths_i18n.invert.map{|key, value| [key, User.video_lengths[value]]} %>
+    <br>
+    
     <%= f.submit '登録' %>
   <% end %>
 </div>

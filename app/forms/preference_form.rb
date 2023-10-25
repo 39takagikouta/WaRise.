@@ -4,12 +4,12 @@ class PreferenceForm
 
   attribute :comedy_tag_ids, default: []
   attribute :before_split_keyword_names, :string
+  attribute :video_length, :integer
 
   validate :unique_keyword_names
 
   def save(preference_form, user)
     return false unless valid?
-    adjust_video_lengths
 
     ActiveRecord::Base.transaction do
 
@@ -22,6 +22,10 @@ class PreferenceForm
       preference_form.before_split_keyword_names.split('、').each do |keyword_name|
         user.keywords.create!(name: keyword_name)
       end
+
+      user.update!(
+        video_length: preference_form.video_length
+      )
 
     end
     true

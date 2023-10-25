@@ -2,10 +2,12 @@
   <h1 class="alert-info">動画視聴</h1>
     <div>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @item.id.video_id %>" frameborder="0" allowfullscreen></iframe>
-      <h2><%= @item.snippet.title %></h2>
-      <p>チャンネル: <%= @item.snippet.channel_title %></p>
-      <p><%= @item.snippet.description %></p>
     </div>
+    
+    <%= link_to "https://twitter.com/intent/tweet?url=https://warise-e5c75204d3f6.herokuapp.com&text=今日は#{@alarm.wake_up_time.strftime('%H:%M')}にこの動画で起床しました！%0Ahttps://www.youtube.com/watch?v=#{ @item.id.video_id }%0A%0Aあなたもわらいずで楽しい朝を迎えましょう！", target: '_blank' do %>
+      <p><i class="fa-brands fa-x-twitter"></i>でシェアする</p>
+    <% end %>
+
     <%= button_to '視聴完了しマイページに戻る', viewed_videos_path(@item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'mypage' } } %>
     <%= button_to '他の動画を見る', viewed_videos_path(@item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'recommend' } } %>
 </div>

@@ -1,5 +1,5 @@
 <div class="container mx-auto p-6">
-  <h1 class="mb-6">お笑い嗜好性入力</h1>
+  <h1 class="mb-6">お笑い嗜好性編集</h1>
   
   <%= form_with model: @preference_form, url: preference_url, method: :patch do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
@@ -14,6 +14,10 @@
 
     <%= f.label :before_split_keyword_names, "キーワード（、で区切って入力してください）" %>
     <%= f.text_field :before_split_keyword_names %>
+    <br>
+
+    <%= f.label :video_length, "動画の長さ" %>
+    <%= f.select :video_length, User.video_lengths_i18n.invert.map{|key, value| [key, User.video_lengths[value]]} %>
     <br>
 
     <%= f.submit '登録' %>

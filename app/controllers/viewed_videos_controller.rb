@@ -7,6 +7,7 @@ class ViewedVideosController < ApplicationController
       when 'mypage'
         redirect_to mypage_path
       when 'recommend'
+        binding.pry
         redirect_to recommend_path
       else
         flash[:error] = '不明なリダイレクト先です'
