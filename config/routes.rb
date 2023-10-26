@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :alarms, only: %i[new create edit update destroy index]
   get 'mypage', to: 'alarms#mypage'
   get 'recommend', to: 'alarms#recommend'
+  get 'ranking', to: 'alarms#ranking'
   resources :viewed_videos, only: %i[create]
   resources :likes, only: [:create, :destroy]
 
