@@ -8,6 +8,7 @@ class ViewedVideosController < ApplicationController
         @alarm = Alarm.find_by(id: params[:alarm_id])
         @alarm.update(is_successful: true)
         @viewed_video.update(alarm_id: @alarm.id)
+        binding.pry
         redirect_to mypage_path
       when 'recommend'
         redirect_to recommend_path
@@ -25,7 +26,7 @@ class ViewedVideosController < ApplicationController
 
   def viewed_video_params
     {
-      video_id: params[:format]
+      video_id: params[:video_id]
     }
   end
 end

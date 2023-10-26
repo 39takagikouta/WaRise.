@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'mypage', to: 'alarms#mypage'
   get 'recommend', to: 'alarms#recommend'
   resources :viewed_videos, only: %i[create]
+  resources :likes, only: [:create, :destroy]
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
