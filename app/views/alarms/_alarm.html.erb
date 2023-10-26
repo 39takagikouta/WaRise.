@@ -1,0 +1,42 @@
+<div class="p-5 rounded-lg shadow-md bg-slate-100 mb-12">
+  <!-- 動画埋め込み -->
+  <div class="flex justify-center">
+    <iframe src="https://www.youtube.com/embed/<%= alarm.viewed_video.video_id %>" 
+            width="560" height="200"
+            frameborder="0" allowfullscreen>
+    </iframe>
+  </div>
+  
+  <!-- ユーザー名 -->
+  <div class="mt-5 mb-2">
+    <span class="font-bold">ユーザー名:</span> <%= current_user.name %>
+  </div>
+  
+  <!-- 起床時刻 -->
+  <div class="mb-2">
+    <span class="font-bold">起床時刻:</span> <%= alarm.wake_up_time.strftime("%H:%M") %>
+  </div>
+
+  <!-- いいね数の表示とボタンを囲むdivにflexクラスを追加 -->
+  <div class="mt-3 flex items-center justify-end">
+    <!-- いいねボタン -->
+    <% if current_user.id != alarm.user_id %> 
+      <% if current_user.likes.exists?(alarm_id: alarm.id) %>
+        <!-- いいねを取り消すボタン -->
+        <%= button_to like_path(alarm.id), method: :delete do %>
+          <i class="fa-solid fa-heart"></i>
+        <% end %>
+      <% else %>
+        <!-- いいねを押すボタン -->
+        <%= button_to likes_path(alarm_id: alarm.id), method: :post do %>
+          <i class="fa-regular fa-heart"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+
+        <!-- いいね数の表示 -->
+    <div class="ml-2"> 
+      <%= alarm.likes.count %> 
+    </div>
+  </div>
+</div>

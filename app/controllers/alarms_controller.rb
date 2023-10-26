@@ -46,7 +46,6 @@ class AlarmsController < ApplicationController
   def recommend
     @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
 
-    binding.pry
     if @alarm.custom_video_url.present?
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
       @item = OpenStruct.new(id: OpenStruct.new(video_id: video_id))
@@ -65,6 +64,10 @@ class AlarmsController < ApplicationController
       redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。'
       return
     end
+  end
+
+  def index
+    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true)
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_26_143650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
     t.index ["user_id"], name: "index_keywords_on_user_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "alarm_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["alarm_id"], name: "index_likes_on_alarm_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "user_comedy_tags", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.boolean "is_automatically_posted"
+    t.boolean "is_automatically_posted", default: false
     t.boolean "is_displayed", default: true, null: false
     t.string "line_user_id"
     t.datetime "created_at", null: false
@@ -84,6 +93,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "alarm_id"
+    t.index ["alarm_id"], name: "index_viewed_videos_on_alarm_id"
+    t.index ["user_id", "alarm_id", "video_id"], name: "index_viewed_videos_on_user_id_and_alarm_id_and_video_id", unique: true
     t.index ["user_id", "video_id"], name: "index_viewed_videos_on_user_id_and_video_id", unique: true
     t.index ["user_id"], name: "index_viewed_videos_on_user_id"
   end
@@ -91,7 +103,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_193201) do
   add_foreign_key "alarms", "bootcamps"
   add_foreign_key "alarms", "users"
   add_foreign_key "keywords", "users"
+  add_foreign_key "likes", "alarms"
+  add_foreign_key "likes", "users"
   add_foreign_key "user_comedy_tags", "comedy_tags"
   add_foreign_key "user_comedy_tags", "users"
+  add_foreign_key "viewed_videos", "alarms"
   add_foreign_key "viewed_videos", "users"
 end

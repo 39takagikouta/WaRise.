@@ -59,8 +59,9 @@
   <div class="flex mb-4 items-center justify-between">
     <div class="flex mb-2 items-center">
       <h2 class="mr-2">一覧画面とランキングに自身を表示しますか？:</h2>
-      <p>はい</p>
+      <p><%= t(current_user.is_displayed, scope: 'activerecord.values.user.is_displayed') %></p>
     </div>
-    <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), '#', class: "btn btn-warning" %>
+    <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), toggle_display_path, class: "btn btn-warning" %>
+
   </div>
 </div>
