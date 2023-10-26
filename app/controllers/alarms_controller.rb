@@ -66,6 +66,10 @@ class AlarmsController < ApplicationController
     end
   end
 
+  def index
+    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true)
+  end
+
   private
 
   def set_alarm
