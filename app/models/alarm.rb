@@ -4,6 +4,7 @@ class Alarm < ApplicationRecord
 
   belongs_to :user
   belongs_to :bootcamp, optional: true
+  has_one :viewed_video
 
   def start_time
     wake_up_time

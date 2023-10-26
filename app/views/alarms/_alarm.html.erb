@@ -1,11 +1,14 @@
-<div class="bg-white p-4 rounded-lg shadow-md">
+<div class="p-5 rounded-lg shadow-md bg-slate-100 mb-12">
   <!-- 動画埋め込み -->
-  <div class="aspect-w-16 aspect-h-9 mb-2">
-    <iframe src="https://www.youtube.com/embed/<%= alarm.view_video.video_id %>" frameborder="0" allowfullscreen></iframe>
+  <div class="flex justify-center">
+    <iframe src="https://www.youtube.com/embed/<%= alarm.viewed_video.video_id %>" 
+            width="560" height="200"
+            frameborder="0" allowfullscreen>
+    </iframe>
   </div>
   
   <!-- ユーザー名 -->
-  <div class="mb-2">
+  <div class="mt-5 mb-2">
     <span class="font-bold">ユーザー名:</span> <%= current_user.name %>
   </div>
   
@@ -13,11 +16,4 @@
   <div class="mb-2">
     <span class="font-bold">起床時刻:</span> <%= alarm.wake_up_time.strftime("%H:%M") %>
   </div>
-  
-  <!-- いいね数 
-  <div class="flex items-center">
-    <i class="fas fa-heart text-red-500"></i>
-    <span class="ml-1"><%= alarm.likes.count %></span>
-  </div>
-  -->
 </div>
