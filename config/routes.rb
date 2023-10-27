@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'tops#top'
+  get 'terms_of_use', to: 'tops#terms_of_use'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
