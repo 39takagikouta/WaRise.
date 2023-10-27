@@ -67,7 +67,7 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true)
+    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true).reverse
   end
 
   def ranking
