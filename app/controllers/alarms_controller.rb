@@ -67,14 +67,13 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true)
+    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true).reverse
   end
 
   def ranking
     # ユーザーランキングのロジックをここで実装
     @users = User.joins(:alarms)
-                 .where(alarms: { is_successful: true, wake_up_time: Date.today.beginning_of_month..Date.today.end_of_month })
-                 .where(is_displayed: true)
+                 .where(alarms: { is_successful: true, wake_up_time: Date.today.beginning_of_month..Date.today.end_of_month }, is_displayed: true)
                  .group(:id)
                  .select('users.*, COUNT(alarms.id) AS alarm_count')
                  .order('alarm_count DESC')
