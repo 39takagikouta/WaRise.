@@ -7,7 +7,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def basic_action
-    binding.pry
     @omniauth = request.env["omniauth.auth"]
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
@@ -20,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
     #ログイン後のflash messageとリダイレクト先を設定
     flash[:notice] = "ログインしました"
-    redirect_to expendable_items_path
+    redirect_to mypage_path
   end
 
   def fake_email(uid, provider)

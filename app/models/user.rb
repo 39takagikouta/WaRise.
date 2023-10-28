@@ -10,6 +10,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[line]
 
+
   has_many :alarms, dependent: :destroy
   has_many :user_comedy_tags, dependent: :destroy
   has_many :comedy_tags, through: :user_comedy_tags
