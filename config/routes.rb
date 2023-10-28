@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'terms_of_use', to: 'tops#terms_of_use'
   get 'privacy_policy', to: 'tops#privacy_policy'
   devise_for :users, controllers: {
-    omniauth_callbacks: "omniauth_callbacks"
+    registrations: 'users/registrations'
   }
   resources :users, only: %i[show]
   get 'toggle_display', to: 'users#toggle_display'
