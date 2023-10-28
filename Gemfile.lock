@@ -333,7 +333,6 @@ DEPENDENCIES
   google-apis-youtube_v3
   jbuilder
   jsbundling-rails
-  omniauth (~> 1.9.1)
   omniauth-line
   omniauth-rails_csrf_protection
   pg (~> 1.1)
