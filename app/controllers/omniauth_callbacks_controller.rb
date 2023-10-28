@@ -7,6 +7,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def basic_action
+    binding.pry
     @omniauth = request.env["omniauth.auth"]
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
