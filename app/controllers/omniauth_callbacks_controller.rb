@@ -1,11 +1,9 @@
+# ApplicationController を Devise::OmniauthCallbacksController に変更
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
-  def line
-    basic_action
-  end
+  # 以下を追加
+  def line; basic_action end
 
   private
-
   def basic_action
     @omniauth = request.env["omniauth.auth"]
     if @omniauth.present?
@@ -17,12 +15,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @profile.set_values(@omniauth)
       sign_in(:user, @profile)
     end
-    #ログイン後のflash messageとリダイレクト先を設定
     flash[:notice] = "ログインしました"
+    binding.pry
     redirect_to mypage_path
   end
 
   def fake_email(uid, provider)
     "#{auth.uid}-#{auth.provider}@example.com"
   end
+  # 以上を追加
 end
