@@ -6,7 +6,10 @@ namespace :line_notice do
       config.channel_token = ENV['LINE_MESSAGING_TOKEN']
     end
 
-    alarms = Alarm.where(wake_up_time: Time.now.beginning_of_minute)
+    # UTC時間に9時間を加算して日本時間を取得
+    current_time_jst = Time.current.utc + 9.hours
+
+    alarms = Alarm.where(wake_up_time: current_time_jst.beginning_of_minute)
     alarms.each do |alarm|
       next unless alarm.user.uid # user.uidがnilや空の場合は次のループへ
 
