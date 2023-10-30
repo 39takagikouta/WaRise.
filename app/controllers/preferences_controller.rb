@@ -17,6 +17,7 @@ class PreferencesController < ApplicationController
   def edit
     @preference_form = load_current_user_preferences
     @comedy_tags = ComedyTag.all
+    binding.pry
   end
 
   def update
