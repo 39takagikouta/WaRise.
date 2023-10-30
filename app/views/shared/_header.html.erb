@@ -9,7 +9,7 @@
         <li><%= link_to "早起き一覧", alarms_path %></li>
         <li><%= link_to "ランキング", ranking_path %></li>
         <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path %></li>
+        <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
   </div>
