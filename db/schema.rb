@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_170210) do
     t.datetime "remember_created_at"
     t.boolean "is_automatically_posted", default: false
     t.boolean "is_displayed", default: true, null: false
+    t.string "line_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
