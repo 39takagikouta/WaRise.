@@ -76,3 +76,18 @@ https://www.figma.com/file/ZReC0nwGyNlWT20LhTTk2Q/graduation_exam-%E3%82%8F%E3%8
 ## ER 図
 
 ![Alt text](image.png)
+
+## 使用技術
+
+■ サーバサイド: Ruby on Rails
+　　 Ruby 3.1.0 Rails 7.0.8
+■ フロントエンド: HotWire
+■ CSS フレームワーク: tailwindCSS、daisyUI
+■ WebAPI: LINE ログイン、Line messaging API、Youtube Data API
+■ インフラ:
+・ Web アプリケーションサーバ: Fly.io
+・ セッションサーバ: Redis（Redis by Upstash）
+・ データベースサーバ: PostgreSQL（Fly Postgres）
+■ その他：
+・ VCS: GitHub
+・ CI/CD: GitHubActions
