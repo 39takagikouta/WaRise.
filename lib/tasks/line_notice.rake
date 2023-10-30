@@ -6,16 +6,20 @@ namespace :line_notice do
       config.channel_token = ENV['LINE_MESSAGING_TOKEN']
     end
 
-    alarms = Alarm.where(wake_up_time: Time.now.beginning_of_minute)
-    alarms.each do |alarm|
-      next unless alarm.user.uid # user.uidがnilや空の場合は次のループへ
+    10.times do
+      alarms = Alarm.where(wake_up_time: Time.now.beginning_of_minute)
+      alarms.each do |alarm|
+        next unless alarm.user.uid # user.uidがnilや空の場合は次のループへ
 
-      message = {
-        type: 'text',
-        text: "#{alarm.user.name}さん、おはようございます！\n設定したアラームの時刻となりました！\n公式ページURL\nhttps://warise-e5c75204d3f6.herokuapp.com/"
-      }
-      response = client.push_message(alarm.user.uid, message)
-      p response
+        message = {
+          type: 'text',
+          text: "#{alarm.user.name}さん、おはようございます！\n設定したアラームの時刻となりました！\n公式ページURL\nhttps://warise-e5c75204d3f6.herokuapp.com/"
+        }
+        response = client.push_message(alarm.user.uid, message)
+        p response
+      end
+
+      sleep 60 # 60秒待機
     end
   end
 end

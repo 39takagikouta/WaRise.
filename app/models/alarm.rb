@@ -1,7 +1,6 @@
 class Alarm < ApplicationRecord
   validates :wake_up_time, presence: true
   validate :must_be_youtube_url
-  validate :wake_up_time_minute_must_be_per_ten_minutes
 
   belongs_to :user
   belongs_to :bootcamp, optional: true
@@ -25,12 +24,6 @@ class Alarm < ApplicationRecord
     return if custom_video_url.blank?
     unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")
       errors.add(:base, "Youtubeの動画以外は登録できません")
-    end
-  end
-
-  def wake_up_time_minute_must_be_per_ten_minutes
-    if wake_up_time && wake_up_time.min % 10 != 0
-      errors.add(:base, 'アラームの分数は10分単位でなければなりません')
     end
   end
 
