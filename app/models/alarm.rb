@@ -18,13 +18,10 @@ class Alarm < ApplicationRecord
     ).where("wake_up_time < ?", Time.zone.now - 10.minutes).update_all(is_successful: false)
   end
 
-  private
-
-    def must_be_youtube_url
-      return if custom_video_url.blank?
-      unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")
-        errors.add(:base, "Youtubeの動画以外は登録できません")
-      end
+  def must_be_youtube_url
+    return if custom_video_url.blank?
+    unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")
+      errors.add(:base, "Youtubeの動画以外は登録できません")
     end
-
+  end
 end
