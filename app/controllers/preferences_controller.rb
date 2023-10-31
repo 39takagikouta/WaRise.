@@ -1,19 +1,4 @@
 class PreferencesController < ApplicationController
-  def new
-    @preference_form = PreferenceForm.new()
-    @comedy_tags = ComedyTag.all
-  end
-
-  def create
-    @preference_form = PreferenceForm.new(preference_params)
-    if @preference_form.save(@preference_form, current_user)
-      redirect_to mypage_path, notice: '嗜好性が登録されました'
-    else
-      @comedy_tags = ComedyTag.all
-      render :new
-    end
-  end
-
   def edit
     @preference_form = load_current_user_preferences
     @comedy_tags = ComedyTag.all

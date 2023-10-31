@@ -1,5 +1,6 @@
 class AlarmsController < ApplicationController
   before_action :set_alarm, only: [:edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :ranking]
 
   include YoutubeApi
 
