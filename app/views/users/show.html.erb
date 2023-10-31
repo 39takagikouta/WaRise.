@@ -1,67 +1,70 @@
 <div class="container mx-auto p-6">
   <h1 class="mb-6">アカウント詳細</h1>
-
-  <div class="flex mb-4 items-center justify-between">
-    <div>
-      <div class="flex mb-2 items-center">
-        <h2 class="mr-2">名前:</h2>
-        <p><%= current_user.name %></p>
+  <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
+    <div class="flex mb-4 items-center justify-between">
+      <div>
+        <div class="flex mb-2 items-center">
+          <h2 class="mr-2">名前:</h2>
+          <p><%= current_user.name %></p>
+        </div>
+        <div class="flex mb-2 items-center">
+          <h2 class="mr-2">メールアドレス:</h2>
+          <p><%= current_user.email %></p>
+        </div>
       </div>
-      <div class="flex mb-2 items-center">
-        <h2 class="mr-2">メールアドレス:</h2>
-        <p><%= current_user.email %></p>
+      <% unless current_user.uid.present? %>
+        <div>
+          <%= link_to "編集する", edit_user_registration_path, class: "btn btn-warning" %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if current_user.uid.present? %>
+      <div class="mb-4 items-center">
+        <div class="mb-2 items-center">
+          <h2 class="mr-2">LINE公式アカウント（LINEログインのかたは、本アカウントを追加することでアラーム設定時間に通知を受け取ることができます）:</h2>
+          <img src="https://qr-official.line.me/gs/M_482oswus_GW.png?oat_content=qr" class="w-32 h-32">
+        </div>
+      </div>
+    <% end %>
+
+    <div class="flex mb-4 items-center justify-between">
+      <div>
+        <h2 class="mr-2">お笑い嗜好性</h2>
+        <div class="flex mb-2 items-center">
+          <h3 class="mr-2">タグ:</h3>
+          <% if current_user.comedy_tags.any? %>
+            <p><%= current_user.comedy_tags.map(&:name).join('、') %></p>
+          <% else %>
+            <p>登録なし</p>
+          <% end %>
+        </div>
+
+        <div class="flex mb-2 items-center">
+          <h3 class="mr-2">自由記述:</h3>
+          <% if current_user.keywords.any? %>
+            <p><%= current_user.keywords.map(&:name).join('、') %></p>
+          <% else %>
+            <p></p>
+          <% end %>
+        </div>
+
+        <div class="flex mb-2 items-center">
+          <h3 class="mr-2">動画の時間:</h3>
+          <p><%= current_user.video_length_i18n %></p>
+        </div>
+      </div>
+      <div>
+      <%= link_to '編集する', edit_preference_path, class: "btn btn-warning" %>
       </div>
     </div>
-    <div>
-      <%= link_to "編集する", edit_user_registration_path, class: "btn btn-warning" %>
-    </div>
-  </div>
 
-  <div class="flex mb-4 items-center justify-between">
-    <div class="flex mb-2 items-center">
-      <h2 class="mr-2">LINE連携:</h2>
-      <p>未完了</p> 
-    </div>
-    <%= link_to '連携する', '#', class: "btn btn-warning" %>
-  </div>
-
-  <div class="flex mb-4 items-center justify-between">
-    <div>
-      <h2 class="mr-2">お笑い嗜好性</h2>
+    <div class="flex mb-4 items-center justify-between">
       <div class="flex mb-2 items-center">
-        <h3 class="mr-2">タグ:</h3>
-        <% if current_user.comedy_tags.any? %>
-          <p><%= current_user.comedy_tags.map(&:name).join('、') %></p>
-        <% else %>
-          <p></p>
-        <% end %>
+        <h2 class="mr-2">一覧画面とランキングに自身を表示しますか？:</h2>
+        <p><%= t(current_user.is_displayed, scope: 'activerecord.values.user.is_displayed') %></p>
       </div>
-
-      <div class="flex mb-2 items-center">
-        <h3 class="mr-2">自由記述:</h3>
-        <% if current_user.keywords.any? %>
-          <p><%= current_user.keywords.map(&:name).join('、') %></p>
-        <% else %>
-          <p></p>
-        <% end %>
-      </div>
-
-      <div class="flex mb-2 items-center">
-        <h3 class="mr-2">動画の時間:</h3>
-        <p><%= current_user.video_length_i18n %></p>
-      </div>
+      <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), toggle_display_path, class: "btn btn-warning" %>
     </div>
-    <div>
-    <%= link_to '編集する', edit_preference_path, class: "btn btn-warning" %>
-    </div>
-  </div>
-
-  <div class="flex mb-4 items-center justify-between">
-    <div class="flex mb-2 items-center">
-      <h2 class="mr-2">一覧画面とランキングに自身を表示しますか？:</h2>
-      <p><%= t(current_user.is_displayed, scope: 'activerecord.values.user.is_displayed') %></p>
-    </div>
-    <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), toggle_display_path, class: "btn btn-warning" %>
-
   </div>
 </div>

@@ -15,10 +15,8 @@ class Alarm < ApplicationRecord
     where(
       user_id: user.id,
       is_successful: nil
-    ).where("wake_up_time < ?", Time.now - 10.minutes).update_all(is_successful: false)
+    ).where("wake_up_time < ?", Time.zone.now - 10.minutes).update_all(is_successful: false)
   end
-
-  private
 
   def must_be_youtube_url
     return if custom_video_url.blank?
@@ -26,5 +24,4 @@ class Alarm < ApplicationRecord
       errors.add(:base, "Youtubeの動画以外は登録できません")
     end
   end
-
 end

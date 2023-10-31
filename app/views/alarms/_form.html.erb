@@ -3,11 +3,11 @@
 
   <div class="mb-4">
     <%= f.label :wake_up_time, class: "block text-gray-700" %>
-    <%= f.datetime_field :wake_up_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm", value: (alarm.wake_up_time || (Time.now + 1.day).beginning_of_day).strftime('%Y-%m-%dT%H:%M') %>
+    <%= f.datetime_field :wake_up_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm", value: (alarm.wake_up_time || (Time.zone.now + 1.day).beginning_of_day).strftime('%Y-%m-%dT%H:%M') %>
   </div>
 
   <div class="mb-4">
-    <%= f.label :custom_video_url, "Youtube動画のurlのみ登録できます。視聴用のurlでも共有用のurlでも対応しています。", class: "block text-gray-700" %>
+    <%= f.label :custom_video_url, "カスタム動画URL（入力は任意。Youtube動画のurlのみ登録できます。視聴用のurlでも共有用のurlでも対応しています。）", class: "block text-gray-700" %>
     <%= f.text_field :custom_video_url, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
   </div>
 

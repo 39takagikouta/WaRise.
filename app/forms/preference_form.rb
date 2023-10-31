@@ -36,11 +36,10 @@ class PreferenceForm
 
   private
 
-  def unique_keyword_names
-    keywords = before_split_keyword_names.split('、')
-    if keywords.uniq.length != keywords.length
-      errors.add(:base, "キーワードに重複があります。")
+    def unique_keyword_names
+      keywords = before_split_keyword_names.split('、')
+      if keywords.uniq.length != keywords.length
+        errors.add(:base, "キーワードに重複があります。")
+      end
     end
-  end
-
 end

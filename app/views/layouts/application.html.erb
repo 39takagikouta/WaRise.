@@ -10,16 +10,22 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-  <div>
-    <% if user_signed_in? %>
-      <%= render 'shared/header' %>
-    <% else %>
-      <%= render 'shared/before_login_header' %>
-    <% end %>
-    <%= render 'shared/flash_message' %>
-    <%= yield %>
-    <%= render 'shared/footer' %>
-  </div>
+  <body class="background-image flex flex-col h-screen justify-between">
+    <div>
+      <% if user_signed_in? %>
+        <%= render 'shared/header' %>
+      <% else %>
+        <%= render 'shared/before_login_header' %>
+      <% end %>
+    </div>
+
+    <div class="flex-grow">
+      <%= render 'shared/flash_message' %>
+      <%= yield %>
+    </div>
+
+    <div>
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>

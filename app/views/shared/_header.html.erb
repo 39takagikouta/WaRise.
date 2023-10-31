@@ -1,7 +1,9 @@
 <header>
   <div class="navbar bg-orange-300">
     <div class="flex-1 px-10">
-      <%= link_to "わらいず", root_path, class: "btn btn-ghost normal-case text-xl" %>
+      <%= link_to root_path, class: "btn btn-ghost normal-case text-xl" do %>
+        <i class="fa-regular fa-face-grin-squint-tears"></i> わらいず<i class="fa-regular fa-face-grin-squint-tears"></i>
+      <% end %>
     </div>
     <div class="flex-none px-10">
       <ul class="menu menu-horizontal px-1">
@@ -9,7 +11,7 @@
         <li><%= link_to "早起き一覧", alarms_path %></li>
         <li><%= link_to "ランキング", ranking_path %></li>
         <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path %></li>
+        <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
   </div>

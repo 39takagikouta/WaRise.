@@ -1,42 +1,46 @@
-<div class="hero min-h-screen bg-blue-200">
+<div class="hero min-h-screen background-image">
   <div class="hero-content flex-col lg:flex-row-reverse">
     <%= image_tag("morningboy.png") %>
     <div>
       <h1>わらいず</h1>
-      <p class="py-6">わらいずは、予定通りの時間に起きられると報酬としてレコメンドされたお笑い動画を観ることができる、早起き促進アプリです。</p>
+      <p class="py-6 font-bold">わらいずは、アラームで設定した起床時間に起きられると報酬としてレコメンドされたお笑い動画を観ることができる、早起き促進アプリです。</p>
       <% unless user_signed_in? %>
-        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-warning" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-warning mr-5" %>
         <%= link_to "ログイン", new_user_session_path, class: "btn btn-warning" %>
       <% end %>
     </div>
   </div>
 </div>
 
-<div>
+<div class="bg-white">
   <div>
-    <h2 class="text-center py-20">使い方</h2>
+    <h2 class="text-center py-20">HOW TO USE</h2>
   </div>
-  <div>
-    <div>
-      <h3>ステップ1</h3>
-      <p>1.新規登録後に表示される、「お笑い嗜好性入力ページ」で、どのようなお笑い動画をレコメンドしてほしいか教えてください。</p>
+  
+  <div class="flex justify-around items-start flex-wrap md:flex-nowrap">
+
+    <div class="flex flex-col items-center p-4 w-full md:w-1/3">
+      <div>
+        <h3 class="text-center font-bold">ステップ1</h3>
+        <p>新規登録後に表示される「お笑い嗜好性入力ページ」で、どのようなお笑い動画をレコメンドしてほしいか教えてください。</p>
+      </div>
+      <%= image_tag("programmer.png", class: "mt-4 max-w-xs mx-auto") %>
     </div>
-    <%= image_tag("programmer.png") %>
-  </div>
-  <div>
-    <div>
-      <h3>ステップ2</h3>
-      <p>2.「マイページ」から明日の起床時間を登録しましょう！</p>
+
+    <div class="flex flex-col items-center p-4 w-full md:w-1/3">
+      <div>
+        <h3 class="text-center font-bold">ステップ2</h3>
+        <p>「マイページ」から明日のアラームを登録しましょう！<br>動画を自分で選ぶこともできます。</p>
+      </div>
+      <%= image_tag("clock.png", class: "mt-4 max-w-xs mx-auto") %>
     </div>
-    <%= image_tag("clock.png") %>
-  </div>
-  <div class="">
-    <div>
-      <h3>ステップ3</h3>
-      <p>起床時間になったら、「マイページ」で起床ボタンを押すことで、レコメンドされたお笑い動画を視聴できます（設定時刻から10分間有効）。<br>
-      2で動画を自分で選択した方は、その動画が表示されます。<br>
-      お笑い動画で早起きを楽しいものにしましょう！</p>
+
+    <div class="flex flex-col items-center p-4 w-full md:w-1/3">
+      <div>
+        <h3 class="text-center font-bold">ステップ3</h3>
+        <p>アラームの起床時間になったら、「マイページ」に表示された「動画を視聴する」ボタンを押すことで、レコメンドされたお笑い動画を視聴できます（設定時刻から10分間有効）。<br>ステップ2で動画を選択した方は、その動画が表示されます。<br>お笑いで早起きを楽しみましょう！</p>
+      </div>
+      <%= image_tag("comedian.png", class: "mt-4 max-w-xs mx-auto") %>
     </div>
-    <%= image_tag("comedian.png") %>
   </div>
 </div>

@@ -9,13 +9,14 @@ class AlarmsController < ApplicationController
                   .where(user_id: current_user.id)
                   .order(wake_up_time: :desc)
                   .first
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
+    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
+                           is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
   end
 
   def new
     @alarm = Alarm.new
-    @alarm.wake_up_time = Time.now.tomorrow.beginning_of_day
+    @alarm.wake_up_time = Time.zone.now.tomorrow.beginning_of_day
   end
 
   def create
@@ -44,25 +45,20 @@ class AlarmsController < ApplicationController
   end
 
   def recommend
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Date.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
+    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
+                           is_successful: nil)
 
     if @alarm.custom_video_url.present?
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
       @item = OpenStruct.new(id: OpenStruct.new(video_id: video_id))
-      return
+    else
+      query = current_user.set_query
+      @search_results = find_videos(query, current_user)
+      @item = @search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
     end
 
-    tags = current_user.comedy_tags.pluck(:name)
-    keywords = current_user.keywords.pluck(:name)
-    query_elements = []
-    query_elements.concat(tags) if tags.present?
-    query_elements.concat(keywords) if keywords.present?
-    query = query_elements.join(" ")
-    @search_results = find_videos(query, current_user)
-    @item = @search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
     unless @item
       redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。'
-      return
     end
   end
 
@@ -71,9 +67,9 @@ class AlarmsController < ApplicationController
   end
 
   def ranking
-    # ユーザーランキングのロジックをここで実装
     @users = User.joins(:alarms)
-                 .where(alarms: { is_successful: true, wake_up_time: Date.today.beginning_of_month..Date.today.end_of_month }, is_displayed: true)
+                 .where(alarms: { is_successful: true,
+                                  wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month }, is_displayed: true)
                  .group(:id)
                  .select('users.*, COUNT(alarms.id) AS alarm_count')
                  .order('alarm_count DESC')
@@ -81,19 +77,19 @@ class AlarmsController < ApplicationController
 
   private
 
-  def set_alarm
-    @alarm = current_user.alarms.find(params[:id])
-  end
-
-  def extract_video_id_from_url(url)
-    if url.include?("youtube.com")
-      url.split("v=").last.split("&").first
-    elsif url.include?("youtu.be")
-      url.split("/").last.split("?").first
+    def set_alarm
+      @alarm = current_user.alarms.find(params[:id])
     end
-  end
 
-  def alarm_params
-    params.require(:alarm).permit(:wake_up_time, :custom_video_url)
-  end
+    def extract_video_id_from_url(url)
+      if url.include?("youtube.com")
+        url.split("v=").last.split("&").first
+      elsif url.include?("youtu.be")
+        url.split("/").last.split("?").first
+      end
+    end
+
+    def alarm_params
+      params.require(:alarm).permit(:wake_up_time, :custom_video_url)
+    end
 end
