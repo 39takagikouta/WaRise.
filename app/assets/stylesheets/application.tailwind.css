@@ -16,6 +16,10 @@ h3 {
   @apply text-lg font-bold;
 }
 
+.background-image {
+  background-image: url("/assets/background.jpg");
+}
+
 .simple-calendar table {
   -webkit-border-horizontal-spacing: 0px;
   -webkit-border-vertical-spacing: 0px;
