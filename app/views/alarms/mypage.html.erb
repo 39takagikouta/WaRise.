@@ -2,19 +2,19 @@
   <h1 class="alert-info ml-20">マイページ</h1>
 
   <div class="ml-20">
-    <p class="text-lg">今日 ( <%= Date.today %> )</p>
+    <p class="text-lg">今日 ( <%= Time.zone.today %> )</p>
     <% if @last_alarm && !@last_alarm.is_successful %>
       <p class="text-lg">前回は起床に失敗しましたが、問題はありません。また明日のアラームを設定すれば良いのです！</p>
       <br>
     <% end %>
     <% if @alarm %>
-      <% if Time.now >= @alarm.wake_up_time && Time.now <= @alarm.wake_up_time + 10.minutes %>
+      <% if Time.zone.now >= @alarm.wake_up_time && Time.zone.now <= @alarm.wake_up_time + 10.minutes %>
         <p class="text-lg">おはようございます!起床時刻となりました。10分以内に動画の視聴を開始してください。</p>
         <%= link_to "動画を視聴する", recommend_path, class: "btn btn-warning" %>
       <% else %>
-        <% if @alarm.wake_up_time.to_date == Date.tomorrow %>
+        <% if @alarm.wake_up_time.to_date == Time.zone.tomorrow %>
           <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
-        <% elsif @alarm.wake_up_time.to_date == Date.today %>
+        <% elsif @alarm.wake_up_time.to_date == Time.zone.today %>
           <p class="text-lg">今日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
         <% end %>
         <div class="flex mt-4 space-x-4">
@@ -23,7 +23,7 @@
         </div>
       <% end %>
     <% else %>
-      <% if Time.now.hour.between?(0, 3) %>
+      <% if Time.zone.now.hour.between?(0, 3) %>
         <p class="text-lg">今日の起床時刻がまだ設定されていません</p>
       <% else %>
         <p class="text-lg">明日の起床時刻がまだ設定されていません</p>

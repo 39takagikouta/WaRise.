@@ -4,11 +4,9 @@
       <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @item.id.video_id %>" frameborder="0" allowfullscreen></iframe>
     </div>
     
-    <%= link_to "https://twitter.com/intent/tweet?url=https://warise-e5c75204d3f6.herokuapp.com&text=今日は#{@alarm.wake_up_time.strftime('%H:%M')}にこの動画で起床しました！%0Ahttps://www.youtube.com/watch?v=#{ @item.id.video_id }%0A%0Aあなたもわらいずで楽しい朝を迎えましょう！", target: '_blank' do %>
+    <%= link_to "https://twitter.com/intent/tweet?url=https://warise-e5c75204d3f6.herokuapp.com&text=今日は#{@alarm.wake_up_time.strftime('%H:%M')}にこの動画で起床しました！%0Ahttps://www.youtube.com/watch?v=#{ @item.id.video_id }%0A%0Aあなたもわらいずで楽しい朝を迎えましょう！", target: '_blank', class: "inline-block bg-blue-500 text-white px-4 py-2 mt-4 rounded hover:bg-blue-600" do %>
       <p><i class="fa-brands fa-x-twitter"></i>でシェアする</p>
     <% end %>
-
-    <%= button_to '他の動画を見る', viewed_videos_path(video_id: @item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'recommend' } } %>
+    <%= button_to '他の動画を見る', viewed_videos_path(video_id: @item.id.video_id), { class: "btn btn-warning my-4", params: { redirect_to: 'recommend' } } %>
     <%= button_to '視聴完了しマイページに戻る', viewed_videos_path(video_id: @item.id.video_id), { class: "btn btn-warning", params: { redirect_to: 'mypage', alarm_id: @alarm.id } } %>
-
 </div>

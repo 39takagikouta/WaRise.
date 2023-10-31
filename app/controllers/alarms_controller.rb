@@ -9,7 +9,8 @@ class AlarmsController < ApplicationController
                   .where(user_id: current_user.id)
                   .order(wake_up_time: :desc)
                   .first
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
+    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
+                           is_successful: nil)
     @alarms = Alarm.where(user_id: current_user.id)
   end
 
@@ -44,7 +45,8 @@ class AlarmsController < ApplicationController
   end
 
   def recommend
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Date.tomorrow.end_of_day, is_successful: nil)
+    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
+                           is_successful: nil)
 
     if @alarm.custom_video_url.present?
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
