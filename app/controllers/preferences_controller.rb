@@ -2,7 +2,6 @@ class PreferencesController < ApplicationController
   def edit
     @preference_form = load_current_user_preferences
     @comedy_tags = ComedyTag.all
-    binding.pry
   end
 
   def update
@@ -23,7 +22,7 @@ class PreferencesController < ApplicationController
       PreferenceForm.new(
         comedy_tag_ids: current_user.user_comedy_tags.pluck(:comedy_tag_id),
         before_split_keyword_names: keywords_names,
-        video_length: current_user.video_length
+        video_length: User.video_lengths[current_user.video_length]
       )
     end
 
