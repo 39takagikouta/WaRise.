@@ -45,7 +45,7 @@
           <% if current_user.keywords.any? %>
             <p><%= current_user.keywords.map(&:name).join('、') %></p>
           <% else %>
-            <p></p>
+            <p>登録なし</p>
           <% end %>
         </div>
 
