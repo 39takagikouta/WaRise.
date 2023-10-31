@@ -1,5 +1,5 @@
 <div class="container mx-auto p-6">
-  <h1 class="mb-12">今月(<%= Date.today.strftime('%Y年 %m月') %>)の起床成功回数ランキング</h1>
+  <h1 class="mb-12">今月(<%= Time.zone.today.strftime('%Y年 %m月') %>)の起床成功回数ランキング</h1>
   
   <% @users.each_with_index do |user, index| %>
     <%= render 'ranking_item', user: user, rank: index + 1 %>

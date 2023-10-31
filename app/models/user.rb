@@ -20,6 +20,14 @@ class User < ApplicationRecord
 
   enum video_length: { any: 0, short: 1, medium: 2, long: 3 }
 
+  def set_query
+    tags = self.comedy_tags.pluck(:name)
+    keywords = self.keywords.pluck(:name)
+    query_elements = []
+    query_elements.concat(tags) if tags.present?
+    query_elements.concat(keywords) if keywords.present?
+    query = query_elements.join(" ")
+  end
 
   def social_profile(provider)
     social_profiles.select { |sp| sp.provider == provider.to_s }.first

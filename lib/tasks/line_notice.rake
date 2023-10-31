@@ -7,7 +7,7 @@ namespace :line_notice do
     end
 
     10.times do
-      alarms = Alarm.where(wake_up_time: Time.now.beginning_of_minute)
+      alarms = Alarm.where(wake_up_time: Time.zone.now.beginning_of_minute)
       alarms.each do |alarm|
         next unless alarm.user.uid # user.uidがnilや空の場合は次のループへ
 
