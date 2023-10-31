@@ -1,5 +1,6 @@
 class AlarmsController < ApplicationController
   before_action :set_alarm, only: [:edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :ranking]
 
   include YoutubeApi
 
@@ -63,13 +64,17 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.joins(:user).where(users: { is_displayed: true }, is_successful: true).reverse
+    @alarms = Alarm.joins(:user)
+                   .where(users: { is_displayed: true }, is_successful: true)
+                   .reverse_order
+                   .page(params[:page])
   end
 
   def ranking
     @users = User.joins(:alarms)
                  .where(alarms: { is_successful: true,
-                                  wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month }, is_displayed: true)
+                                  wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month },
+                        is_displayed: true)
                  .group(:id)
                  .select('users.*, COUNT(alarms.id) AS alarm_count')
                  .order('alarm_count DESC')

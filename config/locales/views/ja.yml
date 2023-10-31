@@ -208,3 +208,10 @@ ja:
   simple_calendar:
     previous: "<<"
     next: ">>"
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "..."
