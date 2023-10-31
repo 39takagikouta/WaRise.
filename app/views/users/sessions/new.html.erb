@@ -1,26 +1,32 @@
-<h2>ログイン</h2>
+<div class="container mx-auto p-6">
+  <h1 class="mb-6">アカウント詳細</h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field mb-4">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <div class="field mb-4">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <% if devise_mapping.rememberable? %>
+      <div class="field mb-4">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions mb-4">
+      <%= f.submit "ログイン", class: "btn btn-warning" %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= button_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), class: "btn btn-warning", data: { turbo: false } %><br />
+    <% end %>
+  <% end %>
+</div>

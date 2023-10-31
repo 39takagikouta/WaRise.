@@ -5,7 +5,7 @@
       <h1>わらいず</h1>
       <p class="py-6 font-bold">わらいずは、アラームで設定した起床時間に起きられると報酬としてレコメンドされたお笑い動画を観ることができる、早起き促進アプリです。</p>
       <% unless user_signed_in? %>
-        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-warning" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-warning mr-5" %>
         <%= link_to "ログイン", new_user_session_path, class: "btn btn-warning" %>
       <% end %>
     </div>
