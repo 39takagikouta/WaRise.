@@ -6,10 +6,6 @@ class ApplicationController < ActionController::Base
     mypage_path
   end
 
-  def after_sign_up_path_for(resource)
-    edit_preference_path
-  end
-
   def after_sign_out_path_for(resource)
     root_path
   end
