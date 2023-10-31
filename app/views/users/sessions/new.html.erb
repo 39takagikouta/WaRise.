@@ -1,32 +1,34 @@
 <div class="container mx-auto p-6 h-screen">
   <h1 class="mb-6">ログイン（LINEログインをしていただくと、公式アカウントから通知を受け取ることができます）</h1>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field mb-4">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-    </div>
-
-    <div class="field mb-4">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
-    </div>
-
-    <% if devise_mapping.rememberable? %>
+  <div class="bg-white rounded-lg shadow-lg p-6 my-10">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field mb-4">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      </div>
+
+      <div class="field mb-4">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field mb-4">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions mb-4">
+        <%= f.submit "ログイン", class: "btn btn-warning" %>
       </div>
     <% end %>
 
-    <div class="actions mb-4">
-      <%= f.submit "ログイン", class: "btn btn-warning" %>
-    </div>
-  <% end %>
-
-  <%- if devise_mapping.omniauthable? %>
-    <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), class: "btn btn-warning", data: { turbo: false } %><br />
+    <%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= button_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), class: "btn btn-warning", data: { turbo: false } %><br />
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
