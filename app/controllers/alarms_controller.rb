@@ -6,12 +6,8 @@ class AlarmsController < ApplicationController
 
   def mypage
     Alarm.set_false_to_is_successful(current_user)
-    @last_alarm = Alarm.where.not(is_successful: nil)
-                  .where(user_id: current_user.id)
-                  .order(wake_up_time: :desc)
-                  .first
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
-                           is_successful: nil)
+    @last_alarm = Alarm.find_last_alarm(current_user)
+    @alarm = Alarm.find_next_alarm(current_user)
     @alarms = Alarm.where(user_id: current_user.id)
   end
 
@@ -46,17 +42,9 @@ class AlarmsController < ApplicationController
   end
 
   def recommend
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
-                           is_successful: nil)
+    @alarm = Alarm.find_next_alarm(current_user)
 
-    if @alarm.custom_video_url.present?
-      video_id = extract_video_id_from_url(@alarm.custom_video_url)
-      @item = OpenStruct.new(id: OpenStruct.new(video_id: video_id))
-    else
-      query = current_user.set_query
-      @search_results = find_videos(query, current_user)
-      @item = @search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
-    end
+    @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
 
     unless @item
       redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。'
@@ -64,20 +52,11 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.joins(:user)
-                   .where(users: { is_displayed: true }, is_successful: true)
-                   .reverse_order
-                   .page(params[:page])
+    @alarms = Alarm.find_successful_alarms(params[:page])
   end
 
   def ranking
-    @users = User.joins(:alarms)
-                 .where(alarms: { is_successful: true,
-                                  wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month },
-                        is_displayed: true)
-                 .group(:id)
-                 .select('users.*, COUNT(alarms.id) AS alarm_count')
-                 .order('alarm_count DESC')
+    @users = User.take_ranking
   end
 
   private
@@ -92,6 +71,21 @@ class AlarmsController < ApplicationController
       elsif url.include?("youtu.be")
         url.split("/").last.split("?").first
       end
+    end
+
+    def fetch_custom_video_item
+      video_id = extract_video_id_from_url(@alarm.custom_video_url)
+      OpenStruct.new(id: OpenStruct.new(video_id: video_id))
+    end
+
+    def fetch_recommended_video_item
+      query = current_user.set_query
+      search_results = find_videos(query, current_user)
+      filter_viewed_videos(search_results)
+    end
+
+    def filter_viewed_videos(search_results)
+      search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
     end
 
     def alarm_params
