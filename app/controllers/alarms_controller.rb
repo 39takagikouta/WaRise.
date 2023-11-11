@@ -44,14 +44,7 @@ class AlarmsController < ApplicationController
   def recommend
     @alarm = Alarm.find_next_alarm(current_user)
 
-    if @alarm.custom_video_url.present?
-      video_id = extract_video_id_from_url(@alarm.custom_video_url)
-      @item = OpenStruct.new(id: OpenStruct.new(video_id: video_id))
-    else
-      query = current_user.set_query
-      @search_results = find_videos(query, current_user)
-      @item = @search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
-    end
+    @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
 
     unless @item
       redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。'
@@ -78,6 +71,21 @@ class AlarmsController < ApplicationController
       elsif url.include?("youtu.be")
         url.split("/").last.split("?").first
       end
+    end
+
+    def fetch_custom_video_item
+      video_id = extract_video_id_from_url(@alarm.custom_video_url)
+      OpenStruct.new(id: OpenStruct.new(video_id: video_id))
+    end
+
+    def fetch_recommended_video_item
+      query = current_user.set_query
+      search_results = find_videos(query, current_user)
+      filter_viewed_videos(search_results)
+    end
+
+    def filter_viewed_videos(search_results)
+      search_results.items.reject { |item| current_user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
     end
 
     def alarm_params
