@@ -39,6 +39,11 @@ class User < ApplicationRecord
       .order('alarm_count DESC')
   end
 
+  def reset_comedy_tags_and_keywords
+    user_comedy_tags.destroy_all
+    keywords.destroy_all
+  end
+
   def social_profile(provider)
     social_profiles.select { |sp| sp.provider == provider.to_s }.first
   end
