@@ -29,6 +29,16 @@ class User < ApplicationRecord
     query = query_elements.join(" ")
   end
 
+  def self.take_ranking
+    joins(:alarms)
+      .where(alarms: { is_successful: true,
+                       wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month },
+             is_displayed: true)
+      .group(:id)
+      .select('users.*, COUNT(alarms.id) AS alarm_count')
+      .order('alarm_count DESC')
+  end
+
   def social_profile(provider)
     social_profiles.select { |sp| sp.provider == provider.to_s }.first
   end
