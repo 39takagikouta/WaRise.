@@ -29,6 +29,13 @@ class Alarm < ApplicationRecord
     find_by(user_id: user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day, is_successful: nil)
   end
 
+  def self.find_successful_alarms(page)
+    joins(:user)
+      .where(users: { is_displayed: true }, is_successful: true)
+      .reverse_order
+      .page(page)
+  end
+
   def must_be_youtube_url
     return if custom_video_url.blank?
     unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")

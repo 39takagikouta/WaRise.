@@ -42,8 +42,7 @@ class AlarmsController < ApplicationController
   end
 
   def recommend
-    @alarm = Alarm.find_by(user_id: current_user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day,
-                           is_successful: nil)
+    @alarm = Alarm.find_next_alarm(current_user)
 
     if @alarm.custom_video_url.present?
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
@@ -60,10 +59,7 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.joins(:user)
-                   .where(users: { is_displayed: true }, is_successful: true)
-                   .reverse_order
-                   .page(params[:page])
+    @alarms = Alarm.find_successful_alarms(params[:page])
   end
 
   def ranking
