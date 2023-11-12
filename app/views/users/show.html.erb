@@ -2,21 +2,13 @@
   <h1 class="mb-6">アカウント詳細</h1>
   <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
     <div class="flex mb-4 items-center justify-between">
-      <div>
-        <div class="flex mb-2 items-center">
-          <h2 class="mr-2">名前:</h2>
-          <p><%= current_user.name %></p>
-        </div>
-        <div class="flex mb-2 items-center">
-          <h2 class="mr-2">メールアドレス:</h2>
-          <p><%= current_user.email %></p>
-        </div>
+      <div class="flex mb-2 items-center">
+        <h2 class="mr-2">名前:</h2>
+        <p><%= current_user.name %></p>
       </div>
-      <% unless current_user.uid.present? %>
-        <div>
-          <%= link_to "編集する", edit_user_registration_path, class: "btn btn-warning" %>
-        </div>
-      <% end %>
+      <div>
+        <%= link_to "編集する", edit_user_registration_path, class: "btn btn-warning" %>
+      </div>
     </div>
 
     <% if current_user.uid.present? %>
