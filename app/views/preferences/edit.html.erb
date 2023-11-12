@@ -6,7 +6,7 @@
       <%= render 'shared/error_messages', object: f.object %>
 
     <div class="mt-4">
-      <%= f.label :comedy_tag_ids, "タグ（任意）", class: "block text-gray-700" %>
+      <%= f.label :comedy_tag_ids, "タグ（任意）", class: "font-bold" %>
       <%= f.collection_check_boxes :comedy_tag_ids, @comedy_tags, :id, :name do |comedy_tag| %>
         <div class="comedy-tag">
           <%= comedy_tag.check_box checked: @preference_form.comedy_tag_ids.reject(&:blank?).map(&:to_s).include?(comedy_tag.value.to_s) %>
@@ -16,12 +16,12 @@
     </div>
 
     <div class="mt-4">
-      <%= f.label :before_split_keyword_names, "キーワード（、で区切って入力してください）（任意）", class: "block text-gray-700 mt-3" %>
+      <%= f.label :before_split_keyword_names, "キーワード（、で区切って入力してください）（任意）", class: "font-bold mt-3" %>
       <%= f.text_field :before_split_keyword_names, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
     </div>
 
     <div class="mt-4">
-      <%= f.label :video_length, "動画の長さ（任意）", class: "block text-gray-700" %>
+      <%= f.label :video_length, "動画の長さ（任意）", class: "font-bold" %>
       <%= f.select :video_length, User.video_lengths_i18n.invert.map{|key, value| [key, User.video_lengths[value]]} %>
       <br>
     </div>
