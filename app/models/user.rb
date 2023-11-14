@@ -29,7 +29,7 @@ class User < ApplicationRecord
     query = query_elements.join(" ")
   end
 
-  def self.take_ranking
+  def self.set_ranking
     joins(:alarms)
       .where(alarms: { is_successful: true,
                        wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month },
@@ -42,6 +42,38 @@ class User < ApplicationRecord
   def reset_comedy_tags_and_keywords
     user_comedy_tags.destroy_all
     keywords.destroy_all
+  end
+
+  def count_wake_up_this_month
+    alarms.where(is_successful: true, wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month).count
+  end
+
+  def count_total_wake_up
+    alarms.where(is_successful: true).count
+  end
+
+  def count_consecutive_wake_up
+    count = 0
+    today = Time.current.to_date
+    yesterday = 1.day.ago.to_date
+    alarms = self.alarms.order(wake_up_time: :desc)
+    latest_time = alarms.first&.wake_up_time&.to_date
+
+    if latest_time.nil? || (latest_time != today && latest_time != yesterday)
+      return count
+    end
+
+    count += 1
+
+    alarms.each_cons(2) do |prev_alarm, alarm|
+      prev_date = prev_alarm.wake_up_time.to_date
+      date = alarm.wake_up_time.to_date
+      next if prev_date == date
+      break unless prev_date - 1.day == date
+      count += 1
+    end
+
+    count
   end
 
   def social_profile(provider)

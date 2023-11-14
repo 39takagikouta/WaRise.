@@ -55,7 +55,7 @@ class AlarmsController < ApplicationController
   end
 
   def ranking
-    @users = User.take_ranking
+    @users = User.set_ranking
   end
 
   private
