@@ -9,6 +9,7 @@ ja:
       alarm:
         wake_up_time: "起床時刻"
         custom_video_url: "カスタム動画URL"
+        comment: "コメント"
     values:
       user:
         is_displayed:

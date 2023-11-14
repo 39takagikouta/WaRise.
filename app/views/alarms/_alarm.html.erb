@@ -1,10 +1,4 @@
 <div class="p-5 rounded-lg shadow-md bg-slate-100 mb-12">
-  <div class="flex justify-center">
-    <iframe src="https://www.youtube.com/embed/<%= alarm.viewed_video.video_id %>" 
-            width="560" height="200"
-            frameborder="0" allowfullscreen>
-    </iframe>
-  </div>
   
   <div class="mt-5 mb-2">
     <span class="font-bold">ユーザー名:</span> <%= alarm.user.name %>
@@ -12,6 +6,23 @@
   
   <div class="mb-2">
     <span class="font-bold">起床日時:</span> <%= alarm.wake_up_time.strftime("%Y-%m-%d %H:%M") %>
+  </div>
+
+  <div class="mb-2">
+    <span class="font-bold">コメント:</span> <%= alarm.comment %>
+  </div>
+
+  <br>
+  <div class="mb-2">
+    <span class="font-bold">今月の起床成功回数:</span> <%= "#{alarm.user.count_wake_up_this_month}回" %>
+  </div>
+
+  <div class="mb-2">
+    <span class="font-bold">連続起床成功回数:</span> <%= "#{alarm.user.count_consecutive_wake_up}回" %>
+  </div>
+
+  <div class="mb-2">
+    <span class="font-bold">総起床成功回数:</span> <%= "#{alarm.user.count_total_wake_up}回" %>
   </div>
 
   <div class="mt-3 flex items-center justify-end">

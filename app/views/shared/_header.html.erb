@@ -5,14 +5,15 @@
         <i class="fa-regular fa-face-grin-squint-tears"></i> わらいず<i class="fa-regular fa-face-grin-squint-tears"></i>
       <% end %>
     </div>
-    <div class="flex-none px-10">
-      <ul class="menu menu-horizontal px-1">
+    <details class="dropdown dropdown-end px-10">
+      <summary class="m-1 btn-ghost"><i class="fa-solid fa-bars"></i></summary>
+      <ul class="p-2 shadow menu dropdown-content z-[1] rounded-box w-52 bg-orange-300">
         <li><%= link_to "マイページ", mypage_path %></li>
-        <li><%= link_to "早起き一覧", alarms_path %></li>
-        <li><%= link_to "ランキング", ranking_path %></li>
+        <li><%= link_to "みんなの起床成功情報", alarms_path %></li>
+        <li><%= link_to "月間起床成功数ランキング", ranking_path %></li>
         <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
         <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       </ul>
-    </div>
+    </details>
   </div>
 </header>
