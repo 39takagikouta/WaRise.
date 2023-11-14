@@ -1,13 +1,13 @@
 class ViewedVideosController < ApplicationController
   def create
-    @viewed_video = current_user.viewed_videos.new(viewed_video_params)
+    @viewed_video = current_user.viewed_videos.new(video_id: params[:video_id])
 
     return unless @viewed_video.save
 
     case params[:redirect_to]
     when 'mypage'
       @alarm = Alarm.find_by(id: params[:alarm_id])
-      @alarm.update(is_successful: true)
+      update_is_successful_and_comment
       @viewed_video.update(alarm_id: @alarm.id)
       redirect_to mypage_path
     when 'recommend'
@@ -20,7 +20,12 @@ class ViewedVideosController < ApplicationController
 
   private
 
-    def viewed_video_params
-      { video_id: params[:video_id] }
+    def update_is_successful_and_comment
+      @alarm.update(is_successful: true)
+      @alarm.update(alarm_params)
+    end
+
+    def alarm_params
+      params.require(:alarm).permit(:comment)
     end
 end

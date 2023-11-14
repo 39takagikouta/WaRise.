@@ -43,7 +43,6 @@ class AlarmsController < ApplicationController
 
   def recommend
     @alarm = Alarm.find_next_alarm(current_user)
-
     @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
 
     unless @item
