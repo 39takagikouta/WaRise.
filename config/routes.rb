@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'ranking', to: 'alarms#ranking'
   resources :viewed_videos, only: %i[create]
   resources :likes, only: [:create, :destroy]
+  post '/callback', to: 'hoges#callback'
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
