@@ -15,14 +15,16 @@ class Alarm < ApplicationRecord
     where(
       user_id: user.id,
       is_successful: nil
-    ).where("wake_up_time < ?", Time.zone.now - 10.minutes).update_all(is_successful: false)
+    ).where("wake_up_time < ?", 10.minutes.ago).find_each do |alarm|
+      alarm.update(is_successful: false)
+    end
   end
 
   def self.find_last_alarm(user)
     where.not(is_successful: nil)
-         .where(user_id: user.id)
-         .order(wake_up_time: :desc)
-         .first
+      .where(user_id: user.id)
+      .order(wake_up_time: :desc)
+      .first
   end
 
   def self.find_next_alarm(user)

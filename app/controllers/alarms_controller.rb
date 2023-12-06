@@ -11,9 +11,16 @@ class AlarmsController < ApplicationController
     @alarms = Alarm.where(user_id: current_user.id)
   end
 
+  def index
+    @alarms = Alarm.find_successful_alarms(params[:page])
+  end
+
   def new
     @alarm = Alarm.new
     @alarm.wake_up_time = Time.zone.now.tomorrow.beginning_of_day
+  end
+
+  def edit
   end
 
   def create
@@ -23,9 +30,6 @@ class AlarmsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -50,10 +54,6 @@ class AlarmsController < ApplicationController
     end
   end
 
-  def index
-    @alarms = Alarm.find_successful_alarms(params[:page])
-  end
-
   def ranking
     @users = User.set_ranking
   end
@@ -74,7 +74,8 @@ class AlarmsController < ApplicationController
 
     def fetch_custom_video_item
       video_id = extract_video_id_from_url(@alarm.custom_video_url)
-      OpenStruct.new(id: OpenStruct.new(video_id: video_id))
+      item = Struct.new(:id)
+      item.new(Struct.new(:video_id).new(video_id))
     end
 
     def fetch_recommended_video_item

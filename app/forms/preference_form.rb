@@ -35,7 +35,7 @@ class PreferenceForm
     end
 
     def create_comedy_tags_for_user(user)
-      comedy_tag_ids.reject(&:blank?).each do |tag_id|
+      comedy_tag_ids.compact_blank.each do |tag_id|
         user.user_comedy_tags.create!(comedy_tag_id: tag_id)
       end
     end

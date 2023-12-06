@@ -4,7 +4,7 @@ module YoutubeApi
 
   def find_videos(query, user, after: 5.years.ago, before: Time.zone.now)
     service = Google::Apis::YoutubeV3::YouTubeService.new
-    service.key = ENV['YOUTUBE_API_KEY']
+    service.key = ENV.fetch('YOUTUBE_API_KEY', nil)
     service.list_searches(
       :snippet,
       type: "video",

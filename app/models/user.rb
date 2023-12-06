@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
-  validates :is_displayed, presence: :true
+  validates :is_displayed, inclusion: { in: [true, false] }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -32,7 +32,7 @@ class User < ApplicationRecord
   def self.set_ranking
     joins(:alarms)
       .where(alarms: { is_successful: true,
-                       wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month },
+                       wake_up_time: Time.zone.today.all_month },
              is_displayed: true)
       .group(:id)
       .select('users.*, COUNT(alarms.id) AS alarm_count')
@@ -45,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def count_wake_up_this_month
-    alarms.where(is_successful: true, wake_up_time: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month).count
+    alarms.where(is_successful: true, wake_up_time: Time.zone.today.all_month).count
   end
 
   def count_total_wake_up
