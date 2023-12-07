@@ -24,6 +24,7 @@ AllCops:
     - "lib/tasks/auto_annotate_models.rake"
     - "config/environments/*"
     - "config/puma.rb"
+    - "app/controllers/omniauth_callbacks_controller.rb"
 
 ### ルールのカスタマイズ
 
@@ -93,4 +94,13 @@ Rails/LexicallyScopedActionFilter:
   Enabled: false
 
 Performance/Detect:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Lint/UselessAssignment:
   Enabled: false

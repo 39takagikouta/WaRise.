@@ -40,8 +40,7 @@ class Alarm < ApplicationRecord
 
   def must_be_youtube_url
     return if custom_video_url.blank?
-    unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")
-      errors.add(:base, "Youtubeの動画以外は登録できません")
-    end
+
+    errors.add(:base, "Youtubeの動画以外は登録できません") unless custom_video_url.include?("youtube.com") || custom_video_url.include?("youtu.be")
   end
 end

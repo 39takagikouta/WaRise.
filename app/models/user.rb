@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :is_displayed, inclusion: { in: [true, false] }
@@ -9,7 +8,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[line]
-
 
   has_many :alarms, dependent: :destroy
   has_many :user_comedy_tags, dependent: :destroy
@@ -21,12 +19,12 @@ class User < ApplicationRecord
   enum video_length: { any: 0, short: 1, medium: 2, long: 3 }
 
   def set_query
-    tags = self.comedy_tags.pluck(:name)
+    tags = comedy_tags.pluck(:name)
     keywords = self.keywords.pluck(:name)
     query_elements = []
     query_elements.concat(tags) if tags.present?
     query_elements.concat(keywords) if keywords.present?
-    query = query_elements.join(" ")
+    query_elements.join(" ")
   end
 
   def self.set_ranking
@@ -59,9 +57,7 @@ class User < ApplicationRecord
     alarms = self.alarms.order(wake_up_time: :desc)
     latest_time = alarms.first&.wake_up_time&.to_date
 
-    if latest_time.nil? || (latest_time != today && latest_time != yesterday)
-      return count
-    end
+    return count if latest_time.nil? || (latest_time != today && latest_time != yesterday)
 
     count += 1
 
@@ -70,6 +66,7 @@ class User < ApplicationRecord
       date = alarm.wake_up_time.to_date
       next if prev_date == date
       break unless prev_date - 1.day == date
+
       count += 1
     end
 
@@ -82,6 +79,7 @@ class User < ApplicationRecord
 
   def set_values(omniauth)
     return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
+
     credentials = omniauth["credentials"]
     info = omniauth["info"]
 
@@ -94,6 +92,6 @@ class User < ApplicationRecord
 
   def set_values_by_raw_info(raw_info)
     self.raw_info = raw_info.to_json
-    self.save!
+    save!
   end
 end

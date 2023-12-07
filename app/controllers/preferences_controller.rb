@@ -16,21 +16,21 @@ class PreferencesController < ApplicationController
 
   private
 
-    def load_current_user_preferences
-      keywords_names = current_user.keywords.present? ? current_user.keywords.pluck(:name).join('、') : nil
+  def load_current_user_preferences
+    keywords_names = current_user.keywords.present? ? current_user.keywords.pluck(:name).join('、') : nil
 
-      PreferenceForm.new(
-        comedy_tag_ids: current_user.user_comedy_tags.pluck(:comedy_tag_id),
-        before_split_keyword_names: keywords_names,
-        video_length: User.video_lengths[current_user.video_length]
-      )
-    end
+    PreferenceForm.new(
+      comedy_tag_ids: current_user.user_comedy_tags.pluck(:comedy_tag_id),
+      before_split_keyword_names: keywords_names,
+      video_length: User.video_lengths[current_user.video_length]
+    )
+  end
 
-    def preference_params
-      params.require(:preference_form).permit(
-        :before_split_keyword_names,
-        :video_length,
-        comedy_tag_ids: []
-      )
-    end
+  def preference_params
+    params.require(:preference_form).permit(
+      :before_split_keyword_names,
+      :video_length,
+      comedy_tag_ids: []
+    )
+  end
 end
