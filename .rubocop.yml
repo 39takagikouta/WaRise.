@@ -24,7 +24,6 @@ AllCops:
     - "lib/tasks/auto_annotate_models.rake"
     - "config/environments/*"
     - "config/puma.rb"
-    - "app/controllers/omniauth_callbacks_controller.rb"
 
 ### ルールのカスタマイズ
 
