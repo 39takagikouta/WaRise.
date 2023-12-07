@@ -20,12 +20,12 @@ class ViewedVideosController < ApplicationController
 
   private
 
-    def update_is_successful_and_comment
-      @alarm.update(is_successful: true)
-      @alarm.update(alarm_params)
-    end
+  def update_is_successful_and_comment
+    @alarm.update(is_successful: true)
+    @alarm.update(alarm_params)
+  end
 
-    def alarm_params
-      params.require(:alarm).permit(:comment)
-    end
+  def alarm_params
+    params.require(:alarm).permit(:comment)
+  end
 end
