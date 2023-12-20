@@ -41,7 +41,7 @@ class AlarmsController < ApplicationController
 
   def destroy
     @alarm.destroy
-    redirect_to mypage_path, notice: 'アラームが正常に削除されました。'
+    redirect_to mypage_path, notice: 'アラームが正常に削除されました。', status: :see_other
   end
 
   def recommend
