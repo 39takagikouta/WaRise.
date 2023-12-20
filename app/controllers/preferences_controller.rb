@@ -10,7 +10,7 @@ class PreferencesController < ApplicationController
       redirect_to user_path(current_user), notice: '嗜好性が更新されました'
     else
       @comedy_tags = ComedyTag.all
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

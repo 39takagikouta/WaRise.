@@ -27,7 +27,7 @@ class AlarmsController < ApplicationController
     if @alarm.save
       redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class AlarmsController < ApplicationController
     if @alarm.update(alarm_params)
       redirect_to mypage_path, notice: 'アラームが正常に更新されました。'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
