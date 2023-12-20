@@ -19,7 +19,7 @@
         <% end %>
         <div class="flex mt-4 space-x-4">
           <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn btn-warning" %>
-          <%= button_to '削除する', alarm_path(@alarm), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-warning' %>
+          <%= button_to '削除する', alarm_path(@alarm), method: :delete, data: { turbo_confirm: "本当に削除しますか?" }, class: 'btn btn-warning' %>
         </div>
       <% end %>
     <% else %>
