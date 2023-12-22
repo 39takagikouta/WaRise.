@@ -14,7 +14,7 @@ class ViewedVideosController < ApplicationController
       redirect_to recommend_path
     else
       flash[:error] = '不明なリダイレクト先です'
-      redirect_to mypage_path
+      redirect_to mypage_path, status: :unprocessable_entity
     end
   end
 
