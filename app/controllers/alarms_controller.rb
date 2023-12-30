@@ -23,12 +23,12 @@ class AlarmsController < ApplicationController
   def edit; end
 
   def create
-    @alarm = current_user.alarms.new(alarm_params)
-    if @alarm.save
-      redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
-    else
-      render :new, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      params[:alarm].each do |alarm|
+        raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
+      end
     end
+    ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
   end
 
   def update

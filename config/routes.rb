@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'mypage', to: 'alarms#mypage'
   get 'recommend', to: 'alarms#recommend'
   get 'ranking', to: 'alarms#ranking'
+  resources :alarms_forms, only: %i[new create]
   resources :viewed_videos, only: %i[create]
   resources :likes, only: [:create, :destroy]
   post '/callback', to: 'hoges#callback'
