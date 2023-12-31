@@ -18,6 +18,8 @@ module GraduationExam
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.active_job.queue_adapter = :sidekiq
+    config.active_record.default_timezone = :local
 
     # タイムゾーンをTokyo（日本）にする
     config.time_zone = "Tokyo"

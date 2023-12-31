@@ -28,11 +28,13 @@ class AlarmsController < ApplicationController
         raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
       end
     end
-    ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
+    redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
+    # ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
   end
 
   def update
     if @alarm.update(alarm_params)
+      SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
       redirect_to mypage_path, notice: 'アラームが正常に更新されました。'
     else
       render :edit, status: :unprocessable_entity
