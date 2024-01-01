@@ -23,18 +23,37 @@ class AlarmsController < ApplicationController
   def edit; end
 
   def create
-    ActiveRecord::Base.transaction do
-      params[:alarm].each do |alarm|
-        raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
-      end
+    @alarm = current_user.alarms.new(alarm_params)
+    if @alarm.save
+      job = SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
+      @alarm.update(job_id: job.provider_job_id)
+      redirect_to mypage_path
+    else
+      render :new, status: :unprocessable_entity
     end
-    redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
+    # ActiveRecord::Base.transaction do
+    #   params[:alarm].each do |alarm|
+    #     raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
+    #   end
+    # end
+    # redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
     # ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
   end
 
+  # def update
+  #   if @alarm.update(alarm_params)
+  #     SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
+  #     redirect_to mypage_path, notice: 'アラームが正常に更新されました。'
+  #   else
+  #     render :edit, status: :unprocessable_entity
+  #   end
+  # end
+
   def update
     if @alarm.update(alarm_params)
-      SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
+      Sidekiq::ScheduledSet.new.find_job(@alarm.job_id).try(:delete) if @alarm.job_id.present?
+      job = SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
+      @alarm.update(job_id: job.provider_job_id)
       redirect_to mypage_path, notice: 'アラームが正常に更新されました。'
     else
       render :edit, status: :unprocessable_entity
