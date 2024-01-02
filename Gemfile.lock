@@ -84,10 +84,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    chronic (0.10.2)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
-    connection_pool (2.4.1)
     crass (1.0.6)
     cssbundling-rails (1.3.3)
       railties (>= 6.0.0)
@@ -112,16 +110,11 @@ GEM
     enum_help (0.0.19)
       activesupport (>= 3.0.0)
     erubi (1.12.0)
-    et-orbi (1.2.7)
-      tzinfo
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
-    fugit (1.9.0)
-      et-orbi (~> 1, >= 1.2.7)
-      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-core (0.11.2)
@@ -240,7 +233,6 @@ GEM
     public_suffix (5.0.3)
     puma (5.6.7)
       nio4r (~> 2.0)
-    raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
     rack-test (2.1.0)
@@ -278,8 +270,6 @@ GEM
     rdoc (6.5.0)
       psych (>= 4.0.0)
     redis (4.8.1)
-    redis-client (0.19.1)
-      connection_pool
     regexp_parser (2.8.2)
     reline (0.3.9)
       io-console (~> 0.5)
@@ -323,21 +313,10 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    rufus-scheduler (3.9.1)
-      fugit (~> 1.1, >= 1.1.6)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sidekiq (7.2.0)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.14.0)
-    sidekiq-scheduler (5.0.3)
-      rufus-scheduler (~> 3.2)
-      sidekiq (>= 6, < 8)
-      tilt (>= 1.4.0)
     signet (0.18.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -359,7 +338,6 @@ GEM
       railties (>= 6.0.0)
     stringio (3.0.8)
     thor (1.3.0)
-    tilt (2.3.0)
     timeout (0.4.0)
     trailblazer-option (0.1.2)
     turbo-rails (1.5.0)
@@ -383,8 +361,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    whenever (1.0.0)
-      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
@@ -421,15 +397,12 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
-  sidekiq
-  sidekiq-scheduler
   simple_calendar
   sprockets-rails
   stimulus-rails
   turbo-rails
   tzinfo-data
   web-console
-  whenever
 
 RUBY VERSION
    ruby 3.1.0p0
