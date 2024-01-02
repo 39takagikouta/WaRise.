@@ -1,0 +1,14 @@
+<fieldset>
+  <legend>Alarm <%= index + 1 %></legend>
+  <%= form.fields_for "alarms[]", alarm, index: index do |alarm_fields| %>
+    <div>
+      <%= alarm_fields.label :wake_up_time %>
+      <%= alarm_fields.datetime_field :wake_up_time %>
+    </div>
+
+    <div>
+      <%= alarm_fields.label :custom_video_url %>
+      <%= alarm_fields.text_field :custom_video_url %>
+    </div>
+  <% end %>
+</fieldset>

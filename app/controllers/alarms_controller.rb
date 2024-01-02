@@ -17,28 +17,44 @@ class AlarmsController < ApplicationController
 
   def new
     @alarm = Alarm.new
-    @alarm.wake_up_time = Time.zone.now.tomorrow.beginning_of_day
   end
 
   def edit; end
 
   def create
-    @alarm = current_user.alarms.new(alarm_params)
-    if @alarm.save
-      job = SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
-      @alarm.update(job_id: job.provider_job_id)
-      redirect_to mypage_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-    # ActiveRecord::Base.transaction do
-    #   params[:alarm].each do |alarm|
-    #     raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
-    #   end
+    # binding.pry
+    # @alarms = params[:alarm][:alarms].map do |alarm_params|
+    #   binding.pry
+    #   current_user.alarms.new(alarm_params.permit(:wake_up_time, :custom_video_url))
     # end
-    # redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
-    # ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
+    # binding.pry
+
+    if false
+      binding.pry
+      redirect_to alarms_path, notice: 'Alarms were successfully created.'
+    else
+      binding.pry
+      render :new
+    end
   end
+
+  # def create
+  #   @alarm = current_user.alarms.new(alarm_params)
+  #   if @alarm.save
+  #     job = SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
+  #     @alarm.update(job_id: job.provider_job_id)
+  #     redirect_to mypage_path
+  #   else
+  #     render :new, status: :unprocessable_entity
+  #   end
+  # ActiveRecord::Base.transaction do
+  #   params[:alarm].each do |alarm|
+  #     raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
+  #   end
+  # end
+  # redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
+  # ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
+  # end
 
   # def update
   #   if @alarm.update(alarm_params)
@@ -74,6 +90,12 @@ class AlarmsController < ApplicationController
 
   def ranking
     @users = User.set_ranking
+  end
+
+  def new_alarm_fields
+    @index = params[:index].to_i
+    @alarm = Alarm.new
+    render partial: 'alarm_fields', locals: { alarm: @alarm, index: @index }
   end
 
   private
