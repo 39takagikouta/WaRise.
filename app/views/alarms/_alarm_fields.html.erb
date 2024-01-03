@@ -1,0 +1,13 @@
+<div class="bg-slate-200 rounded-lg p-5 my-6">
+  <%= f.fields_for :alarm, alarm, index: index do |alarm_fields| %>
+    <div class="mb-4">
+      <%= alarm_fields.label :wake_up_time, class: "font-bold" %>
+      <%= alarm_fields.datetime_field :wake_up_time, value: ("wakeupTimeValue" unless alarm.wake_up_time), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= alarm_fields.label :custom_video_url, "カスタム動画URL（入力は任意。Youtube動画のurlのみ登録できます。視聴用のurlでも共有用のurlでも対応しています。）", class: "font-bold" %>
+      <%= alarm_fields.text_field :custom_video_url, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+    </div>
+  <% end %>
+</div>
