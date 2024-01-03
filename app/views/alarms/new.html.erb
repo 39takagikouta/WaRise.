@@ -1,8 +1,6 @@
-<%= form_with model: @alarm, url: alarms_path, local: true, id: 'alarms-form' do |form| %>
-  <div id="alarms-fields">
-    <%= render 'alarm_fields', form: form, alarm: Alarm.new, index: 0 %>
+<div class="container mx-auto p-6">
+  <h1 class="alert-info">アラーム新規登録</h1>
+  <div class="bg-white rounded-lg shadow-lg p-6 my-10">
+    <%= render 'new_form', { alarm: @alarm } %>
   </div>
-
-  <%= button_tag 'アラームを追加', type: 'button', id: 'add-alarm-button' %>
-  <%= form.submit "Save Alarms" %>
-<% end %>
+</div>

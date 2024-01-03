@@ -29,7 +29,7 @@
         <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
       <% end %>
       <div class="flex mt-4 space-x-4">
-        <%= link_to "時間を設定する", new_alarm_path, class: "btn btn-warning" %>
+        <%= link_to "時間を設定する", new_alarm_path, class: "btn btn-warning", data: { turbo: false } %>
       </div>
     <% end %>
   </div>

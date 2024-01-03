@@ -1,0 +1,15 @@
+<%= form_with model: alarm, data: { turbo: false } do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div id="alarms-fields">
+    <%= render 'alarm_fields', f: f, alarm: Alarm.new( wake_up_time:Time.zone.now.tomorrow.beginning_of_day ), index: 0 %>
+  </div>
+
+  <div id="alarm-template" style="display: none;">
+    <%= render 'alarm_fields', f: f, alarm: Alarm.new, index: "TEMPLATE_INDEX" %>
+  </div>
+
+  <div class="mt-4">
+    <%= button_tag 'フォームを追加', type: 'button', id: 'add-alarm-button', class: "btn btn-warning" %>
+    <%= f.submit class: "btn btn-warning" %>
+  </div>
+<% end %>

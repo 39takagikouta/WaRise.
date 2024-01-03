@@ -22,48 +22,32 @@ class AlarmsController < ApplicationController
   def edit; end
 
   def create
-    # binding.pry
-    # @alarms = params[:alarm][:alarms].map do |alarm_params|
-    #   binding.pry
-    #   current_user.alarms.new(alarm_params.permit(:wake_up_time, :custom_video_url))
-    # end
-    # binding.pry
+    @alarms = []
+    success = true
 
-    if false
-      binding.pry
-      redirect_to alarms_path, notice: 'Alarms were successfully created.'
+    ActiveRecord::Base.transaction do
+      alarm_data = params[:alarm][:alarm].reject { |k, _| k == "TEMPLATE_INDEX" }
+      alarm_data.each do |_, alarm_attrs|
+        alarm = current_user.alarms.new(alarm_attrs_params(alarm_attrs))
+        @alarms << alarm
+        unless alarm.save
+          success = false
+          raise ActiveRecord::Rollback
+        end
+      end
+    end
+
+    if success
+      @alarms.each do |alarm|
+        job = SendNotificationJob.set(wait_until: alarm.wake_up_time).perform_later(alarm)
+        alarm.update(job_id: job.provider_job_id)
+      end
+      redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
     else
-      binding.pry
+      @alarm = @alarms.find { |a| a.errors.any? } || current_user.alarms.new
       render :new
     end
   end
-
-  # def create
-  #   @alarm = current_user.alarms.new(alarm_params)
-  #   if @alarm.save
-  #     job = SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
-  #     @alarm.update(job_id: job.provider_job_id)
-  #     redirect_to mypage_path
-  #   else
-  #     render :new, status: :unprocessable_entity
-  #   end
-  # ActiveRecord::Base.transaction do
-  #   params[:alarm].each do |alarm|
-  #     raise ActiveRecord::Rollback unless current_user.alarms.create(wake_up_time: alarm[1][:wake_up_time], custom_video_url: alarm[1][:custom_video_url])
-  #   end
-  # end
-  # redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
-  # ここに、もし全てのアラームの保存が成功していたらmypage_pathへリダイレクト、一つでもバリデーションに引っ掛かっていたらnewをレンダーする処理を記載
-  # end
-
-  # def update
-  #   if @alarm.update(alarm_params)
-  #     SendNotificationJob.set(wait_until: @alarm.wake_up_time).perform_later(@alarm)
-  #     redirect_to mypage_path, notice: 'アラームが正常に更新されました。'
-  #   else
-  #     render :edit, status: :unprocessable_entity
-  #   end
-  # end
 
   def update
     if @alarm.update(alarm_params)
@@ -130,5 +114,9 @@ class AlarmsController < ApplicationController
 
   def alarm_params
     params.require(:alarm).permit(:wake_up_time, :custom_video_url)
+  end
+
+  def alarm_attrs_params(alarm_attrs)
+    alarm_attrs.permit(:wake_up_time, :custom_video_url)
   end
 end
