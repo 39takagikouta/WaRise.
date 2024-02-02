@@ -13,8 +13,8 @@ ja:
     values:
       user:
         is_displayed:
-          true: "はい"
-          false: "いいえ"
+          true: "表示する"
+          false: "表示しない"
       alarm:
         is_successful:
           true: "起床成功"

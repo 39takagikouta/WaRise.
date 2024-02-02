@@ -1,62 +1,69 @@
-<div class="container mx-auto p-6 h-screen">
-  <h1 class="mb-6">アカウント詳細</h1>
-  <div class="bg-white rounded-lg shadow-lg p-6 mb-10">
-    <div class="flex mb-4 items-center justify-between">
+<div class="container mx-auto p-6">
+  <h1 class="my-14 text-center">アカウント詳細</h1>
+
+  <div class="bg-white rounded-lg shadow-lg px-6 py-10 mb-10">
+    <div class="flex flex-col md:flex-row justify-between mb-14">
       <div class="flex mb-2 items-center">
         <h2 class="mr-2">名前:</h2>
         <p><%= current_user.name %></p>
       </div>
-      <div>
-        <%= link_to "編集する", edit_user_registration_path, class: "btn btn-warning" %>
+      <div class="mt-4 md:mt-0">
+        <%= link_to "編集する", edit_user_registration_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base" %>
       </div>
     </div>
 
-    <% if current_user.uid.present? %>
-      <div class="mb-4 items-center">
-        <div class="mb-2 items-center">
-          <h2 class="mr-2">LINE公式アカウント（LINEログインのかたは、本アカウントを追加することでアラーム設定時間に通知を受け取ることができます）:</h2>
-          <img src="https://qr-official.line.me/gs/M_482oswus_GW.png?oat_content=qr" class="w-32 h-32">
-        </div>
-      </div>
-    <% end %>
+    <div class="mb-14">
+      <h2 class="mb-1">LINE公式アカウント</h2>
+      <p class="text-xs md:text-sm">本アカウントから通知を送信します。<br/>QRコードからでもボタンからでも登録できます。</p>
+      <br/>
+      <p class="font-semibold">QRコード</p>
+      <img src="https://qr-official.line.me/gs/M_482oswus_GW.png?oat_content=qr">
+      <br/>
+      <p class="font-semibold">登録ボタン</p>
+      <a href="https://lin.ee/rFKp6k9" class="inline-block mt-2">
+        <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" class="h-10 md:h-12">
+      </a>
+    </div>
 
-    <div class="flex mb-4 items-center justify-between">
+    <div class="flex flex-col md:flex-row justify-between mt-10">
       <div>
-        <h2 class="mr-2">お笑い嗜好性</h2>
-        <div class="flex mb-2 items-center">
-          <h3 class="mr-2">タグ:</h3>
+        <h2>お笑い嗜好性</h2>
+        <div class="flex mt-4 mb-2 items-center">
+          <p class="mx-2 font-semibold text-sm md:text-base">タグ:</p>
           <% if current_user.comedy_tags.any? %>
-            <p><%= current_user.comedy_tags.map(&:name).join('、') %></p>
+            <p class="text-sm md:text-base"><%= current_user.comedy_tags.map(&:name).join('、') %></p>
           <% else %>
-            <p>登録なし</p>
+            <p class="text-sm md:text-base">登録なし</p>
           <% end %>
         </div>
 
         <div class="flex mb-2 items-center">
-          <h3 class="mr-2">自由記述:</h3>
+          <p class="mx-2 font-semibold text-sm md:text-base">自由記述:</p>
           <% if current_user.keywords.any? %>
-            <p><%= current_user.keywords.map(&:name).join('、') %></p>
+            <p class="text-sm md:text-base"><%= current_user.keywords.map(&:name).join('、') %></p>
           <% else %>
-            <p>登録なし</p>
+            <p class="text-sm md:text-base">登録なし</p>
           <% end %>
         </div>
 
         <div class="flex mb-2 items-center">
-          <h3 class="mr-2">動画の時間:</h3>
-          <p><%= current_user.video_length_i18n %></p>
+          <p class="mx-2 font-semibold text-sm md:text-base">動画の時間:</p>
+          <p class="text-sm md:text-base"><%= current_user.video_length_i18n %></p>
         </div>
       </div>
-      <div>
-      <%= link_to '編集する', edit_preference_path, class: "btn btn-warning" %>
+      <div class="mt-4 md:mt-0 md:pt-24">
+        <%= link_to '編集する', edit_preference_path(current_user), class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base" %>
       </div>
     </div>
 
-    <%# <div class="flex mb-4 items-center justify-between">
-      <div class="flex mb-2 items-center">
-        <h2 class="mr-2">一覧画面とランキングに自身を表示しますか？:</h2>
-        <p><%= t(current_user.is_displayed, scope: 'activerecord.values.user.is_displayed') %></p>
-      <%# </div>
-      <%= link_to (current_user.is_displayed ? '「いいえ」に変更する' : '「はい」に変更する'), toggle_display_path, class: "btn btn-warning" %>
-    <%# </div> %>
+    <div class="flex flex-col md:flex-row justify-between mt-10">
+      <div class="mt-4 mb-2 items-center">
+        <p class="font-bold md:text-xl">「みんなの起床情報」に自身を表示しますか？</p>
+        <p class="mx-2 mt-2 text-sm md:text-base"><%= t(current_user.is_displayed, scope: 'activerecord.values.user.is_displayed') %></p>
+      </div>
+      <div class="mt-2 md:mt-0 md:pt-12">
+        <%= link_to (current_user.is_displayed ? '変更' : '変更'), toggle_display_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base" %>
+      </div>
+    </div>
   </div>
 </div>
