@@ -25,9 +25,9 @@
         <%= image_tag("logo.png", class: "h-9 sm:h-14") %>
       <% end %>      
     </div>
-    <details class="dropdown dropdown-end px-4">
-      <summary class="m-1 btn btn-ghost"><i class="fa-solid fa-bars"></i></summary>
-      <ul class="p-2 shadow menu dropdown-content z-[1] rounded-box w-52 bg-yellow-300">
+    <details class="dropdown dropdown-end">
+      <summary class="m-2 btn btn-ghost"><%= image_tag(current_user.image, alt: 'LINEアイコン', class: "h-10 md:h-12 rounded-full") %></summary>
+      <ul class="md:p-2 shadow menu dropdown-content z-[1] rounded-box w-52 bg-yellow-300">
         <li>
           <%= link_to mypage_path, class: "text-xs sm:text-sm md:text-base font-semibold text-gray-700" do %>
             <i class="fa-regular fa-clock mr-1"></i>マイページ
@@ -35,7 +35,7 @@
         </li>
         <li>
           <%= link_to alarms_path, class: "text-xs sm:text-sm md:text-base font-semibold text-gray-700" do %>
-            <i class="fa-solid fa-people-group"></i>みんなの<br/>起床成功情報
+            <i class="fa-solid fa-people-group"></i>みんなの<br class="hidden md:block">起床成功情報
           <% end %>
         </li>
         <li>

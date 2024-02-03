@@ -14,6 +14,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         @profile = current_user || User.create!(provider: @omniauth["provider"], uid: @omniauth["uid"], email:,
                                                 name: @omniauth["info"]["name"], image: @omniauth["info"]["image"], password: Devise.friendly_token[0, 20])
       end
+
+      if existing && (@profile.name != @omniauth["info"]["name"] || @profile.image != @omniauth["info"]["image"])
+        @profile.update(
+          name: @omniauth["info"]["name"],
+          image: @omniauth["info"]["image"]
+        )
+      end
+
       @profile.set_values(@omniauth)
       sign_in(:user, @profile)
     end
