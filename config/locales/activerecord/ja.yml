@@ -6,6 +6,7 @@ ja:
       user:
         email: "メールアドレス"
         password: "パスワード"
+        image: "アバター"
       alarm:
         wake_up_time: "起床時刻"
         custom_video_url: "カスタム動画URL"
@@ -13,8 +14,8 @@ ja:
     values:
       user:
         is_displayed:
-          true: "はい"
-          false: "いいえ"
+          true: "表示する"
+          false: "表示しない"
       alarm:
         is_successful:
           true: "起床成功"

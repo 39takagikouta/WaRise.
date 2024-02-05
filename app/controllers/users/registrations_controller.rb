@@ -20,9 +20,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if @user.update(user_params)
+      redirect_to user_path(current_user), notice: 'プロフィールを更新しました'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -46,6 +50,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     user_path(resource)
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :image, :image_cache)
   end
 
   # def after_sign_up_path_for(_resource)

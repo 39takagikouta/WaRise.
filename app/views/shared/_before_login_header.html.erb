@@ -1,15 +1,14 @@
+<!--
 <header>
-  <div class="navbar bg-orange-300">
+  <div class="navbar bg-white">
     <div class="flex-1 px-10">
-      <%= link_to root_path, class: "btn btn-ghost normal-case text-xl" do %>
-        <i class="fa-regular fa-face-grin-squint-tears"></i> わらいず<i class="fa-regular fa-face-grin-squint-tears"></i>
+      <%= image_tag("logo.png") %>
+      <%= link_to root_path, class: "btn btn-ghost normal-case text-xl text-slate-600" do %>  
+        わらいず
       <% end %>
     </div>
-    <%# <div class="px-10">
-      <%= button_to omniauth_authorize_path(:user, :line), data: { turbo: false } do %>
-        <%# <%= image_tag("small_btn_login_base.png") %> 
-      <%# <% end %> 
-    <%# </div> %> 
+    -->
+
     <!--
     <details class="dropdown dropdown-end px-10">
       <summary class="m-1 btn btn-ghost"><i class="fa-solid fa-bars"></i></summary>
@@ -22,5 +21,22 @@
       </ul>
     </details>
     -->
+  <%# </div>
+</header> %>
+
+<header>
+  <div class="navbar bg-yellow-300 px-4 md:px-8 lg:px-12 py-2">
+    <div class="flex-1">
+      <%= link_to root_path, class: "flex items-center" do %>  
+        <%= image_tag("logo.png", class: "h-9 sm:h-14") %>
+      <% end %>      
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal p-0">
+        <li>
+          <%= link_to "みんなの起床情報", alarms_path, class: "text-xs sm:text-sm md:text-base font-semibold text-gray-700 hover:text-gray-900 p-2 sm:p-3" %>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>

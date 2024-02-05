@@ -1,0 +1,26 @@
+<div class="container mx-auto p-6">
+  <h1 class="my-8 md:my-14 text-center">初期設定</h1>
+
+  <div class="bg-white rounded-lg shadow-lg px-6 py-10 mb-10">
+
+    <div>
+      <h2 class="mb-1">・LINE公式アカウント登録</h2>
+      <p class="text-xs md:text-sm">本アカウントから通知を送信します。<br/>QRコードからでもボタンからでも登録できます。<br/>いつでも確認できます。</p>
+      <br/>
+      <p class="font-semibold">QRコード</p>
+      <img src="https://qr-official.line.me/gs/M_482oswus_GW.png?oat_content=qr">
+      <br/>
+      <p class="font-semibold">登録ボタン</p>
+      <a href="https://lin.ee/rFKp6k9" class="inline-block mt-2">
+        <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" class="h-10 md:h-12">
+      </a>
+    </div>
+    
+    <div class=" mt-20">
+      <h2 class="mb-1">・お笑い嗜好性登録</h2>
+      <p class=" text-xs md:text-sm">①選択されたタグ<br/>②入力されたキーワード<br/>③動画の長さ<br/>に基づいてお笑い動画をレコメンドします。<br/>いつでも修正できます。</p>
+      <%= render 'form', preference_form: @preference_form, url: preferences_url, method: :post, comedy_tags: @comedy_tags %>
+    </div>
+
+  </div>
+</div>

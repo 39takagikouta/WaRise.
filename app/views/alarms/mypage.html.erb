@@ -1,4 +1,4 @@
-<div class="background-image mx-auto p-6">
+<div class="mx-auto p-6">
   <h1 class="alert-info ml-20">マイページ</h1>
 
   <div class="ml-20">
@@ -10,7 +10,7 @@
     <% if @alarm %>
       <% if Time.zone.now >= @alarm.wake_up_time && Time.zone.now <= @alarm.wake_up_time + 10.minutes %>
         <p class="text-lg">おはようございます!起床時刻となりました。10分以内に動画の視聴を開始してください。</p>
-        <%= link_to "動画を視聴する", recommend_path, class: "btn btn-warning" %>
+        <%= link_to "動画を視聴する", recommend_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded" %>
       <% else %>
         <% if @alarm.wake_up_time.to_date == Time.zone.tomorrow %>
           <p class="text-lg">明日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
@@ -18,8 +18,8 @@
           <p class="text-lg">今日の起床時刻は<%= @alarm.wake_up_time.strftime("%H:%M") %>に設定されています。</p>
         <% end %>
         <div class="flex mt-4 space-x-4">
-          <%= link_to "編集する", edit_alarm_path(@alarm), class: "btn btn-warning" %>
-          <%= button_to '削除する', alarm_path(@alarm), method: :delete, data: { turbo_confirm: "本当に削除しますか?" }, class: 'btn btn-warning' %>
+          <%= link_to "編集する", edit_alarm_path(@alarm), class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded" %>
+          <%= button_to '削除する', alarm_path(@alarm), method: :delete, data: { turbo_confirm: "本当に削除しますか?" }, class: 'bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded' %>
         </div>
       <% end %>
     <% else %>
@@ -29,7 +29,7 @@
         <p class="text-lg">明日の起床時刻がまだ設定されていません</p>
       <% end %>
       <div class="flex mt-4 space-x-4">
-        <%= link_to "時間を設定する", new_alarm_path, class: "btn btn-warning", data: { turbo: false } %>
+        <%= link_to "時間を設定する", new_alarm_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded", data: { turbo: false } %>
       </div>
     <% end %>
   </div>
