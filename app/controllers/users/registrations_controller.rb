@@ -53,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def user_params
-    params.require(:user).permit(:name, :image)
+    params.require(:user).permit(:name, :image, :image_cache)
   end
 
   # def after_sign_up_path_for(_resource)
