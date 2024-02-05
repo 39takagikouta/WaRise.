@@ -3,13 +3,19 @@
 
 <div class="bg-white rounded-lg shadow-lg px-6 pt-6 pb-10 mb-10">
   <div class="mb-10">
-    <h2 class="mb-1">プロフィール</h2>
-    <p class="mb-4 text-xs md:text-sm">LINEの名前とアイコンの変更が反映されます。</p>
-    <div class="flex flex-col items-center md:items-start">
-      <%= image_tag(current_user.image, alt: 'LINEアイコン', class: "h-40 md:h-60 rounded-full mb-2") %>
-      <div class="flex justify-center">
-        <p class="md:ml-14 font-semibold text-sm md:text-base">名前：</p>
-        <p class="text-sm md:text-base"><%= current_user.name %></p>
+    <h2 class="mb-4">プロフィール</h2>
+    <div class="flex flex-col md:flex-row justify-between">
+      <div class="flex flex-col items-center md:items-start">
+        <% if current_user.image? %>
+          <%= image_tag(current_user.image_url, alt: 'LINEアイコン', class: "h-40 w-40 md:h-60 md:w-60 rounded-full mb-2 object-cover object-center") %>
+        <% end %>
+        <div class="flex justify-center">
+          <p class="md:ml-14 font-semibold text-sm md:text-base">名前：</p>
+          <p class="text-sm md:text-base"><%= current_user.name %></p>
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+      <%= link_to "編集する", edit_user_registration_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base mt-4 md:m-30" %>
       </div>
     </div>
   </div>

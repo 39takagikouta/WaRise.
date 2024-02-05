@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   enum video_length: { any: 0, short: 1, medium: 2, long: 3 }
 
+  mount_uploader :image, ImageUploader
+
   def set_query
     tags = comedy_tags.pluck(:name)
     keywords = self.keywords.pluck(:name)

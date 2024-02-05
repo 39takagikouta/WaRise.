@@ -26,7 +26,7 @@
       <% end %>      
     </div>
     <details class="dropdown dropdown-end">
-      <summary class="m-2 btn btn-ghost"><%= image_tag(current_user.image, alt: 'LINEアイコン', class: "h-10 md:h-12 rounded-full") %></summary>
+      <summary class="m-2 btn btn-ghost"><%= image_tag(current_user.image_url, alt: 'LINEアイコン', class: "h-12 w-12 rounded-full object-cover object-center") %></summary>
       <ul class="md:p-2 shadow menu dropdown-content z-[1] rounded-box w-52 bg-yellow-300">
         <li>
           <%= link_to mypage_path, class: "text-xs sm:text-sm md:text-base font-semibold text-gray-700" do %>
