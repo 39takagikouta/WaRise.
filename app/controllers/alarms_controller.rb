@@ -69,7 +69,7 @@ class AlarmsController < ApplicationController
     @alarm = Alarm.find_next_alarm(current_user)
     @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
 
-    redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。' unless @item
+    redirect_to mypage_path, alert: '設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。' unless @item
   end
 
   def ranking
@@ -98,8 +98,9 @@ class AlarmsController < ApplicationController
 
   def fetch_custom_video_item
     video_id = extract_video_id_from_url(@alarm.custom_video_url)
-    item = Struct.new(:id)
-    item.new(Struct.new(:video_id).new(video_id))
+    video_detail = fetch_video_detail(video_id)
+    item = Struct.new(:id, :snippet)
+    item = item.new(Struct.new(:video_id).new(video_id), Struct.new(:thumbnails).new(Struct.new(:high).new(Struct.new(:url).new(video_detail.snippet.thumbnails.high.url))))
   end
 
   def fetch_recommended_video_item

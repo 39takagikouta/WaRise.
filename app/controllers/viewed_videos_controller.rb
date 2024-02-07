@@ -1,6 +1,6 @@
 class ViewedVideosController < ApplicationController
   def create
-    @viewed_video = current_user.viewed_videos.new(video_id: params[:video_id])
+    @viewed_video = current_user.viewed_videos.new(video_id: params[:video_id], thumbnail: params[:thumbnail])
 
     return unless @viewed_video.save
 
@@ -8,7 +8,7 @@ class ViewedVideosController < ApplicationController
     when 'mypage'
       @alarm = Alarm.find_by(id: params[:alarm_id])
       update_is_successful_and_comment
-      @viewed_video.update(alarm_id: @alarm.id)
+      @viewed_video.update(alarm_id: @alarm.id, thumbnail: params[:thumbnail])
       redirect_to mypage_path
     when 'recommend'
       redirect_to recommend_path
