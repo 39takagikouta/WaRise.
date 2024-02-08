@@ -1,41 +1,48 @@
-<div class="p-5 rounded-lg shadow-md bg-white mb-12">
+<div class="p-5 rounded-lg shadow-md bg-white mb-8">
+  <div class="mb-2">
+    <%= image_tag(alarm.viewed_video.thumbnail) %>
+    <p class="my-2"><%= alarm.viewed_video.title %></p>
+  </div>
   
-  <div class="mt-5 mb-2">
-    <span class="font-bold">ユーザー名:</span> <%= alarm.user.name %>
-  </div>
-  
-  <div class="mb-2">
-    <span class="font-bold">起床日時:</span> <%= alarm.wake_up_time.strftime("%Y-%m-%d %H:%M") %>
-  </div>
+  <div class="flex flex-row justify-between my-3 items-center">
+    <div class="flex">
+      <%= image_tag(alarm.user.image_url, alt: 'LINEアイコン', class: "h-8 w-8 md:h-10 md:w-10 rounded-full object-cover object-center") %>
+      <p class="mt-1 md:mt-2">&nbsp;&nbsp;<%= alarm.user.name %></p>
+    </div>
 
-  <div class="mb-2">
-    <span class="font-bold">コメント:</span> <%= alarm.comment %>
-  </div>
-
-  <br>
-  <div class="mb-2">
-    <span class="font-bold">今月の起床成功回数:</span> <%= "#{alarm.user.count_wake_up_this_month}回" %>
-  </div>
-
-  <div class="mb-2">
-    <span class="font-bold">連続起床成功回数:</span> <%= "#{alarm.user.count_consecutive_wake_up}回" %>
-  </div>
-
-  <div class="mb-2">
-    <span class="font-bold">総起床成功回数:</span> <%= "#{alarm.user.count_total_wake_up}回" %>
-  </div>
-
-  <div class="mt-3 flex items-center justify-end">
     <div class="flex items-center">
-      <% like = user_signed_in? && current_user.likes.exists?(alarm_id: alarm.id) %>
-      <% disabled = !user_signed_in? || current_user&.id == alarm.user_id %>
+      <% unless user_signed_in? %>      
+        <i class="fa-regular fa-heart"></i>
+      <% else %>
+        <% like = current_user.likes.exists?(alarm_id: alarm.id) %>
 
-      <%= button_to (like ? like_path(alarm.id) : likes_path(alarm_id: alarm.id)),
-                    method: (like ? :delete : :post),
-                    disabled: disabled do %>
-        <i class="<%= like ? 'fa-solid' : 'fa-regular' %> fa-heart"></i>
+        <%= button_to (like ? like_path(alarm.id) : likes_path(alarm_id: alarm.id)),
+                      method: (like ? :delete : :post) do %>
+          <i class="<%= like ? 'fa-solid' : 'fa-regular' %> fa-heart"></i>
+        <% end %>
       <% end %>
       <span class="ml-2"><%= alarm.likes.count %></span>
     </div>
   </div>
+
+  <div class="mb-1 ml-1">
+    <i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;<%= l alarm.wake_up_time, format: :long %>
+  </div>
+
+  <div class="mb-1 ml-1">
+    <i class="fa-solid fa-sun"></i>&nbsp;今月の起床成功回数:&nbsp;<%= "#{alarm.user.count_wake_up_this_month}回" %>
+  </div>
+
+  <div class="ml-1">
+    <i class="fa-solid fa-comment"></i>&nbsp;<%= alarm.comment %>
+  </div>
+
+  <!-- <div class="mb-1">
+    <span class="font-bold">連続起床成功回数:</span> <%= "#{alarm.user.count_consecutive_wake_up}回" %>
+  </div>
+
+  <div class="mb-1">
+    <span class="font-bold">総起床成功回数:</span> <%= "#{alarm.user.count_total_wake_up}回" %>
+  </div>
+  -->
 </div>

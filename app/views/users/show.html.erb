@@ -9,9 +9,9 @@
           <% if current_user.image? %>
             <%= image_tag(current_user.image_url, alt: 'LINEアイコン', class: "h-40 w-40 md:h-60 md:w-60 rounded-full mb-2 object-cover object-center") %>
           <% end %>
-          <div class="flex justify-center">
-            <p class="md:ml-14 font-semibold text-sm md:text-base">名前：</p>
-            <p class="text-sm md:text-base"><%= current_user.name %></p>
+          <div class="flex justify-center md:ml-14">
+            <i class="fa-solid fa-user"></i>
+            <p class="text-sm md:text-base">&nbsp;&nbsp;<%= current_user.name %></p>
           </div>
         </div>
         <div class="flex flex-col items-center">

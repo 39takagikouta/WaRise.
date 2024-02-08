@@ -100,7 +100,9 @@ class AlarmsController < ApplicationController
     video_id = extract_video_id_from_url(@alarm.custom_video_url)
     video_detail = fetch_video_detail(video_id)
     item = Struct.new(:id, :snippet)
-    item = item.new(Struct.new(:video_id).new(video_id), Struct.new(:thumbnails).new(Struct.new(:high).new(Struct.new(:url).new(video_detail.snippet.thumbnails.high.url))))
+    item = item.new(Struct.new(:video_id).new(video_id), Struct.new(:thumbnails, :title))
+    item.snippet = item.snippet.new(Struct.new(:high).new(Struct.new(:url).new(video_detail.snippet.thumbnails.high.url)), video_detail.snippet.title)
+    item
   end
 
   def fetch_recommended_video_item
