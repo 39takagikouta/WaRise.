@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :preferences, only: %i[new create edit update]
   resources :alarms, only: %i[new create edit update destroy index]
   get 'mypage', to: 'alarms#mypage'
+  get 'day_alarms/:date', to: 'alarms#day_alarms', as: :day_alarms
   get 'recommend', to: 'alarms#recommend'
   get 'ranking', to: 'alarms#ranking'
   resources :alarms_forms, only: %i[new create]

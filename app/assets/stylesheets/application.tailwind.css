@@ -135,3 +135,7 @@ h3 {
 .gap {
   background-color: white !important;
 }
+
+.text-xxs {
+  font-size: 8px;
+}
