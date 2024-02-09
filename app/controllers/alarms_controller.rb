@@ -6,9 +6,10 @@ class AlarmsController < ApplicationController
 
   def mypage
     Alarm.set_false_to_is_successful(current_user)
-    @last_alarm = Alarm.find_last_alarm(current_user)
-    @alarm = Alarm.find_next_alarm(current_user)
-    @alarms = Alarm.where(user_id: current_user.id)
+    # @last_alarm = Alarm.find_last_alarm(current_user)
+    # @alarm = Alarm.find_next_alarm(current_user)
+    @today_alarms = Alarm.where(user_id: current_user.id, wake_up_time: Time.zone.today.all_day).order(wake_up_time: :asc)
+    @tomorrow_alarms = Alarm.where(user_id: current_user.id, wake_up_time: Time.zone.tomorrow.all_day).order(wake_up_time: :asc)
   end
 
   def index

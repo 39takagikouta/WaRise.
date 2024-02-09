@@ -1,0 +1,24 @@
+<div class="<%= 'bg-gray-500 relative' if today_alarm.wake_up_time + 10.minutes < Time.current %> p-5 rounded-lg shadow-md bg-white mb-3 flex justify-between items-center">
+  <div class="items-center z-10">
+    <p class="font-bold text-lg"><i class="fa-solid fa-bell mr-4"></i><%= l(today_alarm.wake_up_time, format: :time) %></p>
+    <% if today_alarm.custom_video_url.present? %>
+      <p>カスタムビデオ有</p>
+    <% end %>
+  </div>
+
+  <% if Time.current >= today_alarm.wake_up_time && today_alarm.wake_up_time + 10.minutes > Time.current %>
+    <div class="z-10">
+      <p class="mb-2 text-xs md:text-sm">起床時刻になりました</p>
+      <%= link_to "動画を視聴する", recommend_path, class: "bg-red-500 hover:bg-red-600 font-bold py-2 px-4 rounded" %>
+    </div>
+  <% elsif today_alarm.wake_up_time + 10.minutes < Time.current %>
+    <div class="absolute inset-0 bg-gray-200 opacity-75 flex justify-center items-center z-0">
+      <span class="text-gray-700 font-bold text-xs md:text-base">設定時刻が過ぎました</span>
+    </div>
+  <% else %>
+    <div class="flex z-10">
+      <%= link_to "編集", edit_alarm_path(today_alarm), class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-1 px-2 md:py-2 md:px-4 rounded mr-2" %>
+      <%= button_to '削除', alarm_path(today_alarm), method: :delete, data: { turbo_confirm: "本当に削除しますか?" }, class: 'bg-yellow-300 hover:bg-yellow-400 font-bold py-1 px-2 md:py-2 md:px-4 rounded' %>
+    </div>
+  <% end %>
+</div>
