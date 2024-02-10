@@ -1,4 +1,4 @@
-<div class="<%= 'bg-gray-500 relative' if today_alarm.wake_up_time + 10.minutes < Time.current %> p-5 rounded-lg shadow-md bg-white mb-3 flex justify-between items-center">
+<div class="<%= 'relative' if today_alarm.is_successful == false || today_alarm.is_successful == true %><%= 'bg-red-300' if Time.current >= today_alarm.wake_up_time && today_alarm.wake_up_time + 10.minutes > Time.current && today_alarm.is_successful == nil %> p-5 rounded-lg shadow-md bg-white mb-3 flex justify-between items-center">
   <div class="items-center z-10">
     <p class="font-bold text-lg"><i class="fa-solid fa-bell mr-4"></i><%= l(today_alarm.wake_up_time, format: :time) %></p>
     <% if today_alarm.custom_video_url.present? %>
@@ -6,14 +6,18 @@
     <% end %>
   </div>
 
-  <% if Time.current >= today_alarm.wake_up_time && today_alarm.wake_up_time + 10.minutes > Time.current %>
+  <% if Time.current >= today_alarm.wake_up_time && today_alarm.wake_up_time + 10.minutes > Time.current && today_alarm.is_successful == nil %>
     <div class="z-10">
       <p class="mb-4 text-xs md:text-sm">起床時刻になりました</p>
       <%= link_to "動画を視聴する", recommend_path, class: "bg-red-500 hover:bg-red-600 font-bold py-3 px-5 md:py-4 md:px-6 rounded mb-2" %>
     </div>
-  <% elsif today_alarm.wake_up_time + 10.minutes < Time.current %>
-    <div class="absolute inset-0 bg-gray-200 opacity-75 flex justify-center items-center z-0">
+  <% elsif today_alarm.is_successful == false %>
+    <div class="absolute inset-0 bg-gray-400 opacity-75 flex justify-center items-center z-0">
       <span class="text-gray-700 font-bold text-xs md:text-base">設定時刻が過ぎました</span>
+    </div>
+  <% elsif today_alarm.is_successful == true %>
+    <div class="absolute inset-0 bg-blue-300 opacity-75 flex justify-center items-center z-0">
+      <span class="text-gray-700 font-bold text-xs md:text-base">起床成功しました！</span>
     </div>
   <% else %>
     <div class="flex z-10">
