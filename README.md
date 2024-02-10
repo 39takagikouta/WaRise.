@@ -1,4 +1,4 @@
-# WaRise. / 「お笑い」と「アラーム」を掛け合わせた、早起き促進サービス
+# WaRise. / 「お笑い」と「アラーム」を合わせた、早起き促進サービス
 
 [![Image from Gyazo](https://i.gyazo.com/ab8cdb15bf50035e6c816fd4e9acff35.jpg)](https://gyazo.com/ab8cdb15bf50035e6c816fd4e9acff35)
 
@@ -30,13 +30,13 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a>
+      <a href="https://gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733"><img src="https://i.gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733.gif" alt="Image from Gyazo" width="372"/></a>
       アラームの時刻になったらLINEで通知をします。<br/>
       10分以内に、あなたの嗜好に合わせてレコメンドされたお笑い動画を視聴しましょう（表示される動画を選ぶこともできます）。<br/>
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。
     </td>
     <td>
-      <a href="https://gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733"><img src="https://i.gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733.gif" alt="Image from Gyazo" width="372"/></a>
+      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a>
       他のユーザーの起床情報を一覧で確認することができます（自信を非表示にすることも可能）。<br/>
       仲間の頑張りを見てモチベーションを上げましょう！
     </td>
