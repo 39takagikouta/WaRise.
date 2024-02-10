@@ -1,0 +1,12 @@
+<div class="p-5 rounded-lg shadow-md bg-white mb-3 flex justify-between items-center">
+  <div class="items-center">
+    <p class="font-bold text-lg"><i class="fa-solid fa-bell mr-4"></i><%= l tomorrow_alarm.wake_up_time, format: :time %></p>
+    <% if tomorrow_alarm.custom_video_url.present? %>
+      <p>カスタムビデオ有</p>
+    <% end %>
+  </div>
+  <div class="flex">
+    <%= link_to "編集", edit_alarm_path(tomorrow_alarm), class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-1 px-2 md:py-2 md:px-4 rounded mr-2" %>
+    <%= button_to '削除', alarm_path(tomorrow_alarm), method: :delete, data: { turbo_confirm: "本当に削除しますか?" }, class: 'bg-yellow-300 hover:bg-yellow-400 font-bold py-1 px-2 md:py-2 md:px-4 rounded' %>
+  </div>
+</div>

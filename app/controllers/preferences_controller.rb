@@ -22,7 +22,7 @@ class PreferencesController < ApplicationController
   def update
     @preference_form = PreferenceForm.new(preference_params)
     if @preference_form.save(@preference_form, current_user)
-      redirect_to user_path(current_user), notice: '嗜好性が更新されました'
+      redirect_to user_path(current_user), notice: 'お笑い嗜好性が更新されました'
     else
       @comedy_tags = ComedyTag.all
       render :edit, status: :unprocessable_entity

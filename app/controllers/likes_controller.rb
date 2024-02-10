@@ -6,6 +6,6 @@ class LikesController < ApplicationController
 
   def destroy
     current_user.likes.find_by(alarm_id: params[:id]).destroy
-    redirect_back(fallback_location: root_path) # status: :see_other
+    redirect_back(fallback_location: root_path)
   end
 end

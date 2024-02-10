@@ -6,8 +6,8 @@ class AlarmsController < ApplicationController
 
   def mypage
     Alarm.set_false_to_is_successful(current_user)
-    @last_alarm = Alarm.find_last_alarm(current_user)
-    @alarm = Alarm.find_next_alarm(current_user)
+    @today_alarms = Alarm.where(user_id: current_user.id, wake_up_time: Time.zone.today.all_day).order(wake_up_time: :asc)
+    @tomorrow_alarms = Alarm.where(user_id: current_user.id, wake_up_time: Time.zone.tomorrow.all_day).order(wake_up_time: :asc)
     @alarms = Alarm.where(user_id: current_user.id)
   end
 
@@ -69,7 +69,12 @@ class AlarmsController < ApplicationController
     @alarm = Alarm.find_next_alarm(current_user)
     @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
 
-    redirect_to mypage_path, alert: '申し訳ありません。設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。検索ワードか時間、またはその両方を変更してください。' unless @item
+    redirect_to mypage_path, alert: '設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。' unless @item
+  end
+
+  def day_alarms
+    @date = Date.parse(params[:date])
+    @day_alarms = current_user.alarms.where(wake_up_time: @date.all_day)
   end
 
   def ranking
@@ -98,8 +103,11 @@ class AlarmsController < ApplicationController
 
   def fetch_custom_video_item
     video_id = extract_video_id_from_url(@alarm.custom_video_url)
-    item = Struct.new(:id)
-    item.new(Struct.new(:video_id).new(video_id))
+    video_detail = fetch_video_detail(video_id)
+    item = Struct.new(:id, :snippet)
+    item = item.new(Struct.new(:video_id).new(video_id), Struct.new(:thumbnails, :title))
+    item.snippet = item.snippet.new(Struct.new(:high).new(Struct.new(:url).new(video_detail.snippet.thumbnails.high.url)), video_detail.snippet.title)
+    item
   end
 
   def fetch_recommended_video_item

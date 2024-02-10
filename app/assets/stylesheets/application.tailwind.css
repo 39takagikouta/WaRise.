@@ -17,7 +17,7 @@ h3 {
 }
 
 .background-image {
-  background-image: url("alarm_and_comedy.png");
+  background-image: url("background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -47,7 +47,7 @@ h3 {
   border-top: 0px none rgb(51, 51, 51);
   box-sizing: border-box;
   text-align: left;
-  @apply text-black bg-orange-300;
+  @apply text-black bg-yellow-300;
 }
 
 .simple-calendar td {
@@ -134,4 +134,8 @@ h3 {
 
 .gap {
   background-color: white !important;
+}
+
+.text-xxs {
+  font-size: 8px;
 }
