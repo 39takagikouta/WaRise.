@@ -86,8 +86,8 @@ https://twitter.com/YA3lrpq2PnRc3ge
 
 ## ER 図
 
-![er-diagram](https://raw.githubusercontent.com/keynyaan/hayabusatrip-frontend/main/public/images/diagrams/er-diagram.png)
-
-## 画面遷移図
-
 [![Image from Gyazo](https://i.gyazo.com/004bf0655ab8b0290322e3b4635b5725.png)](https://gyazo.com/004bf0655ab8b0290322e3b4635b5725)
+
+## 画面遷移図のリンク
+
+https://www.figma.com/file/ZReC0nwGyNlWT20LhTTk2Q/graduation_exam-%E3%82%8F%E3%82%89%E3%81%84%E3%81%9A?type=design&node-id=0%3A1&mode=design&t=vJTmHqRe6zAULy6k-1
