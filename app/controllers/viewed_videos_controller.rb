@@ -9,9 +9,9 @@ class ViewedVideosController < ApplicationController
       @alarm = Alarm.find_by(id: params[:alarm_id])
       update_is_successful_and_comment
       @viewed_video.update(alarm_id: @alarm.id)
-      redirect_to mypage_path
+      redirect_to mypage_path, notice: 'おめでとうございます！明日のアラームを設定しましょう！'
     when 'recommend'
-      redirect_to recommend_path, notice: 'おめでとうございます！明日のアラームを設定しましょう！'
+      redirect_to recommend_path
     else
       flash[:error] = '不明なリダイレクト先です'
       redirect_to mypage_path, status: :unprocessable_entity
