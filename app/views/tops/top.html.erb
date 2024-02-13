@@ -1,80 +1,95 @@
-<div class="relative flex flex-col py-16 lg:pt-0 lg:flex-col lg:pb-0 bg-white">
-  <div class="flex flex-col items-start w-full max-w-xl px-4 mx-auto lg:px-8 lg:max-w-screen-xl">
-    <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
-      <div class="max-w-xl mb-6">
-        <h2 class="max-w-lg mb-6 font-sans text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-          「アラーム」×「お笑い」で、<br/>憂鬱な朝を変えましょう
-        </h2>
-        <p class="text-base text-gray-700 md:text-lg mb-10">
-          WaRise.（わらいず）は、設定時間に起床すると、ご褒美としてお笑い動画をレコメンドしてくれる、早起き促進アラームアプリです。
-        </p>
-      </div>
-      <% unless user_signed_in? %>
-        <%= button_to omniauth_authorize_path(:user, :line), data: { turbo: false } do %>
-          <%= image_tag("btn_login_base.png") %>
+<div class="bg-white">
+  <div class="alert alert-error">
+    <p class="text-xs md:text-sm font-semibold">シークレットモードではログインできない可能性があるので、通常モードに戻してからご使用ください。</p>
+  </div>
+
+  <div class="relative flex flex-col py-16 lg:pt-0 lg:flex-col lg:pb-0 bg-white">
+    <div class="flex flex-col items-start w-full max-w-xl px-4 mx-auto lg:px-8 lg:max-w-screen-xl">
+      <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+        <div class="max-w-xl mb-6">
+          <h2 class="max-w-lg mb-6 font-sans text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+            「アラーム」×「お笑い」で、<br/>憂鬱な朝を変えましょう
+          </h2>
+          <p class="text-base text-gray-700 md:text-lg mb-10">
+            WaRise.（わらいず）は、設定時間に起床すると、ご褒美としてお笑い動画をレコメンドしてくれる、早起き促進アラームアプリです。
+          </p>
+        </div>
+        <% unless user_signed_in? %>
+          <%= button_to omniauth_authorize_path(:user, :line), data: { turbo: false } do %>
+            <%= image_tag("btn_login_base.png") %>
+          <% end %>
+        <% else %>
+          <%= link_to "マイページへ", mypage_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded" %>
         <% end %>
-      <% else %>
-        <%= link_to "マイページへ", mypage_path, class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-4 px-6 rounded" %>
-      <% end %>
+      </div>
+    </div>
+    <div class="inset-y-0 right-0 w-full max-w-xl px-4 mx-auto lg:pl-8 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
+      <%= image_tag("alarm_and_comedy.png", class: "object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none sm:h-96 lg:h-full") %>
     </div>
   </div>
-  <div class="inset-y-0 right-0 w-full max-w-xl px-4 mx-auto lg:pl-8 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
-    <%= image_tag("alarm_and_comedy.png", class: "object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none sm:h-96 lg:h-full") %>
-  </div>
-</div>
 
-<div class="bg-yellow-100">
-  <div class="flex justify-center items-center pt-20 text-lg font-semibold">使い方は超簡単！</div>
-  <div class="flex justify-center items-center">
-    <%= image_tag("logo.png", class: "h-14") %>
-    <h2 class="text-3xl">の機能</h2>
-  </div>
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-32"> 
-    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-20">
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
-              <i class="fa-solid fa-clock"></i>
-            </div>
-            アラーム機能
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">アラームの時刻になったら公式LINEで通知をします。<br/>10分以内に、あなたの嗜好に合わせてレコメンドされたお笑い動画を視聴しましょう（表示される動画を選ぶことも可能）。<br/>以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。</dd>
-        </div>
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
-              <i class="fa-solid fa-people-group"></i>
-            </div>
-            みんなの起床情報
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>仲間の頑張りを見てモチベーションを上げましょう！</dd>
-        </div>
-        <div class="relative pl-16 pr-2 pb-2">
-          <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
-            <span class="text-white font-semibold">In Progress...</span>
+  <div class="bg-yellow-100">
+    <div class="flex justify-center items-center pt-20 text-lg font-semibold">使い方は超簡単！</div>
+    <div class="flex justify-center items-center">
+      <%= image_tag("logo.png", class: "h-14") %>
+      <h2 class="text-3xl">の機能</h2>
+    </div>
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 pb-32"> 
+      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+        <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-20">
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              アラーム機能
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">アラームの時刻になったら公式LINEアカウントで通知をします。<br/>10分以内にアラームページから、あなたの嗜好に合わせてレコメンドされたお笑い動画を視聴しましょう（表示される動画を選ぶことも可能）。<br><span class="text-red-500">※LINE通知を受け取るにはLINEログインに加え、公式アカウントの友達登録が必要です。</span></dd>
           </div>
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
-              <i class="fa-solid fa-chart-simple"></i>
-            </div>
-            一週間の振り返りLINE通知
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">毎週日曜、あなたの一週間の起床情報の振り返りをLINEに送ります。</dd>
-        </div>
-        <div class="relative pl-16 pr-2 pb-2">
-          <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
-            <span class="text-white font-semibold">In Progress...</span>
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
+                <i class="fa-solid fa-calendar"></i>
+              </div>
+              カレンダー機能
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。<br/>あさって以降のアラームはカレンダーから編集できます。</dd>
           </div>
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
-              <i class="fa-solid fa-book"></i>
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
+                <i class="fa-solid fa-people-group"></i>
+              </div>
+              みんなの起床情報
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>仲間の頑張りを見てモチベーションを上げましょう！</dd>
+          </div>
+          <div class="relative pl-16 pr-2 pb-2">
+            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
+              <span class="text-white font-semibold">In Progress...</span>
             </div>
-            コラム
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">本アプリの効果を実感できるような、睡眠やお笑いに関するコラムを不定期で更新します。<br/>また、それをLINEで通知します。</dd>
-        </div>
-      </dl>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
+                <i class="fa-solid fa-chart-simple"></i>
+              </div>
+              一週間の振り返りLINE通知
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">毎週日曜、あなたの一週間の起床情報の振り返りをLINEに送ります。</dd>
+          </div>
+          <div class="relative pl-16 pr-2 pb-2">
+            <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center">
+              <span class="text-white font-semibold">In Progress...</span>
+            </div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-300">
+                <i class="fa-solid fa-book"></i>
+              </div>
+              コラム
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">本アプリの効果を実感できるような、睡眠やお笑いに関するコラムを不定期で更新します。<br/>また、それをLINEで通知します。</dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </div>
 </div>

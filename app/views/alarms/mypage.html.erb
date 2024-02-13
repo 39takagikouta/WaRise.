@@ -1,5 +1,5 @@
-<div class="container mx-auto pb-10">
-  <h1 class="my-8 md:my-10 text-center">マイページ</h1>
+<div class="container mx-auto p-6">
+  <div class="my-8 md:my-10">
   <div data-controller="tabs" data-tabs-active-tab-class="-mb-px border-l border-t border-r rounded-t">
     <div class="flex justify-end">
       <ul class="list-reset flex border-b">
@@ -37,6 +37,7 @@
     </div>
     <div class="hidden border" data-tabs-target="panel">
       <div class="bg-white">
+        <p class="text-sm md:text-base p-3 md:p-5 font-semibold md:font-bold">各日付をタップすることで、その日のアラームを確認、編集できます。</p>
         <%= month_calendar(events: @alarms) do |date, alarms| %>
           <div class="hover:bg-gray-100">
             <%= link_to day_alarms_path(date), class: "block hover:bg-gray-100" do %>
@@ -64,7 +65,8 @@
       </div> 
     </div>
   </div>
-  <%= link_to new_alarm_path, class: "fixed bottom-6 right-6 md:right-24 md:bottom-auto md:top-28 bg-yellow-300 hover:bg-yellow-400 p-4 rounded-full border border-black", data: { turbo: false } do %>
+  </div>
+  <%= link_to new_alarm_path, class: "fixed bottom-28 right-6 md:right-12 md:bottom-auto md:top-28 bg-yellow-300 hover:bg-yellow-400 p-4 rounded-full border border-black", data: { turbo: false } do %>
     <i class="fa-solid fa-plus"></i>
   <% end %>
 </div>
