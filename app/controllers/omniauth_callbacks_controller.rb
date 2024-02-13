@@ -1,6 +1,10 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line = basic_action
 
+  def failure
+    redirect_to root_path, alert: 'LINEログインに失敗しました。'
+  end
+
   private
 
   def basic_action
@@ -26,14 +30,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       @profile.set_values(@omniauth)
       sign_in(:user, @profile)
-    end
 
-    if existing
-      flash[:notice] = "ログインしました。"
-      redirect_to mypage_path
+      if existing
+        flash[:notice] = "ログインしました。"
+        redirect_to mypage_path
+      else
+        flash[:notice] = "新規登録が完了しました。"
+        redirect_to new_preference_path
+      end
     else
-      flash[:notice] = "新規登録が完了しました。"
-      redirect_to new_preference_path(current_user)
+      failure
     end
   end
 
