@@ -1,6 +1,6 @@
 # WaRise. / 「お笑い」と「アラーム」を合わせた、早起き促進サービス
 
-[![Image from Gyazo](https://i.gyazo.com/ab8cdb15bf50035e6c816fd4e9acff35.jpg)](https://gyazo.com/ab8cdb15bf50035e6c816fd4e9acff35)
+![Alt text](image-3.png)
 
 ## サービス概要
 
