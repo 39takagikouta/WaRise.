@@ -11,13 +11,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @omniauth = request.env["omniauth.auth"]
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
-      existing = false
-      existing = true if @profile.persisted?
+      existing = @profile.persisted?
       if @profile.email.blank?
         email = @omniauth["info"]["email"] || "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
         @profile = current_user || User.create!(provider: @omniauth["provider"], uid: @omniauth["uid"], email:,
                                                 name: @omniauth["info"]["name"], password: Devise.friendly_token[0, 20])
-        @profile.remote_image_url = @omniauth["info"]["image"]
+        image_url = @omniauth["info"]["image"].presence || "app/assets/images/default.png"
+        @profile.remote_image_url = image_url
+
         @profile.save
       end
 
