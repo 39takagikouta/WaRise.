@@ -9,7 +9,7 @@
   <% if Time.current >= today_alarm.wake_up_time && today_alarm.wake_up_time + 10.minutes > Time.current && today_alarm.is_successful == nil %>
     <div class="z-10">
       <p class="mb-4 text-xs md:text-sm">起床時刻になりました</p>
-      <%= link_to "動画を視聴する", recommend_path, class: "bg-red-500 hover:bg-red-600 font-bold py-3 px-5 md:py-4 md:px-6 rounded mb-2" %>
+      <%= link_to "動画を視聴する", recommend_alarm_path(today_alarm), class: "bg-red-500 hover:bg-red-600 font-bold py-3 px-5 md:py-4 md:px-6 rounded mb-2" %>
     </div>
   <% elsif today_alarm.is_successful == false %>
     <div class="absolute inset-0 bg-gray-400 opacity-75 flex justify-center items-center z-0">
