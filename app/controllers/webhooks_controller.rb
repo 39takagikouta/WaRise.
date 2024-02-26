@@ -14,18 +14,13 @@ class WebhooksController < ApplicationController
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     return head :bad_request unless client.validate_signature(body, signature)
 
-    binding.pry
-
     events = client.parse_events_from(body)
     events.each do |event|
       message = case event
                 when Line::Bot::Event::Message
                   { type: 'text', text: parse_message_type(event) }
-                else
-                  "トークイベントちゃう"
                 end
-      binding.pry
-      client.reply_message(event['replyToken'], message)
+      client.reply_message(event['replyToken'], message) if message
     end
     head :ok
   end
@@ -37,35 +32,41 @@ class WebhooksController < ApplicationController
     when Line::Bot::Event::MessageType::Text
       reaction_text(event)
     else
-      "テキストメッセージちゃう"
+      "アラームの時刻や起床報告等の、決まった文言のみ受け取ることができます。"
     end
   end
 
   def reaction_text(event)
+    return "ユーザーが見つかりません。公式サイトからLINEログインをしてアカウントを登録してください。" unless User.find_by(uid: event['source']['userId'])
+
     if event.message['text'].scan(/\d{8}/).any?
       alarm_strings = event.message['text'].split("\n")
       alarms = []
-      binding.pry
+      message = "以下のアラームを作成しました！\n\n"
       alarm_strings.each do |alarm_string|
-        binding.pry
         if alarm_string.match?(/^\d{8}$/)
           month = alarm_string[0..1].to_i
           day = alarm_string[2..3].to_i
           hour = alarm_string[4..5].to_i
           minute = alarm_string[6..7].to_i
-          alarms << { wake_up_time: Time.zone.local(Time.current.year, month, day, hour, minute), custom_video_url: nil }
+          alarms << { wake_up_time: Time.zone.local(Time.current.year, month, day, hour, minute), custom_video_url: nil } if Date.valid_date?(Time.current.year, month, day) && hour.between?(0, 23) && minute.between?(0, 59)
         elsif alarm_string.include?("youtube.com") || alarm_string.include?("youtu.be")
           alarms.last[:custom_video_url] = alarm_string unless alarms.empty?
         end
       end
-      binding.pry
-      alarms.each do |alarm|
-        Alarm.create(wake_up_time: alarm[:wake_up_time], custom_video_url: alarm[:custom_video_url], user_id: User.find_by(uid: event['source']['userId']).id)
+      if alarms.empty?
+        "登録できませんでした。送信された数字が存在する時刻を表しているか確認してください。"
+      else
+        alarms.each do |alarm|
+          new_alarm = Alarm.create!(wake_up_time: alarm[:wake_up_time], custom_video_url: alarm[:custom_video_url], user_id: User.find_by(uid: event['source']['userId']).id)
+          job = SendNotificationJob.set(wait_until: new_alarm.wake_up_time).perform_later(new_alarm)
+          new_alarm.update(job_id: job.provider_job_id)
+          message += "#{l alarm[:wake_up_time], format: :short} #{alarm[:custom_video_url].present? ? '動画あり' : '動画なし'}\n"
+        end
+        message
       end
-      binding.pry
-      "設定完了"
     else
-      "アラーム設定用の文言ちゃう"
+      "アラームの時刻や起床報告等の、決まった文言のみ受け取ることができます。"
     end
   end
 end
