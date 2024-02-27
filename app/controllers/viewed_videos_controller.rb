@@ -12,6 +12,7 @@ class ViewedVideosController < ApplicationController
       redirect_to mypage_path, notice: 'おめでとうございます！明日のアラームを設定しましょう！'
     when 'recommend'
       redirect_to recommend_alarm_path(params[:alarm])
+      binding.pry
     else
       flash[:error] = '不明なリダイレクト先です'
       redirect_to mypage_path, status: :unprocessable_entity
