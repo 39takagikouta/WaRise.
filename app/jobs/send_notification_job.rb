@@ -9,7 +9,7 @@ class SendNotificationJob < ApplicationJob
 
     message = {
       type: 'text',
-      text: "#{alarm.user.name}さん、おはようございます！\n\n設定したアラームの時刻となりました！\n\n公式ページから動画を視聴してください\n公式ページURL\nhttps://wa-rise.com/"
+      text: "#{alarm.user.name}さん、おはようございます！\n\n設定したアラームの時刻となりました！\n\n公式ページから動画を視聴してください\nhttps://wa-rise.com/"
     }
     response = client.push_message(alarm.user.uid, message)
     p response

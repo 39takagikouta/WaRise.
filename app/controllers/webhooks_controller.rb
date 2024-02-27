@@ -1,5 +1,6 @@
 class WebhooksController < ApplicationController
   require 'line/bot'
+  include YoutubeApi
   skip_before_action :authenticate_user!
   protect_from_forgery except: :callback
 
@@ -60,7 +61,6 @@ class WebhooksController < ApplicationController
         "登録できませんでした。送信された数字が存在する時刻を表しているか確認してください。"
       else
         alarms.each do |alarm|
-          binding.pry
           new_alarm = Alarm.create!(wake_up_time: alarm[:wake_up_time], custom_video_url: alarm[:custom_video_url], user_id: user.id)
           job = SendNotificationJob.set(wait_until: new_alarm.wake_up_time).perform_later(new_alarm)
           new_alarm.update(job_id: job.provider_job_id)
@@ -68,9 +68,9 @@ class WebhooksController < ApplicationController
         end
         message
       end
-    elsif event.message['text'] == "アラーム一覧"
+
+    elsif event.message['text'] == "今日、明日のアラーム"
       message = "今日のアラーム\n"
-      binding.pry
       today_alarms = Alarm.where(user_id: user.id, wake_up_time: Time.zone.now.all_day).order(:wake_up_time)
       tomorrow_alarms = Alarm.where(user_id: user.id, wake_up_time: Time.zone.tomorrow.all_day).order(:wake_up_time)
       if today_alarms.any?
@@ -105,8 +105,48 @@ class WebhooksController < ApplicationController
         message += "なし\n"
       end
       message
+
+    elsif event.message['text'] == "起床"
+      alarm = Alarm.find_by(wake_up_time: (10.minutes.ago)..Time.zone.now, user_id: user.id)
+      if alarm
+        binding.pry
+        item = alarm.custom_video_url.present? ? fetch_custom_video_item(alarm) : fetch_recommended_video_item(user)
+        return "設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。" unless item
+
+        "おはようございます！\n下記が本日の動画です。\nhttps://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
+      else
+        "10分前から現在時刻の間の時間で設定されたアラームがありません。"
+      end
+
     else
       "アラームの時刻や起床報告等の、決まった文言のみ受け取ることができます。"
     end
+  end
+
+  def fetch_custom_video_item(alarm)
+    video_id = extract_video_id_from_url(alarm.custom_video_url)
+    video_detail = fetch_video_detail(video_id)
+    item = Struct.new(:id, :snippet)
+    item = item.new(Struct.new(:video_id).new(video_id), Struct.new(:thumbnails, :title))
+    item.snippet = item.snippet.new(Struct.new(:high).new(Struct.new(:url).new(video_detail.snippet.thumbnails.high.url)), video_detail.snippet.title)
+    item
+  end
+
+  def fetch_recommended_video_item(user)
+    query = user.set_query
+    search_results = find_videos(query, user)
+    filter_viewed_videos(search_results, user)
+  end
+
+  def extract_video_id_from_url(url)
+    if url.include?("youtube.com")
+      url.split("v=").last.split("&").first
+    elsif url.include?("youtu.be")
+      url.split("/").last.split("?").first
+    end
+  end
+
+  def filter_viewed_videos(search_results, user)
+    search_results.items.reject { |item| user.viewed_videos.pluck(:video_id).include?(item.id.video_id) }.first
   end
 end
