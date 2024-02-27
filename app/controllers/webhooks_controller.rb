@@ -40,8 +40,6 @@ class WebhooksController < ApplicationController
   def reaction_text(event)
     return "ユーザーが見つかりません。公式サイトからLINEログインをしてアカウントを登録してください。" unless user = User.find_by(uid: event['source']['userId'])
 
-    Alarm.set_false_to_is_successful(user)
-
     if event.message['text'].scan(/\d{8}/).any?
       alarm_strings = event.message['text'].split("\n")
       alarms = []
@@ -70,6 +68,7 @@ class WebhooksController < ApplicationController
       end
 
     elsif event.message['text'] == "今日、明日のアラーム"
+      Alarm.set_false_to_is_successful(user)
       message = "今日のアラーム\n"
       today_alarms = Alarm.where(user_id: user.id, wake_up_time: Time.zone.now.all_day).order(:wake_up_time)
       tomorrow_alarms = Alarm.where(user_id: user.id, wake_up_time: Time.zone.tomorrow.all_day).order(:wake_up_time)
@@ -114,7 +113,6 @@ class WebhooksController < ApplicationController
 
         alarm.update!(is_recommended_on_line: true)
         user.viewed_videos.create!(video_id: item.id.video_id, thumbnail: item.snippet.thumbnails.high.url, title: item.snippet.title)
-        binding.pry
         "おはようございます！\n下記が本日の動画です。\nhttps://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
 
       else
@@ -134,8 +132,15 @@ class WebhooksController < ApplicationController
         "まだ今日の動画をレコメンドしていません。"
       end
 
-    # elsif event.message['text'] == "視聴完了"
-    #   alarm = Alarm.where(is_recommended_on_line: true, is_successful: nil, user_id: user.id).order(wake_up_time: :desc).
+    elsif event.message['text'] == "視聴完了"
+      alarm = Alarm.where(is_recommended_on_line: true, is_successful: nil, user_id: user.id).order(wake_up_time: :desc).first
+      if alarm
+        user.viewed_videos.last.update!(alarm_id: alarm.id)
+        alarm.update!(is_successful: true)
+        "おめでとうございます！\n忘れないうちに明日のアラームをセットしましょう！"
+      else
+        "まだ今日の動画をレコメンドしていません。"
+      end
 
     else
       "アラームの時刻や起床報告等の、決まった文言のみ受け取ることができます。"
