@@ -111,7 +111,6 @@ class WebhooksController < ApplicationController
         item = alarm.custom_video_url.present? ? fetch_custom_video_item(alarm) : fetch_recommended_video_item(user)
         return "設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。" unless item
 
-        binding.pry
         alarm.update!(is_recommended_on_line: true)
         user.viewed_videos.create!(video_id: item.id.video_id, thumbnail: item.snippet.thumbnails.high.url, title: item.snippet.title)
         "おはようございます！\n下記が本日の動画です。\nhttps://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
@@ -134,7 +133,6 @@ class WebhooksController < ApplicationController
       end
 
     elsif event.message['text'] == "視聴完了"
-      binding.pry
       alarm = Alarm.where(is_recommended_on_line: true, is_successful: nil, user_id: user.id).order(wake_up_time: :desc).first
       if alarm
         user.viewed_videos.last.update!(alarm_id: alarm.id)
