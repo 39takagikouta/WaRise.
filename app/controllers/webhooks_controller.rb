@@ -106,11 +106,12 @@ class WebhooksController < ApplicationController
       message
 
     elsif event.message['text'] == "起床"
-      alarm = Alarm.find_by(wake_up_time: (10.minutes.ago)..Time.zone.now, user_id: user.id)
+      alarm = Alarm.where(wake_up_time: (10.minutes.ago)..Time.zone.now, user_id: user.id, is_successful: nil).order(wake_up_time: :desc).first
       if alarm
         item = alarm.custom_video_url.present? ? fetch_custom_video_item(alarm) : fetch_recommended_video_item(user)
         return "設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。" unless item
 
+        binding.pry
         alarm.update!(is_recommended_on_line: true)
         user.viewed_videos.create!(video_id: item.id.video_id, thumbnail: item.snippet.thumbnails.high.url, title: item.snippet.title)
         "おはようございます！\n下記が本日の動画です。\nhttps://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
@@ -126,21 +127,25 @@ class WebhooksController < ApplicationController
         return "設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。" unless item
 
         user.viewed_videos.create!(video_id: item.id.video_id, thumbnail: item.snippet.thumbnails.high.url, title: item.snippet.title)
-        "おはようございます！\n下記が本日の動画です。\nhttps://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
+        "https://www.youtube.com/embed/#{item.id.video_id}\n動画を視聴後、「視聴完了」ボタンを押して下さい。\nもし他の動画が見たい場合は、「他の動画」ボタンを押して下さい。"
 
       else
         "まだ今日の動画をレコメンドしていません。"
       end
 
     elsif event.message['text'] == "視聴完了"
+      binding.pry
       alarm = Alarm.where(is_recommended_on_line: true, is_successful: nil, user_id: user.id).order(wake_up_time: :desc).first
       if alarm
         user.viewed_videos.last.update!(alarm_id: alarm.id)
         alarm.update!(is_successful: true)
-        "おめでとうございます！\n忘れないうちに明日のアラームをセットしましょう！"
+        "おめでとうございます！\n起床情報が保存されました。\n忘れないうちに明日のアラームをセットしましょう！"
       else
         "まだ今日の動画をレコメンドしていません。"
       end
+
+    elsif event.message['text'] == "アラーム作成" || event.message['text'] == "使い方"
+      nil
 
     else
       "アラームの時刻や起床報告等の、決まった文言のみ受け取ることができます。"
