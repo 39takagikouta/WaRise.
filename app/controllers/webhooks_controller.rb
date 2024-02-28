@@ -64,6 +64,7 @@ class WebhooksController < ApplicationController
           new_alarm.update(job_id: job.provider_job_id)
           message += "#{l alarm[:wake_up_time], format: :short} #{alarm[:custom_video_url].present? ? '動画選択' : ''}\n"
         end
+        message.chomp!
         message
       end
 
@@ -103,6 +104,7 @@ class WebhooksController < ApplicationController
       else
         message += "なし\n"
       end
+      message.chomp!
       message
 
     elsif event.message['text'] == "起床"
