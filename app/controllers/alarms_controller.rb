@@ -1,5 +1,5 @@
 class AlarmsController < ApplicationController
-  before_action :set_alarm, only: [:edit, :update, :destroy]
+  before_action :set_alarm, only: [:edit, :update, :destroy, :recommend]
   skip_before_action :authenticate_user!, only: [:index, :ranking]
 
   include YoutubeApi
@@ -66,9 +66,7 @@ class AlarmsController < ApplicationController
   end
 
   def recommend
-    @alarm = Alarm.find_next_alarm(current_user)
     @item = @alarm.custom_video_url.present? ? fetch_custom_video_item : fetch_recommended_video_item
-
     redirect_to mypage_path, alert: '設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。' unless @item
   end
 

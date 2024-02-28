@@ -27,9 +27,9 @@ class Alarm < ApplicationRecord
       .first
   end
 
-  def self.find_next_alarm(user)
-    find_by(user_id: user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day, is_successful: nil)
-  end
+  # def self.find_next_alarm(user)
+  #   find_by(user_id: user.id, wake_up_time: Time.zone.today.beginning_of_day..Time.zone.tomorrow.end_of_day, is_successful: nil)
+  # end
 
   def self.find_successful_alarms(page)
     joins(:user)

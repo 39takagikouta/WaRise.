@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_083322) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_172219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_083322) do
     t.bigint "bootcamp_id"
     t.string "comment"
     t.string "job_id"
+    t.boolean "is_recommended_on_line", default: false
     t.index ["bootcamp_id"], name: "index_alarms_on_bootcamp_id"
     t.index ["job_id"], name: "index_alarms_on_job_id", unique: true
     t.index ["user_id"], name: "index_alarms_on_user_id"

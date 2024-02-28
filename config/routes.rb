@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   resources :alarms, only: %i[new create edit update destroy index]
   get 'mypage', to: 'alarms#mypage'
   get 'day_alarms/:date', to: 'alarms#day_alarms', as: :day_alarms
-  get 'recommend', to: 'alarms#recommend'
+  get 'alarm/:id/recommend', to: 'alarms#recommend', as: 'recommend_alarm'
   get 'ranking', to: 'alarms#ranking'
   resources :alarms_forms, only: %i[new create]
   resources :viewed_videos, only: %i[create]
   resources :likes, only: [:create, :destroy]
-  post '/callback', to: 'hoges#callback'
+  post '/callback', to: 'webhooks#callback'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
