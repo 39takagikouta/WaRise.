@@ -122,7 +122,7 @@ class WebhooksController < ApplicationController
     elsif event.message['text'] == "他の動画"
       alarm = Alarm.where(is_recommended_on_line: true, is_successful: nil, user_id: user.id).order(wake_up_time: :desc).first # このコード要修正
       if alarm
-        item = alarm.custom_video_url.present? ? fetch_custom_video_item(alarm) : fetch_recommended_video_item(user)
+        item = fetch_recommended_video_item(user)
         return "設定していただいた検索ワードと動画の時間でレコメンドできる動画が無くなりました。嗜好性を変更してください。" unless item
 
         user.viewed_videos.create!(video_id: item.id.video_id, thumbnail: item.snippet.thumbnails.high.url, title: item.snippet.title)
@@ -166,7 +166,9 @@ class WebhooksController < ApplicationController
   end
 
   def extract_video_id_from_url(url)
-    if url.include?("youtube.com")
+    if url.include?("youtube.com/embed")
+      url.split("/").last
+    elsif url.include?("youtube.com")
       url.split("v=").last.split("&").first
     elsif url.include?("youtu.be")
       url.split("/").last.split("?").first
