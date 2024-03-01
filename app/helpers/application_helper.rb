@@ -14,6 +14,12 @@ module ApplicationHelper
     end
   end
 
+  def page_title(page_title = '')
+    base_title = 'WaRise.'
+
+    page_title.empty? ? base_title : page_title + ' | ' + base_title
+  end
+
   def default_meta_tags
     {
       site: 'WaRise.',
@@ -33,11 +39,11 @@ module ApplicationHelper
         image: image_url('ogp.png'),
         local: 'ja-JP'
       },
-      # Twitter用の設定を個別で設定する
+
       twitter: {
-        card: 'summary_large_image', # Twitterで表示する場合は大きいカードにする
-        site: '@YA3lrpq2PnRc3ge', # アプリの公式Twitterアカウントがあれば、アカウント名を書く
-        image: image_url('ogp.png') # 配置するパスやファイル名によって変更すること
+        card: 'summary_large_image',
+        site: '@YA3lrpq2PnRc3ge',
+        image: image_url('ogp.png')
       }
     }
   end
