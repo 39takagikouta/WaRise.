@@ -40,6 +40,11 @@ https://twitter.com/YA3lrpq2PnRc3ge
       他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>
       仲間の頑張りを見てモチベーションを上げましょう！
     </td>
+    <td>
+      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a>
+      他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>
+      仲間の頑張りを見てモチベーションを上げましょう！
+    </td>
   </tr>
 </table>
 

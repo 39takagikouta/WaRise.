@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :likes, only: [:create, :destroy]
   post '/callback', to: 'webhooks#callback'
 
+  get '*path', to: 'application#render_404'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
