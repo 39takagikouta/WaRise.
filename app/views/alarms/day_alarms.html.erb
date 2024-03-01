@@ -1,6 +1,6 @@
 <div class="container mx-auto pb-10">
   <h1 class="my-8 md:my-10 text-center text-sm md:text-base"><%= l @date, format: :long %>のアラーム一覧</h1>
-  <div class="px-4 py-6 md:mx-80">
+  <div class="px-4 py-6 lg:mx-80">
     <% if @day_alarms.any? %>
       <%= render partial: 'today_alarm', collection: @day_alarms, as: :today_alarm %>
     <% else %>
