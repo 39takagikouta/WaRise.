@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'privacy_policy', to: 'tops#privacy_policy'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
+    sessions: 'users/sessions',
     omniauth_callbacks: "omniauth_callbacks"
   }
   resources :users, only: %i[show]
