@@ -21,9 +21,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
+    binding.pry
     if @user.update(user_params)
+      binding.pry
       redirect_to user_path(current_user), notice: 'プロフィールを更新しました'
+      binding.pry
     else
+      binding.pry
       render :edit, status: :unprocessable_entity
     end
   end

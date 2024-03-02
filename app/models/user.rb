@@ -2,6 +2,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :is_displayed, inclusion: { in: [true, false] }
+  validates :image, format: { with: /\.(jpg|jpeg|gif|png)\z/i }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -29,15 +30,15 @@ class User < ApplicationRecord
     query_elements.join(" ")
   end
 
-  def self.set_ranking
-    joins(:alarms)
-      .where(alarms: { is_successful: true,
-                       wake_up_time: Time.zone.today.all_month },
-             is_displayed: true)
-      .group(:id)
-      .select('users.*, COUNT(alarms.id) AS alarm_count')
-      .order('alarm_count DESC')
-  end
+  # def self.set_ranking
+  #   joins(:alarms)
+  #     .where(alarms: { is_successful: true,
+  #                      wake_up_time: Time.zone.today.all_month },
+  #            is_displayed: true)
+  #     .group(:id)
+  #     .select('users.*, COUNT(alarms.id) AS alarm_count')
+  #     .order('alarm_count DESC')
+  # end
 
   def reset_comedy_tags_and_keywords
     user_comedy_tags.destroy_all

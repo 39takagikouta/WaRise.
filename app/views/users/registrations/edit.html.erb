@@ -13,7 +13,7 @@
 
       <div class="field mb-4">
         <%= f.label :image %><br />
-        <%= f.file_field :image, onchange: "previewImage()", class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
+        <%= f.file_field :image, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm" %>
         <%= f.hidden_field :image_cache %>
         <%= image_tag current_user.image_url, class: "h-40 w-40 md:h-60 md:w-60 rounded-full mt-10 object-cover object-center", id: "preview" %>
       </div>
@@ -23,7 +23,7 @@
       </div>
     <% end %>
 
-    <%= button_to "アカウント消去", registration_path(resource_name), class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base", data: { confirm: "本当に削除してよいですか？", turbo_confirm: "本当に削除してよいですか？" }, method: :delete %></div>
+    <%= button_to "アカウント消去", registration_path(resource_name), class: "bg-yellow-300 hover:bg-yellow-400 font-bold mt-5 py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base", data: { confirm: "本当に削除してよいですか？", turbo_confirm: "本当に削除してよいですか？" }, method: :delete %></div>
   </div>
 </div>
 
