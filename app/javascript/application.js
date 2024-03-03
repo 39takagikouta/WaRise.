@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const daysToAdd = index + 1;
     const wakeUpTime = new Date();
     wakeUpTime.setDate(wakeUpTime.getDate() + daysToAdd);
-    wakeUpTime.setHours(0, 0, 0, 0);
+    wakeUpTime.setHours(0, 7, 0, 0);
 
     const localWakeUpTime = new Date(
       wakeUpTime.getTime() - wakeUpTime.getTimezoneOffset() * 60000
