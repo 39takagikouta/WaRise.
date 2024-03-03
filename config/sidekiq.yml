@@ -1,0 +1,4 @@
+:schedule:
+  send_weekly_report:
+    cron: "0 18 * * 0"
+    class: SendWeeklyReportJob

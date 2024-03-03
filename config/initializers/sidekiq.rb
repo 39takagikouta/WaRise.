@@ -7,3 +7,5 @@ Sidekiq.configure_client do |config|
 end
 
 require 'sidekiq/api'
+require 'sidekiq'
+require 'sidekiq-scheduler'
