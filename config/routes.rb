@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :likes, only: [:create, :destroy]
   post '/callback', to: 'webhooks#callback'
 
-  # get '*path', to: 'application#render_404'
+  get '*path', to: 'application#render_404'
 
   Sidekiq::Web.use(Rack::Auth::Basic) do |user_id, password|
     [user_id, password] == [ENV.fetch('USER_ID', nil), ENV.fetch('USER_PASSWORD', nil)]
