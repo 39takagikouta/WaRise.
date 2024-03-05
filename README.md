@@ -30,13 +30,13 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733"><img src="https://i.gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733.gif" alt="Image from Gyazo" width="372"/></a><br/>
+      <a href="https://gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733"><img src="https://i.gyazo.com/1d06c8cc2cc654fbf39ff28cc57db733.gif" alt="Image from Gyazo" width="372"/></a>
       アラームの時刻になったらLINEで通知をします。<br/>
       10分以内に、あなたの嗜好に合わせてレコメンドされたお笑い動画を視聴しましょう（表示される動画を選ぶこともできます）。<br/>
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。
     </td>
     <td>
-      <a href="https://gyazo.com/db51d65e1b1607b10446c41d024c9ddc"><img src="https://i.gyazo.com/db51d65e1b1607b10446c41d024c9ddc.jpg" alt="Image from Gyazo" width="372"/></a><br/>
+      <a href="https://gyazo.com/db51d65e1b1607b10446c41d024c9ddc"><img src="https://i.gyazo.com/db51d65e1b1607b10446c41d024c9ddc.jpg" alt="Image from Gyazo" width="506"/></a>
       アラーム機能は公式LINEとのトーク画面でも使用できます！<br/>
       使い方はトーク画面にあるメニューからご確認ください。
     </td>
@@ -47,12 +47,12 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="372"/></a><br/>
+      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="317"/></a><br/>
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。<br/>
       あさって以降のアラームはカレンダーから編集できます。
     </td>
     <td>
-      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a><br/><br/>
+      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a><br/>
       他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>
       仲間の頑張りを見てモチベーションを上げましょう！
     </td>
@@ -62,7 +62,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/5c99a781fe6cb261791fe03eccc60197"><img src="https://i.gyazo.com/5c99a781fe6cb261791fe03eccc60197.png" alt="Image from Gyazo" width="372"/></a><br/>
+      <a href="https://gyazo.com/5c99a781fe6cb261791fe03eccc60197"><img src="https://i.gyazo.com/5c99a781fe6cb261791fe03eccc60197.png" alt="Image from Gyazo" width="508"/></a>
       毎週日曜の18時に、あなたの一週間の起床情報のレポートを送ります。
     </td>
   </tr>
