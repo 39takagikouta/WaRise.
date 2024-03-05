@@ -36,7 +36,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。
     </td>
     <td>
-      <a href="https://gyazo.com/db51d65e1b1607b10446c41d024c9ddc"><img src="https://i.gyazo.com/db51d65e1b1607b10446c41d024c9ddc.jpg" alt="Image from Gyazo" width="506"/></a><br/>
+      <a href="https://gyazo.com/db51d65e1b1607b10446c41d024c9ddc"><img src="https://i.gyazo.com/db51d65e1b1607b10446c41d024c9ddc.jpg" alt="Image from Gyazo" width="372"/></a><br/>
       アラーム機能は公式LINEとのトーク画面でも使用できます！<br/>
       使い方はトーク画面にあるメニューからご確認ください。
     </td>
@@ -47,7 +47,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="317"/></a><br/>
+      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="372"/></a><br/>
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。<br/>
       あさって以降のアラームはカレンダーから編集できます。
     </td>
@@ -62,7 +62,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/5c99a781fe6cb261791fe03eccc60197"><img src="https://i.gyazo.com/5c99a781fe6cb261791fe03eccc60197.png" alt="Image from Gyazo" width="508"/></a><br/>
+      <a href="https://gyazo.com/5c99a781fe6cb261791fe03eccc60197"><img src="https://i.gyazo.com/5c99a781fe6cb261791fe03eccc60197.png" alt="Image from Gyazo" width="372"/></a><br/>
       毎週日曜の18時に、あなたの一週間の起床情報のレポートを送ります。
     </td>
   </tr>
