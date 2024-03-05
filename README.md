@@ -47,7 +47,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <td>
-      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="317"/></a>
+      <a href="https://gyazo.com/2abf76dd86369ffcb6062a8eacc29026"><img src="https://i.gyazo.com/2abf76dd86369ffcb6062a8eacc29026.png" alt="Image from Gyazo" width="317"/></a><br/>
       以前のアラーム情報は記録され、カレンダーでいつでも振り返ることができます。<br/>
       あさって以降のアラームはカレンダーから編集できます。
     </td>
