@@ -11,7 +11,7 @@
     </div>
 
     <div class="flex items-center">
-      <% unless user_signed_in? %>      
+      <!--<% unless user_signed_in? %>      
         <i class="fa-regular fa-heart"></i>
       <% else %>
         <% like = current_user.likes.exists?(alarm_id: alarm.id) %>
@@ -21,7 +21,7 @@
           <i class="<%= like ? 'fa-solid' : 'fa-regular' %> fa-heart"></i>
         <% end %>
       <% end %>
-      <span class="ml-2"><%= alarm.likes.count %></span>
+      <span class="ml-2"><%= alarm.likes.count %></span> -->
     </div>
   </div>
 
