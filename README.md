@@ -43,7 +43,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
   </tr>
   <tr>
     <th style="text-align: center">カレンダー機能</th>
-    <th style="text-align: center">みんなの起床情報</th>
+    <th style="text-align: center">視聴済み動画一覧</th>
   </tr>
   <tr>
     <td>
@@ -53,8 +53,8 @@ https://twitter.com/YA3lrpq2PnRc3ge
     </td>
     <td>
       <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a><br/>
-      他のユーザーの起床情報を一覧で確認することができます（自身を非表示にすることも可能）。<br/>
-      仲間の頑張りを見てモチベーションを上げましょう！
+      あなたが過去に視聴した動画を一覧で確認することができます。<br/>
+      
     </td>
   </tr>
   <tr>
