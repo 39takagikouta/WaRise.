@@ -12,7 +12,7 @@ class AlarmsController < ApplicationController
   end
 
   def index
-    @alarms = Alarm.find_successful_alarms(params[:page])
+    @alarms = Alarm.find_successful_alarms(current_user, params[:page])
   end
 
   def new
