@@ -52,7 +52,6 @@ https://twitter.com/YA3lrpq2PnRc3ge
       あさって以降のアラームはカレンダーから編集できます。
     </td>
     <td>
-      <a href="https://gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec"><img src="https://i.gyazo.com/fbf54c2727654ec7c6b4fab9149ddaec.gif" alt="Image from Gyazo" width="372"/></a><br/>
       あなたが過去に視聴した動画を一覧で確認することができます。<br/>
       起床時に残したコメントもここから確認することができます。
     </td>
