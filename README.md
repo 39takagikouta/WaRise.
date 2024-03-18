@@ -111,7 +111,7 @@ https://twitter.com/YA3lrpq2PnRc3ge
 
 ## ER 図
 
-[![Image from Gyazo](https://i.gyazo.com/004bf0655ab8b0290322e3b4635b5725.png)](https://gyazo.com/004bf0655ab8b0290322e3b4635b5725)
+[![Image from Gyazo](https://i.gyazo.com/8b08aa37432ece9f5923abac3013f99f.png)](https://gyazo.com/8b08aa37432ece9f5923abac3013f99f)
 
 ## 画面遷移図のリンク
 
