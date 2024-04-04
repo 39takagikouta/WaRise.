@@ -8,22 +8,20 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-free";
 library.add(fas, far, fab);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   const addAlarmButton = document.getElementById("add-alarm-button");
-  const alarmsFields = document.getElementById("alarms-fields");
-  const alarmTemplate = document.getElementById("alarm-template").innerHTML;
+  const removeAlarmButton = document.getElementById("remove-alarm-button");
+  const alarmFieldsContainer = document.querySelector(".alarm_fields");
 
-  addAlarmButton.addEventListener("click", () => {
-    const newIndex = alarmsFields.children.length;
-    const newAlarmFields = createAlarmFields(newIndex, alarmTemplate);
-    alarmsFields.insertAdjacentHTML("beforeend", newAlarmFields);
-  });
+  let alarmIndex = 0;
 
-  function createAlarmFields(index, template) {
-    const daysToAdd = index + 1;
+  addAlarmButton.addEventListener("click", function () {
+    alarmIndex++;
+    const newAlarmField = document.createElement("div");
+
     const wakeUpTime = new Date();
-    wakeUpTime.setDate(wakeUpTime.getDate() + daysToAdd);
-    wakeUpTime.setHours(0, 7, 0, 0);
+    wakeUpTime.setHours(7, 0, 0, 0);
+    wakeUpTime.setDate(wakeUpTime.getDate() + alarmIndex + 1);
 
     const localWakeUpTime = new Date(
       wakeUpTime.getTime() - wakeUpTime.getTimezoneOffset() * 60000
@@ -31,8 +29,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wakeUpTimeString = localWakeUpTime.toISOString().slice(0, 16);
 
-    return template
-      .replace(/TEMPLATE_INDEX/g, index)
-      .replace(/wakeupTimeValue/g, wakeUpTimeString);
-  }
+    newAlarmField.innerHTML = `
+      <div class="mb-4">
+        <label class="font-bold">起床時刻</label>
+        <input type="datetime-local" name="alarms[${alarmIndex}][wake_up_time]" value="${wakeUpTimeString}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+      </div>
+
+      <div class="mb-4">
+        <label class="font-bold">Youtube動画のURL（任意）</label>
+        <input type="text" name="alarms[${alarmIndex}][custom_video_url]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+      </div>
+    `;
+    alarmFieldsContainer.appendChild(newAlarmField);
+  });
+
+  removeAlarmButton.addEventListener("click", function () {
+    if (alarmIndex > 0) {
+      alarmFieldsContainer.lastElementChild.remove();
+      alarmIndex--;
+    } else {
+      alert("削除するフォームがありません。");
+    }
+  });
 });
