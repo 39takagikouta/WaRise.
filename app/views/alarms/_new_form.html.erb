@@ -1,15 +1,23 @@
 <%= form_with model: alarm, data: { turbo: false } do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div id="alarms-fields">
-    <%= render 'alarm_fields', f: f, alarm: Alarm.new( wake_up_time:Time.zone.tomorrow + 7.hours ), index: 0 %>
-  </div>
 
-  <div id="alarm-template" style="display: none;">
-    <%= render 'alarm_fields', f: f, alarm: Alarm.new, index: "TEMPLATE_INDEX" %>
+  <div class="alarm_fields">
+    <div>
+      <div class="mb-4">
+        <%= f.label :wake_up_time, class: "font-bold" %>
+        <%= f.datetime_field :wake_up_time, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm", name: "alarms[0][wake_up_time]" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :custom_video_url, "Youtube動画のURL（任意）", class: "font-bold" %>
+        <%= f.text_field :custom_video_url, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm", name: "alarms[0][custom_video_url]" %>
+      </div>
+    </div>
   </div>
 
   <div class="mt-4">
     <%= button_tag 'フォームを追加', type: 'button', id: 'add-alarm-button', class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base mr-2" %>
+    <%= button_tag 'フォームを削除', type: 'button', id: 'remove-alarm-button', class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base mr-2" %>    
     <%= f.submit class: "bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 md:py-4 md:px-6 rounded text-sm md:text-base" %>
   </div>
 <% end %>

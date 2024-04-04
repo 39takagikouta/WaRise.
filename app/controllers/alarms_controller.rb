@@ -16,7 +16,7 @@ class AlarmsController < ApplicationController
   end
 
   def new
-    @alarm = Alarm.new
+    @alarm = current_user.alarms.new(wake_up_time: Time.zone.tomorrow + 7.hours)
   end
 
   def edit; end
@@ -26,9 +26,8 @@ class AlarmsController < ApplicationController
     success = true
 
     ActiveRecord::Base.transaction do
-      alarm_data = params[:alarm][:alarm].reject { |k, _| k == "TEMPLATE_INDEX" }
-      alarm_data.each do |_, alarm_attrs|
-        alarm = current_user.alarms.new(alarm_attrs_params(alarm_attrs))
+      params["alarms"].each do |_alarm|
+        alarm = current_user.alarms.new(permit_alarm_params(_alarm[1]))
         @alarms << alarm
         unless alarm.save
           success = false
@@ -44,7 +43,7 @@ class AlarmsController < ApplicationController
       end
       redirect_to mypage_path, notice: 'アラームが正常に登録されました。'
     else
-      @alarm = @alarms.find { |a| a.errors.any? } || current_user.alarms.new
+      @alarm = @alarms.find { |a| a.errors.any? } || current_user.alarms.new(wake_up_time: Time.zone.tomorrow + 7.hours)
       render :new
     end
   end
@@ -122,7 +121,7 @@ class AlarmsController < ApplicationController
     params.require(:alarm).permit(:wake_up_time, :custom_video_url)
   end
 
-  def alarm_attrs_params(alarm_attrs)
-    alarm_attrs.permit(:wake_up_time, :custom_video_url)
+  def permit_alarm_params(params)
+    params.permit(:wake_up_time, :custom_video_url)
   end
 end
